@@ -27,15 +27,14 @@ contract('NFWalletFactory', async (accounts) => {
 		NFWalletFactoryInstance = await NFWalletFactory.deployed();
 	});
 
-	describe("Wallets", async () => {
+	describe("Wallets creation", async () => {
 		Array(8)
 		.fill()
 		.map(_ => web3.utils.randomHex(32))
 		.map((salt, i) => {
-
 			describe(`wallet #${i}`, async () => {
 				it("creation", async () => {
-					txMined = await NFWalletFactoryInstance.createWallet(accounts[0], salt);
+					const txMined = await NFWalletFactoryInstance.createWallet(accounts[0], salt);
 
 					events = extractEvents(txMined, NFWalletFactoryInstance.address, "Transfer");
 					assert.equal(events[0].args.from, "0x0000000000000000000000000000000000000000");
@@ -45,8 +44,8 @@ contract('NFWalletFactory', async (accounts) => {
 				});
 
 				it("content", async () => {
-					assert.equal (await NFWalletInstance[i].registry(), NFWalletFactoryInstance.address);
-					assert.equal (await NFWalletInstance[i].owner(),    accounts[0]                    );
+					assert.equal(await NFWalletInstance[i].registry(), NFWalletFactoryInstance.address);
+					assert.equal(await NFWalletInstance[i].owner(),    accounts[0]                    );
 				});
 
 				it("token details", async () => {
@@ -59,6 +58,60 @@ contract('NFWalletFactory', async (accounts) => {
 					await expectRevert.unspecified(
 						NFWalletFactoryInstance.createWallet(accounts[0], salt)
 					);
+				});
+			});
+		});
+	});
+
+	describe("Wallets interaction", async () => {
+		Array(8)
+		.fill()
+		.map(_ => web3.utils.randomHex(32))
+		.map((salt, i) => {
+			describe(`wallet #${i}`, async () => {
+				it("predict", async () => {
+					predicted = await NFWalletFactoryInstance.predictWallet(accounts[0], salt);
+				});
+
+				it("check balance", async () => {
+					assert.equal(await web3.eth.getBalance(predicted), 0);
+				});
+
+				it("fillup (pre-deployment)", async () => {
+					const txMined = await web3.eth.sendTransaction({ from: accounts[0], to: predicted, value: web3.utils.toWei('0.01', 'ether') });
+					assert.equal(txMined.logs.filter(({ address }) => address == predicted).length, 0);
+				});
+
+				it("creation", async () => {
+					const txMined = await NFWalletFactoryInstance.createWallet(accounts[0], salt);
+
+					events = extractEvents(txMined, NFWalletFactoryInstance.address, "Transfer");
+					assert.equal(          events[0].args.from,     "0x0000000000000000000000000000000000000000");
+					assert.equal(          events[0].args.to,       accounts[0]                                 );
+					assert.equal(toAddress(events[0].args.tokenId), predicted                                   );
+
+					NFWalletInstance[i] = await NFWallet.at(toAddress(events[0].args.tokenId));
+				});
+
+				it("check balance", async () => {
+					assert.equal(await web3.eth.getBalance(predicted), web3.utils.toWei('0.01', 'ether'));
+				});
+
+				it("fillup (post-deployment)", async () => {
+					const txMined = await web3.eth.sendTransaction({ from: accounts[0], to: predicted, value: web3.utils.toWei('0.01', 'ether') });
+					assert.equal(txMined.logs.filter(({ address }) => address == predicted).length, 1);
+				});
+
+				it("check balance", async () => {
+					assert.equal(await web3.eth.getBalance(predicted), web3.utils.toWei('0.02', 'ether'));
+				});
+
+				it("transfer value", async () => {
+					const txMined = await NFWalletInstance[i].forward(accounts[0], web3.utils.toWei('0.02', 'ether'), "0x");
+				});
+
+				it("check balance", async () => {
+					assert.equal(await web3.eth.getBalance(predicted), 0);
 				});
 			});
 		});

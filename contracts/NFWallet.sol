@@ -7,12 +7,28 @@ import "./core/RegistryEntry.sol";
 
 contract NFWallet is IERC721Receiver, RegistryEntry, ENSReverseRegistration
 {
+	event Received(address indexed from, uint256 value);
+
 	function initialize()
 	external
 	{
 		_initialize(msg.sender);
 	}
 
+	// Asset receiving
+	receive()
+	external payable
+	{
+		emit Received(msg.sender, msg.value);
+	}
+
+	function onERC721Received(address, address, uint256, bytes memory)
+	public override returns (bytes4)
+	{
+		return this.onERC721Received.selector;
+	}
+
+	// Wallet
 	function forward(address to, uint256 value, bytes calldata data)
 	external onlyOwner()
 	{
@@ -24,11 +40,5 @@ contract NFWallet is IERC721Receiver, RegistryEntry, ENSReverseRegistration
 	external onlyOwner()
 	{
 		_setName(ENS(_ens), _name);
-	}
-
-	function onERC721Received(address, address, uint256, bytes memory)
-	public override returns (bytes4)
-	{
-		return this.onERC721Received.selector;
 	}
 }
