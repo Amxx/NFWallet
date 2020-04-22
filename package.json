@@ -1,0 +1,29 @@
+{
+  "name": "NFWallets",
+  "author": "Hadrien Croubois <hadrien.croubois@gmail.com>",
+  "version": "0.0.1",
+  "licence": "MIT",
+  "files": [
+    "/build",
+    "/contracts"
+  ],
+  "scripts": {
+    "build": "truffle compile",
+    "migrate": "truffle migrate",
+    "test": "truffle test",
+    "coverage": "truffle run coverage"
+  },
+  "dependencies": {
+    "@ensdomains/ens": "0.4.4",
+    "@ensdomains/resolver": "0.2.4",
+    "@iexec/solidity": "0.1.0-beta.13",
+    "@openzeppelin/contracts": "3.0.0"
+  },
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "1.0.34",
+    "ganache-cli": "6.9.1",
+    "solidity-coverage": "0.7.4",
+    "truffle": "5.1.22",
+    "truffle-security": "1.7.1"
+  }
+}
