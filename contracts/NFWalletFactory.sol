@@ -21,7 +21,7 @@ contract NFWalletFactory is Registry, ENSReverseRegistration
 		return abi.encodeWithSignature('initialize()', _salt);
 	}
 
-	function openWallet(address _owner, bytes32 _salt)
+	function createWallet(address _owner, bytes32 _salt)
 	external returns(address)
 	{
 		return address(_mintCreate(_owner, encodeInitializer(_salt)));

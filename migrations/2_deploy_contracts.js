@@ -1,3 +1,3 @@
 module.exports = function(deployer) {
-	deployer.deploy(artifacts.require("NFTWalletFactory"));
+	deployer.deploy(artifacts.require("NFWalletFactory"));
 };

@@ -14,12 +14,11 @@
     "coverage": "truffle run coverage"
   },
   "dependencies": {
-    "@ensdomains/ens": "0.4.4",
-    "@ensdomains/resolver": "0.2.4",
     "@iexec/solidity": "0.1.0-beta.13",
     "@openzeppelin/contracts": "3.0.0"
   },
   "devDependencies": {
+    "@openzeppelin/test-helpers": "^0.5.5",
     "@truffle/hdwallet-provider": "1.0.34",
     "ganache-cli": "6.9.1",
     "solidity-coverage": "0.7.4",
