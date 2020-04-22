@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 
-abstract contract RegistryEntry
+abstract contract CounterfactualTokenEntity
 {
 	IERC721 public registry;
 

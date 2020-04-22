@@ -2,10 +2,10 @@ pragma solidity ^0.6.0;
 
 import "@iexec/solidity/contracts/ENStools/ENSReverseRegistration.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
-import "./core/RegistryEntry.sol";
+import "./core/CounterfactualTokenEntity.sol";
 
 
-contract NFWallet is IERC721Receiver, RegistryEntry, ENSReverseRegistration
+contract NFWallet is CounterfactualTokenEntity, IERC721Receiver, ENSReverseRegistration
 {
 	event Received(address indexed from, uint256 value);
 

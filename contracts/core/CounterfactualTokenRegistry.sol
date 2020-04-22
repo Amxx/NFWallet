@@ -6,11 +6,11 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Create2.sol";
 
 
-abstract contract Registry is ERC721, Ownable
+abstract contract CounterfactualTokenRegistry is ERC721, Ownable
 {
-	address   public master;
-	bytes     public proxyCode;
-	bytes32   public proxyCodeHash;
+	address public master;
+	bytes   public proxyCode;
+	bytes32 public proxyCodeHash;
 
 	constructor(address _master, string memory _name, string memory _symbol)
 	public ERC721(_name, _symbol)

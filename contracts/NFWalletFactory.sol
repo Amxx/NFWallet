@@ -1,17 +1,17 @@
 pragma solidity ^0.6.0;
 
 import "@iexec/solidity/contracts/ENStools/ENSReverseRegistration.sol";
-import "./core/Registry.sol";
+import "./core/CounterfactualTokenRegistry.sol";
 import "./NFWallet.sol";
 
 
-contract NFWalletFactory is Registry, ENSReverseRegistration
+contract NFWalletFactory is CounterfactualTokenRegistry, ENSReverseRegistration
 {
 	constructor()
-	public Registry(
+	public CounterfactualTokenRegistry(
 		address(new NFWallet()),
-		'NonFungibleWallets',
-		'NFWs')
+		'NonFungibleWallet',
+		'NFW')
 	{
 	}
 
