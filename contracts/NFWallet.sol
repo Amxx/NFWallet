@@ -1,11 +1,17 @@
 pragma solidity ^0.6.0;
+pragma experimental ABIEncoderV2;
 
-import "@iexec/solidity/contracts/ENStools/ENSReverseRegistration.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "./core/CounterfactualTokenEntity.sol";
 
+struct Call
+{
+	address to;
+	uint256 value;
+	bytes   data;
+}
 
-contract NFWallet is CounterfactualTokenEntity, IERC721Receiver, ENSReverseRegistration
+contract NFWallet is CounterfactualTokenEntity, IERC721Receiver
 {
 	event Received(address indexed from, uint256 value);
 
@@ -32,13 +38,22 @@ contract NFWallet is CounterfactualTokenEntity, IERC721Receiver, ENSReverseRegis
 	function forward(address to, uint256 value, bytes calldata data)
 	external onlyOwner()
 	{
-		(bool success, bytes memory returndata) = payable(to).call{value: value}(data);
-		require(success, string(returndata));
+		_execute(to, value, data);
 	}
 
-	function setName(address _ens, string calldata _name)
+	function forwardBatch(Call[] calldata calls)
 	external onlyOwner()
 	{
-		_setName(ENS(_ens), _name);
+		for (uint256 i = 0; i < calls.length; ++i)
+		{
+			_execute(calls[i].to, calls[i].value, calls[i].data);
+		}
+	}
+
+	function _execute(address to, uint256 value, bytes memory data)
+	internal
+	{
+		(bool success, bytes memory returndata) = payable(to).call{value: value}(data);
+		require(success, string(returndata));
 	}
 }
