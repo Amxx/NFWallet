@@ -1,0 +1,43 @@
+type Transaction @entity {
+	id:                           ID!
+	from:                         Account
+	to:                           Account
+	value:                        BigInt!
+	gasUsed:                      BigInt!
+	gasPrice:                     BigInt!
+	timestamp:                    BigInt!
+	blockNumber:                  BigInt!
+	events:                       [Event!]! @derivedFrom(field: "transaction")
+}
+
+# ================================== Assets ===================================
+type Account @entity
+{
+	id:                           ID!
+	tokens:                       [Token!]! @derivedFrom(field: "owner")
+}
+
+type Token @entity
+{
+	id:                           ID!
+	owner:                        Account!
+	transfers:                    [Transfer!]! @derivedFrom(field: "token")
+}
+
+# ================================== Events ===================================
+interface Event
+{
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+}
+
+type Transfer implements Event @entity
+{
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	token:                        Token!
+	from:                         Account!
+	to:                           Account!
+}
