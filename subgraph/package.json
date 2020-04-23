@@ -1,0 +1,25 @@
+{
+  "name": "@NFWallets/subgraph",
+  "author": "Hadrien Croubois <hadrien.croubois@gmail.com>",
+  "version": "0.0.1",
+  "licence": "MIT",
+  "files": [
+    "/abi",
+    "/src",
+    "/schema.graphql",
+    "/subgraph.yaml"
+  ],
+  "scripts": {
+    "build": "graph codegen && graph build",
+    "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/non-fungible-wallets",
+    "test:": "echo 'no tests available for @NFWallets/subgraph'"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.18.0",
+    "@graphprotocol/graph-ts": "^0.18.1"
+  }
+}

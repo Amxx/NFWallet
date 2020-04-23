@@ -1,29 +1,33 @@
 {
-  "name": "NFWallets",
-  "author": "Hadrien Croubois <hadrien.croubois@gmail.com>",
-  "version": "0.0.1",
-  "licence": "MIT",
-  "files": [
-    "/build",
-    "/contracts"
-  ],
-  "scripts": {
-    "build": "truffle compile",
-    "migrate": "truffle migrate",
-    "test": "truffle test",
-    "coverage": "truffle run coverage"
-  },
-  "dependencies": {
-    "@iexec/solidity": "0.1.0-beta.13",
-    "@openzeppelin/contracts": "3.0.0"
-  },
-  "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.18.0",
-    "@graphprotocol/graph-ts": "^0.18.1",
-    "@openzeppelin/test-helpers": "^0.5.5",
-    "@truffle/hdwallet-provider": "^1.0.34",
-    "ganache-cli": "^6.9.1",
-    "solidity-coverage": "^0.7.4",
-    "truffle": "^5.1.22"
-  }
+	"private": true,
+	"name": "@NFWallets/monorepo",
+	"author": "Hadrien Croubois <hadrien.croubois@gmail.com>",
+	"version": "0.0.1",
+	"license": "MIT",
+	"workspaces": [
+		"*"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Amxx/NFWallets.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Amxx/NFWallets.git/issues"
+	},
+	"scripts": {
+		"build": "yarn wsrun --stages --fast-exit --report build",
+		"test": "yarn wsrun --serial --fast-exit --report test",
+		"clean": "yarn wsrun --report clean"
+	},
+	"engines": {
+		"node": ">=10.9",
+		"yarn": ">=1.9.4"
+	},
+	"dependencies": {
+		"npm-check": "^5.9.0",
+		"wsrun": "^5.2.0"
+	},
+	"devDependencies": {
+		"chalk": "^3.0.0"
+	}
 }

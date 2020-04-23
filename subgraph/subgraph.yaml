@@ -1,0 +1,49 @@
+specVersion: 0.0.2
+description: NFWallets
+repository: https://github.com/amxx/NFWallet
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: NFWalletFactory
+    network: rinkeby
+    source:
+      address: '0x191eb6573138b2289dbf6a7c963401d8Da791990'
+      abi: NFWalletFactory
+      startBlock: 6366000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Transaction
+        - Account
+        - Wallet
+        - Transfer
+      abis:
+        - name: NFWalletFactory
+          file: ./abi/NFWalletFactory.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/NFWalletFactory.ts
+templates:
+  - name: NFWallet
+    kind: ethereum/contract
+    network: rinkeby
+    source:
+      abi: NFWallet
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - Wallet
+      abis:
+        - name: NFWallet
+          file: ./abi/NFWallet.json
+      eventHandlers:
+        - event: Received(indexed address,uint256)
+          handler: handleReceived
+      file: ./src/NFWallet.ts

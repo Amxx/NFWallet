@@ -4,6 +4,5 @@ node_modules
 coverage
 coverage.json
 
-generated
-build
-!build/contracts
+subgraph/generated
+subgraph/build
