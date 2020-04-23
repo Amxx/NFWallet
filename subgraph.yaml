@@ -8,7 +8,7 @@ dataSources:
     name: NFWalletFactory
     network: rinkeby
     source:
-      address: '0x27cBC0ec7dfd848c2e0835C29ce342088d86DD87'
+      address: '0x191eb6573138b2289dbf6a7c963401d8Da791990'
       abi: NFWalletFactory
     mapping:
       kind: ethereum/events
