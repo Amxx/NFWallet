@@ -1,8 +1,9 @@
 .*
 
 node_modules
-coverage
-coverage.json
+
+solidity/coverage
+solidity/coverage.json
 
 subgraph/generated
 subgraph/build
