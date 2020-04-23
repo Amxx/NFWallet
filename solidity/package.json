@@ -7,6 +7,13 @@
     "/build",
     "/contracts"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amxx/NFWallet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Amxx/NFWallet.git/issues"
+  },
   "scripts": {
     "build": "truffle compile",
     "deploy": "truffle migrate",

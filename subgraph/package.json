@@ -9,6 +9,13 @@
     "/schema.graphql",
     "/subgraph.yaml"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amxx/NFWallet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Amxx/NFWallet.git/issues"
+  },
   "scripts": {
     "build": "graph codegen && graph build",
     "deploy": "graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ amxx/non-fungible-wallets",
