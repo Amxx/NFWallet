@@ -1,19 +1,14 @@
 import {
+	Address,
+	BigInt,
+	BigDecimal,
 	ethereum,
 } from '@graphprotocol/graph-ts'
 
 import {
-	Transfer as TransferEvent,
-} from '../generated/NFWalletFactory/NFWalletFactory'
-
-import {
 	Account,
-	Token,
 	Transaction,
-	Transfer,
 } from '../generated/schema'
-
-
 
 export function createEventID(event: ethereum.Event): string
 {
@@ -41,24 +36,12 @@ export function logTransaction(event: ethereum.Event): Transaction
 	return tx as Transaction;
 }
 
+export function intToAddress(value: BigInt): Address
+{
+	return Address.fromHexString(value.toHex().substr(2).padStart(40, '0')) as Address;
+}
 
-
-export function handleTransfer(event: TransferEvent): void {
-	let token    = new Token(event.params.tokenId.toString());
-	let from     = new Account(event.params.from.toHex());
-	let to       = new Account(event.params.to.toHex());
-	let transfer = new Transfer(createEventID(event));
-
-	token.owner = to.id;
-
-	transfer.transaction = logTransaction(event).id;
-	transfer.timestamp   = event.block.timestamp;
-	transfer.token       = token.id;
-	transfer.from        = from.id;
-	transfer.to          = to.id;
-
-	token.save();
-	from.save();
-	to.save();
-	transfer.save();
+export function toETH(value: BigInt): BigDecimal
+{
+	return value.divDecimal(BigDecimal.fromString('1000000000000000000'))
 }

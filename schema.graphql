@@ -14,14 +14,14 @@ type Transaction @entity {
 type Account @entity
 {
 	id:                           ID!
-	tokens:                       [Token!]! @derivedFrom(field: "owner")
+	wallets:                      [NFWallet!]! @derivedFrom(field: "owner")
 }
 
-type Token @entity
+type NFWallet @entity
 {
 	id:                           ID!
 	owner:                        Account!
-	transfers:                    [Transfer!]! @derivedFrom(field: "token")
+	events:                       [Event!]! @derivedFrom(field: "wallet")
 }
 
 # ================================== Events ===================================
@@ -30,6 +30,7 @@ interface Event
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
+	wallet:                       NFWallet!
 }
 
 type Transfer implements Event @entity
@@ -37,7 +38,17 @@ type Transfer implements Event @entity
 	id:                           ID!
 	transaction:                  Transaction!
 	timestamp:                    BigInt!
-	token:                        Token!
+	wallet:                       NFWallet!
 	from:                         Account!
 	to:                           Account!
+}
+
+type Received implements Event @entity
+{
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	wallet:                       NFWallet!
+	from:                         Account!
+	value:                        BigDecimal!
 }
