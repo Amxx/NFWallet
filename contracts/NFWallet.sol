@@ -15,10 +15,10 @@ contract NFWallet is CounterfactualTokenEntity, IERC721Receiver
 {
 	event Received(address indexed from, uint256 value);
 
-	function initialize()
+	function initialize(address _registry)
 	external
 	{
-		_initialize(_msgSender());
+		_initialize(_registry);
 	}
 
 	// Asset receiving

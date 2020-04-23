@@ -16,19 +16,19 @@ contract NFWalletFactory is CounterfactualTokenRegistry, ENSReverseRegistration
 	}
 
 	function encodeInitializer(bytes32 _salt)
-	internal pure returns (bytes memory)
+	internal view returns (bytes memory)
 	{
-		return abi.encodeWithSignature('initialize()', _salt);
+		return abi.encodeWithSignature('initialize(address)', address(this), _salt);
 	}
 
 	function createWallet(address _owner, bytes32 _salt)
-	external returns(address)
+	external returns (address)
 	{
 		return address(_mintCreate(_owner, encodeInitializer(_salt)));
 	}
 
 	function predictWallet(address _owner, bytes32 _salt)
-	external view returns(address)
+	external view returns (address)
 	{
 		return address(_mintPredict(_owner, encodeInitializer(_salt)));
 	}
