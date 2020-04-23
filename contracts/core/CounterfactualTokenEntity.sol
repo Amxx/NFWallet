@@ -8,8 +8,8 @@ abstract contract CounterfactualTokenEntity is Context
 {
 	IERC721 public registry;
 
-	function _initialize(address _registry)
-	internal
+	function initialize(address _registry)
+	public virtual
 	{
 		require(address(registry) == address(0), 'already initialized');
 		registry = IERC721(_registry);
