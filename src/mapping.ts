@@ -44,10 +44,10 @@ export function logTransaction(event: ethereum.Event): Transaction
 
 
 export function handleTransfer(event: TransferEvent): void {
-	let token    = new Token(eevent.params.tokenId.toString());
+	let token    = new Token(event.params.tokenId.toString());
 	let from     = new Account(event.params.from.toHex());
 	let to       = new Account(event.params.to.toHex());
-	let transfer = new Transfer(createEventID(ev));
+	let transfer = new Transfer(createEventID(event));
 
 	token.owner = to.id;
 
