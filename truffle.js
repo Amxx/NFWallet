@@ -4,7 +4,11 @@ var useEnv = !!process.env.MNEMONIC && !!process.env.DEV_NODE;
 
 module.exports =
 {
-	plugins: [ "truffle-security", "solidity-coverage" ],
+	plugins: [ "solidity-coverage" ],
+	api_keys:
+	{
+		etherscan: process.env.ETHERSCAN_APIKEY,
+	},
 	networks:
 	{
 		docker:

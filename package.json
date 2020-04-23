@@ -21,10 +21,9 @@
     "@graphprotocol/graph-cli": "^0.18.0",
     "@graphprotocol/graph-ts": "^0.18.1",
     "@openzeppelin/test-helpers": "^0.5.5",
-    "@truffle/hdwallet-provider": "1.0.34",
-    "ganache-cli": "6.9.1",
-    "solidity-coverage": "0.7.4",
-    "truffle": "5.1.22",
-    "truffle-security": "1.7.1"
+    "@truffle/hdwallet-provider": "^1.0.34",
+    "ganache-cli": "^6.9.1",
+    "solidity-coverage": "^0.7.4",
+    "truffle": "^5.1.22"
   }
 }
