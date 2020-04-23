@@ -28,6 +28,6 @@
 		"wsrun": "^5.2.0"
 	},
 	"devDependencies": {
-		"chalk": "^3.0.0"
+		"chalk": "^4.0.0"
 	}
 }
