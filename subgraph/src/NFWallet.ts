@@ -20,6 +20,7 @@ export function handleReceived(event: ReceivedEvent): void {
 	let received = new Received(createEventID(event));
 	let from     = new Account(event.params.from.toHex());
 
+	wallet.balance += toETH(event.params.value);
 
 	received.transaction = logTransaction(event).id;
 	received.timestamp   = event.block.timestamp;
@@ -35,7 +36,7 @@ export function handleReceived(event: ReceivedEvent): void {
 export function handleExecuted(event: ExecutedEvent): void {
 	let wallet = NFWallet.load(event.address.toHex());
 
-	wallet.balance += toETH(event.params.value);
+	wallet.balance -= toETH(event.params.value);
 
 	wallet.save();
 }
