@@ -10,7 +10,7 @@ dataSources:
     source:
       address: '0x19631cB609b85FE81A00b4935A044E3A7d30F8db'
       abi: NFWalletFactory
-      startBlock: 6374000 
+      startBlock: 6374000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -38,8 +38,11 @@ templates:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
+        - Transaction
         - Account
         - Wallet
+        - Received
+        - Executed
       abis:
         - name: NFWallet
           file: ./abi/NFWallet.json

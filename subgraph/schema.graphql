@@ -53,3 +53,14 @@ type Received implements Event @entity
 	from:                         Account!
 	value:                        BigDecimal!
 }
+
+type Executed implements Event @entity
+{
+	id:                           ID!
+	transaction:                  Transaction!
+	timestamp:                    BigInt!
+	wallet:                       NFWallet!
+	to:                           Account!
+	value:                        BigDecimal!
+	data:                         Bytes!
+}
