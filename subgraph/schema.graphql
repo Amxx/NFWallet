@@ -21,6 +21,7 @@ type NFWallet @entity
 {
 	id:                           ID!
 	owner:                        Account!
+	balance:                      BigDecimal!
 	events:                       [Event!]! @derivedFrom(field: "wallet")
 }
 

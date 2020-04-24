@@ -1,4 +1,8 @@
 import {
+	BigDecimal,
+} from '@graphprotocol/graph-ts'
+
+import {
 	Transfer as TransferEvent,
 } from '../generated/NFWalletFactory/NFWalletFactory'
 
@@ -25,7 +29,8 @@ export function handleTransfer(event: TransferEvent): void {
 	let to       = new Account(event.params.to.toHex());
 	let transfer = new Transfer(createEventID(event));
 
-	wallet.owner = to.id;
+	wallet.owner   = to.id;
+	wallet.balance = BigDecimal.fromString('0');
 
 	transfer.transaction = logTransaction(event).id;
 	transfer.timestamp   = event.block.timestamp;
@@ -38,7 +43,7 @@ export function handleTransfer(event: TransferEvent): void {
 	to.save();
 	transfer.save();
 
-	if (from.id == "0x0000000000000000000000000000000000000000")
+	if (from.id == '0x0000000000000000000000000000000000000000')
 	{
 		NFWalletTemplate.create(addr);
 	}
