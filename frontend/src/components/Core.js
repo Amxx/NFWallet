@@ -20,15 +20,14 @@ const Core = () =>
 	const setup = async () =>
 	{
 		const provider = new ethers.providers.Web3Provider(window.ethereum)
-		setEnv({
-			provider,
-			accounts: await provider.listAccounts(),
-			network:  await provider.getNetwork(),
-		});
+		const accounts = await provider.listAccounts()
+		const network  = await provider.getNetwork()
+		setEnv({ provider, accounts, network });
 	}
 
 	const connect = () =>
 	{
+		window.ethereum.autoRefreshOnNetworkChange = false;
 		window.ethereum.enable().then(account => {
 			setup();
 			window.ethereum.on('accountsChanged', setup);
@@ -57,7 +56,7 @@ const Core = () =>
 		env.provider === undefined
 		? <Login callback={ connect }/>
 		: client === null
-		? <Error message='Wrong network, use rinkeby'/>
+		? <Error message='Please switch network to a supported network (only rinkeby for now)'/>
 		: <ApolloProvider client={ client }><App { ...env }/></ApolloProvider>
 	);
 }

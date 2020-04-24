@@ -17,3 +17,20 @@ code
 	display:        flex;
 	flex-direction: column;
 }
+
+
+
+
+.lined
+{
+	text-align:    center;
+	border-bottom: 1px solid #CCCCCC;
+	line-height:   0.1em;
+	margin:        1em 0 0 0;
+}
+.lined *
+{
+	background: #FFFFFF;
+	padding:    0 .5em;
+	font-size:  .8em;
+}

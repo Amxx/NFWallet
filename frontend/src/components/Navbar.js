@@ -1,46 +1,42 @@
 import React from 'react';
 import { Identicon } from 'ethereum-react-components';
 import {
-	// MDBIcon,
 	MDBNavbar,
 	MDBNavbarBrand,
 	MDBNavbarNav,
 	MDBNavItem,
-	// MDBNavLink,
 	MDBNavbarToggler,
 	MDBCollapse,
-	// MDBDropdown,
-	// MDBDropdownToggle,
-	// MDBDropdownMenu,
-	// MDBDropdownItem,
 } from 'mdbreact';
 
-// import './Navbar.css';
+import MintWallet   from './Modals/MintWallet';
+import HiddenWallet from './Modals/HiddenWallet';
+
 
 const Navbar = (props) =>
 {
 	const [ open, setOpen ] = React.useState(false);
-	const toggleCollapse = () => setOpen(!open);
+	const toggle = () => setOpen(!open);
 
 	return (
-		<MDBNavbar color='black' dark expand='md'>
+		<MDBNavbar color='blue-gradient' dark expand='md'>
 			<MDBNavbarBrand>
 				<strong className='white-text'>
-					NonFungibleWallets
+					NFWExplorer
 				</strong>
 			</MDBNavbarBrand>
-			<MDBNavbarToggler onClick={toggleCollapse} />
+			<MDBNavbarToggler onClick={toggle} />
 			<MDBCollapse id='navbarCollapse' isOpen={open} navbar>
 				<MDBNavbarNav left>
-
 
 				</MDBNavbarNav>
 				<MDBNavbarNav right>
 
 					<MDBNavItem>
-						<a target='_blank' rel='nofollow noopener noreferrer' href={`https://etherscan.io/address/${props.accounts[0]}`}>
-							<Identicon address={props.accounts[0]} size='small' />
-						</a>
+						<MintWallet {...props}/>
+					</MDBNavItem>
+					<MDBNavItem>
+						<HiddenWallet {...props}/>
 					</MDBNavItem>
 
 				</MDBNavbarNav>

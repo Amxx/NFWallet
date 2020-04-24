@@ -1,9 +1,10 @@
 .grid
 {
-	display:               grid;
 	position:              relative;
-	width:                 100%;
+	display:               grid;
 	grid-template-columns: repeat(auto-fill, 5%);
+	width:                 100%;
+	margin:                10px;
 }
 
 .grid .spinner-overlay
