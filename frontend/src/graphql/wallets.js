@@ -10,6 +10,7 @@ query wallets($account: String, $first: Int, $skip: Int)
 		{
 			id
 		}
+		balance
 	}
 }
 `

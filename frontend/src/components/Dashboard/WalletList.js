@@ -39,7 +39,7 @@ const WalletList = (props) =>
 							<EthereumReactComponents.AccountItem
 								name    = 'NFWallet'
 								address = {wallet.id}
-								balance = {0}
+								balance = {wallet.balance}
 							/>
 						</Link>
 					)
