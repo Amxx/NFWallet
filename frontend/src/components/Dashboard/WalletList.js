@@ -32,7 +32,7 @@ const WalletList = (props) =>
 
 	return (
 		<>
-			<div className='d-flex flex-wrap'>
+			<div className='d-flex flex-wrap justify-content-center'>
 				{
 					data.entries.map((wallet, i) =>
 						<Link key={i} to={`/dashboard/${wallet.id}`}>

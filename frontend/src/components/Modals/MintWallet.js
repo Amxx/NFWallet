@@ -54,12 +54,12 @@ const MintWallet = (props) =>
 							<form onSubmit={handleSubmit} className='d-flex flex-column'>
 								<AddressInputENS className='my-1' label='initial owner' defaultValue={addr} onChange={setAddr}                                         {...props}/>
 								<TextField       className='my-1' label='seed'          defaultValue={seed} onChange={e => setSeed(e.target.value)} variant='outlined' {...props}/>
-								<MDBBtn color='indigo' type="sumbit" className='mx-0'>Mint</MDBBtn>
+								<MDBBtn color='indigo' type='sumbit' className='mx-0'>Mint</MDBBtn>
 							</form>
 						:
 							<form onSubmit={handleSubmit} className='d-flex'>
 								<AddressInputENS className='flex-grow-1' label='initial owner' defaultValue={addr} onChange={setAddr} {...props}/>
-								<MDBBtn color='indigo' type="sumbit" className='my-0'>Mint</MDBBtn>
+								<MDBBtn color='indigo' type='sumbit' className='my-0'>Mint</MDBBtn>
 							</form>
 					}
 					<div className='lined text-muted'>

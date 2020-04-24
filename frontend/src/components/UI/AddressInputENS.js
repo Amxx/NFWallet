@@ -10,7 +10,7 @@ function addressToIcon(address)
 		try
 		{
 			// try address is valid
-			return <EthereumReactComponents.Identicon address={ ethers.utils.getAddress(address.toLowerCase()) } size="tiny" style={{ marginRight: '10px' }}/>
+			return <EthereumReactComponents.Identicon address={ ethers.utils.getAddress(address.toLowerCase()) } size='tiny' style={{ marginRight: '10px' }}/>
 		}
 		catch (_)
 		{
@@ -21,7 +21,7 @@ function addressToIcon(address)
 	else
 	{
 		// not address was provided
-		return <EthereumReactComponents.Identicon anonymous size="tiny" style={{ marginRight: '10px' }}/>
+		return <EthereumReactComponents.Identicon anonymous size='tiny' style={{ marginRight: '10px' }}/>
 	}
 }
 

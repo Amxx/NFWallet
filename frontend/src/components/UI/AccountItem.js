@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +7,7 @@ import { Identicon, EthAddress } from 'ethereum-react-components';
 const AccountItem = (props) =>
 	<StyledWrapper>
 		<FlexWrapper>
-			<Identicon address={props.address} size="small" />
+			<Identicon address={props.address} size='small' />
 		</FlexWrapper>
 		<FlexWrapper>
 			<StyledName>

@@ -45,8 +45,8 @@ const Grid = (props) => {
 				{
 					loading &&
 					<div className='spinner-overlay'>
-						<Spinner animation="grow">
-							<span className="sr-only">Loading...</span>
+						<Spinner animation='grow'>
+							<span className='sr-only'>Loading...</span>
 						</Spinner>
 					</div>
 				}

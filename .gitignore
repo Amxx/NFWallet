@@ -7,3 +7,5 @@ solidity/coverage.json
 
 subgraph/generated
 subgraph/build
+
+frontend/build

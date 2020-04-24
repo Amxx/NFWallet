@@ -56,10 +56,10 @@ const HiddenWallet = (props) =>
 					<small>
 						This modal will help you predict the address of a NFWallet.
 						Given the address of the initial owner and a seed, you can get the address of a wallet that you can use traight away.
-						When you finally want to withdraw assets from an hidden wallet, use the advanced options in the "New Wallet" modal.
+						When you finally want to withdraw assets from an hidden wallet, use the advanced options in the “New Wallet” modal.
 					</small>
 					<small>
-						<strong>Be carefull not to loose your seed!</strong>
+						<strong>Be carefull not to lose your seed!</strong>
 					</small>
 				</MDBModalFooter>
 			</MDBModal>
