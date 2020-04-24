@@ -1745,9 +1745,11 @@ struct Call
 	bytes   data;
 }
 
+
 contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC1271, IERC1654
 {
 	event Received(address indexed from, uint256 value);
+	event Executed(address indexed to,   uint256 value, bytes data);
 
 	// Asset receiving
 	receive()
@@ -1783,6 +1785,7 @@ contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC1271
 	{
 		(bool success, bytes memory returndata) = payable(to).call{value: value}(data);
 		require(success, string(returndata));
+		emit Executed(to, value, data);
 	}
 
 	function isValidSignature(bytes calldata data, bytes calldata signature)
@@ -1817,9 +1820,15 @@ contract NFWalletFactory is CounterfactualTokenRegistry, ENSReverseRegistration
 	}
 
 	function createWallet(address _owner, bytes32 _salt)
-	external returns (address)
+	external payable returns (address)
 	{
-		return address(_mintCreate(_owner, encodeInitializer(_salt)));
+		address wallet = address(_mintCreate(_owner, encodeInitializer(_salt)));
+		if (msg.value > 0)
+		{
+			(bool success, bytes memory returndata) = payable(wallet).call{value: msg.value}('');
+			require(success, string(returndata));
+		}
+		return wallet;
 	}
 
 	function predictWallet(address _owner, bytes32 _salt)

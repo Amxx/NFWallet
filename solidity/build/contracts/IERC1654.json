@@ -38,14 +38,14 @@
     "absolutePath": "@iexec/solidity/contracts/ERC1654/IERC1654.sol",
     "exportedSymbols": {
       "IERC1654": [
-        767
+        814
       ]
     },
-    "id": 768,
+    "id": 815,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 757,
+        "id": 804,
         "literals": [
           "solidity",
           "^",
@@ -62,9 +62,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 767,
+        "id": 814,
         "linearizedBaseContracts": [
-          767
+          814
         ],
         "name": "IERC1654",
         "nodeType": "ContractDefinition",
@@ -73,7 +73,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "1626ba7e",
-            "id": 766,
+            "id": 813,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -81,17 +81,17 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 762,
+              "id": 809,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 759,
+                  "id": 806,
                   "mutability": "mutable",
                   "name": "hash",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 766,
+                  "scope": 813,
                   "src": "73:12:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -100,7 +100,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 758,
+                    "id": 805,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "73:7:8",
@@ -114,12 +114,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 761,
+                  "id": 808,
                   "mutability": "mutable",
                   "name": "signature",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 766,
+                  "scope": 813,
                   "src": "87:24:8",
                   "stateVariable": false,
                   "storageLocation": "calldata",
@@ -128,7 +128,7 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 760,
+                    "id": 807,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "87:5:8",
@@ -144,17 +144,17 @@
               "src": "72:40:8"
             },
             "returnParameters": {
-              "id": 765,
+              "id": 812,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 764,
+                  "id": 811,
                   "mutability": "mutable",
                   "name": "magicValue",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 766,
+                  "scope": 813,
                   "src": "136:17:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -163,7 +163,7 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 763,
+                    "id": 810,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
                     "src": "136:6:8",
@@ -178,14 +178,14 @@
               ],
               "src": "135:19:8"
             },
-            "scope": 767,
+            "scope": 814,
             "src": "47:108:8",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 768,
+        "scope": 815,
         "src": "25:132:8"
       }
     ],
@@ -195,14 +195,14 @@
     "absolutePath": "@iexec/solidity/contracts/ERC1654/IERC1654.sol",
     "exportedSymbols": {
       "IERC1654": [
-        767
+        814
       ]
     },
-    "id": 768,
+    "id": 815,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 757,
+        "id": 804,
         "literals": [
           "solidity",
           "^",
@@ -219,9 +219,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 767,
+        "id": 814,
         "linearizedBaseContracts": [
-          767
+          814
         ],
         "name": "IERC1654",
         "nodeType": "ContractDefinition",
@@ -230,7 +230,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "1626ba7e",
-            "id": 766,
+            "id": 813,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -238,17 +238,17 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 762,
+              "id": 809,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 759,
+                  "id": 806,
                   "mutability": "mutable",
                   "name": "hash",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 766,
+                  "scope": 813,
                   "src": "73:12:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -257,7 +257,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 758,
+                    "id": 805,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "73:7:8",
@@ -271,12 +271,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 761,
+                  "id": 808,
                   "mutability": "mutable",
                   "name": "signature",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 766,
+                  "scope": 813,
                   "src": "87:24:8",
                   "stateVariable": false,
                   "storageLocation": "calldata",
@@ -285,7 +285,7 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 760,
+                    "id": 807,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "87:5:8",
@@ -301,17 +301,17 @@
               "src": "72:40:8"
             },
             "returnParameters": {
-              "id": 765,
+              "id": 812,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 764,
+                  "id": 811,
                   "mutability": "mutable",
                   "name": "magicValue",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 766,
+                  "scope": 813,
                   "src": "136:17:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -320,7 +320,7 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 763,
+                    "id": 810,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
                     "src": "136:6:8",
@@ -335,14 +335,14 @@
               ],
               "src": "135:19:8"
             },
-            "scope": 767,
+            "scope": 814,
             "src": "47:108:8",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 768,
+        "scope": 815,
         "src": "25:132:8"
       }
     ],
@@ -354,7 +354,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-04-23T17:30:13.084Z",
+  "updatedAt": "2020-04-24T22:07:56.229Z",
   "devdoc": {
     "methods": {}
   },

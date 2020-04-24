@@ -22,9 +22,15 @@ contract NFWalletFactory is CounterfactualTokenRegistry, ENSReverseRegistration
 	}
 
 	function createWallet(address _owner, bytes32 _salt)
-	external returns (address)
+	external payable returns (address)
 	{
-		return address(_mintCreate(_owner, encodeInitializer(_salt)));
+		address wallet = address(_mintCreate(_owner, encodeInitializer(_salt)));
+		if (msg.value > 0)
+		{
+			(bool success, bytes memory returndata) = payable(wallet).call{value: msg.value}('');
+			require(success, string(returndata));
+		}
+		return wallet;
 	}
 
 	function predictWallet(address _owner, bytes32 _salt)

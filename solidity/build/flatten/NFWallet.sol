@@ -177,9 +177,11 @@ struct Call
 	bytes   data;
 }
 
+
 contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC1271, IERC1654
 {
 	event Received(address indexed from, uint256 value);
+	event Executed(address indexed to,   uint256 value, bytes data);
 
 	// Asset receiving
 	receive()
@@ -215,6 +217,7 @@ contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC1271
 	{
 		(bool success, bytes memory returndata) = payable(to).call{value: value}(data);
 		require(success, string(returndata));
+		emit Executed(to, value, data);
 	}
 
 	function isValidSignature(bytes calldata data, bytes calldata signature)

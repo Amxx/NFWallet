@@ -29,6 +29,6 @@
     "@truffle/hdwallet-provider": "^1.0.34",
     "ganache-cli": "^6.9.1",
     "solidity-coverage": "^0.7.4",
-    "truffle": "^5.1.22"
+    "truffle": "^5.1.23"
   }
 }
