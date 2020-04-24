@@ -1,0 +1,51 @@
+.grid
+{
+	display:               grid;
+	position:              relative;
+	width:                 100%;
+	grid-template-columns: repeat(auto-fill, 5%);
+}
+
+.grid .spinner-overlay
+{
+	position:         absolute;
+	display:          flex;
+	justify-content:  center;
+	align-items:      center;
+	width:            100%;
+	z-index:          100;
+}
+
+.grid .spinner-overlay:after
+{
+	content:        '';
+	display:        block;
+	padding-bottom: 100%;
+}
+
+.grid .block
+{
+	position: relative;
+	width:    100%;
+}
+
+.grid .block:after
+{
+	content:        '';
+	display:        block;
+	padding-bottom: 100%;
+}
+
+.grid .block .content
+{
+	position:      absolute;
+	width:         calc(100% - 2px);
+	height:        calc(100% - 2px);
+	margin:        1px;
+	padding:       0px;
+}
+
+.pagination
+{
+	justify-content: center;
+}

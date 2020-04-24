@@ -1,0 +1,6 @@
+{
+	"networks":
+	{
+		"rinkeby": { "endpoint": "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets" }
+	}
+}

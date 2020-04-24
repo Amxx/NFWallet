@@ -1,0 +1,51 @@
+{
+  "name": "@NFTWallets/frontend",
+  "author": "Hadrien Croubois <hadrien.croubois@gmail.com>",
+  "version": "0.0.1",
+  "licence": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amxx/NFWallet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Amxx/NFWallet.git/issues"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link-http": "^1.5.17",
+    "ethereum-react-components": "^1.14.0",
+    "graphql": "^15.0.0",
+    "graphql-tag": "^2.10.3",
+    "mdbreact": "^4.25.6",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
