@@ -1,14 +1,13 @@
 import React from 'react';
-import { Identicon } from 'ethereum-react-components';
 import {
 	MDBNavbar,
 	MDBNavbarBrand,
 	MDBNavbarNav,
 	MDBNavItem,
+	MDBNavLink,
 	MDBNavbarToggler,
 	MDBCollapse,
 } from 'mdbreact';
-
 import MintWallet   from './Modals/MintWallet';
 import HiddenWallet from './Modals/HiddenWallet';
 
@@ -28,6 +27,13 @@ const Navbar = (props) =>
 			<MDBNavbarToggler onClick={toggle} />
 			<MDBCollapse id='navbarCollapse' isOpen={open} navbar>
 				<MDBNavbarNav left>
+
+					<MDBNavItem>
+						<MDBNavLink link to='/dashboard'>Dashboard</MDBNavLink>
+					</MDBNavItem>
+					<MDBNavItem>
+						<MDBNavLink link to='/overview'>Univers</MDBNavLink>
+					</MDBNavItem>
 
 				</MDBNavbarNav>
 				<MDBNavbarNav right>

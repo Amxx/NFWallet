@@ -1,20 +1,22 @@
 import * as React from 'react';
-import Grid    from '../UI/Grid';
-import Entry   from './Entry';
-import graphql from '../../graphql';
+import WalletList from './WalletList';
+import WalletView from './WalletView';
+
 
 const Dashboard = (props) =>
-	<div className='m-auto container'>
-		<div className='row'>
-			<div className='col-md-6'>
-				<h1>My Wallets</h1>
-				<Grid query={graphql.wallets} component={Entry} variables={{ account: props.accounts[0].toLowerCase() }} {...props}/>
+{
+	return (
+		<div className='m-auto container flex-grow-1'>
+			<div className='my-5'>
+				<WalletList owner={props.accounts[0]}/>
 			</div>
-			<div className='col-md-6'>
-				<h1>All Wallets</h1>
-				<Grid query={graphql.walletsAll} component={Entry} {...props}/>
+			<div className='my-5'>
+				{
+					props.routing.match.params.wallet && <WalletView address={props.routing.match.params.wallet} {...props}/>
+				}
 			</div>
 		</div>
-	</div>;
+	);
+}
 
 export default Dashboard;

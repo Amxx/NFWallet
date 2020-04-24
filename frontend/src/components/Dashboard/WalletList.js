@@ -1,36 +1,27 @@
-import React from 'react';
-import { Spinner } from 'react-bootstrap';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
+import * as EthereumReactComponents from 'ethereum-react-components';
 import { useQuery } from '@apollo/react-hooks';
-
-import './Grid.css';
+import graphql from '../../graphql';
 
 const DEFAULT = {
-	pageSize:     20**2,
-	poolInterval: 10000,
+	pageSize:     5,
+	poolInterval: 2000,
 }
 
-const PlaceHolder = () => {
-	return (
-		<div className='block'>
-			<div className='content'/>
-		</div>
-	);
-}
-
-const Grid = (props) => {
-
+const WalletList = (props) =>
+{
 	const settings = { ...DEFAULT, ...props };
-
 	const [page, setPage] = React.useState(parseInt(settings.page) || 0);
 
 	let { data, loading, error } = useQuery(
-		settings.query,
+		graphql.wallets,
 		{
 			variables:
 			{
-				...settings.variables,
-				first: settings.pageSize,
-				skip:  page * settings.pageSize,
+				account: props.owner.toLowerCase(),
+				first:   settings.pageSize,
+				skip:    page * settings.pageSize,
 			},
 			pollInterval: settings.poolInterval
 		}
@@ -41,20 +32,17 @@ const Grid = (props) => {
 
 	return (
 		<>
-			<div className='grid'>
+			<div className='d-flex flex-wrap'>
 				{
-					loading &&
-					<div className='spinner-overlay'>
-						<Spinner animation="grow">
-							<span className="sr-only">Loading...</span>
-						</Spinner>
-					</div>
-				}
-				{
-					data.entries.map((e, i) => <settings.component key={i} index={i} entry={e} {...props}/>)
-				}
-				{
-					Array(settings.pageSize - data.entries.length).fill().map((_, i) => <PlaceHolder key={i+data.entries.length}/>)
+					data.entries.map((wallet, i) =>
+						<Link key={i} to={`/dashboard/${wallet.id}`}>
+							<EthereumReactComponents.AccountItem
+								name    = 'NFWallet'
+								address = {wallet.id}
+								balance = {0}
+							/>
+						</Link>
+					)
 				}
 			</div>
 			<ul className='pagination'>
@@ -80,4 +68,4 @@ const Grid = (props) => {
 	);
 }
 
-export default Grid;
+export default WalletList;

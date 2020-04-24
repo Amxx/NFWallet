@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import * as utils from '../../utils';
@@ -18,7 +19,7 @@ const Entry = (props) =>
 					</Tooltip>
 				}
 			>
-				<a className={`content alert alert-${color}`} target='_blank' rel='nofollow noopener noreferrer' href={`https://rinkeby.etherscan.io/address/${props.entry.id}`}/>
+				<Link className={`content alert alert-${color}`} to={`/dashboard/${props.entry.id}`}/>
 			</OverlayTrigger>
 		</div>
 	);
