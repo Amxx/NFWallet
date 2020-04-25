@@ -19,7 +19,7 @@ import WalletActivity     from '../Views/WalletActivity';
 
 
 const CardWapper = (props) =>
-	<MDBCol size={props.size || '6'} className={`p-2 ${props.className}`}>
+	<MDBCol className={`p-2 ${props.className}`} {...props}>
 		<MDBCard>
 			<MDBCardBody className={ props.center && 'd-flex justify-content-center align-items-center'}>
 				{ props.title && <MDBCardTitle>{props.title}</MDBCardTitle> }
@@ -73,9 +73,9 @@ const Wallet = (props) =>
 							</CardWapper>
 						</MDBRow>
 						<Masonry className='row'>
-							<CardWapper size='6' title='Details'      ><WalletDetails      data={data} services={props.services}/></CardWapper>
-							<CardWapper size='6' title='Balance chart'><WalletBalanceChart data={data} services={props.services}/></CardWapper>
-							<CardWapper size='6' title='Activity logs'><WalletActivity     data={data} services={props.services}/></CardWapper>
+							<CardWapper lg='6' md='12' title='Details'      ><WalletDetails      data={data} services={props.services}/></CardWapper>
+							<CardWapper lg='6' md='12' title='Balance chart'><WalletBalanceChart data={data} services={props.services}/></CardWapper>
+							<CardWapper lg='6' md='12' title='Activity logs'><WalletActivity     data={data} services={props.services}/></CardWapper>
 						</Masonry>
 					</>
 			}
