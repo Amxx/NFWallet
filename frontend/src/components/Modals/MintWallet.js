@@ -6,17 +6,13 @@ import {
 	MDBModalHeader,
 	MDBModalBody,
 } from 'mdbreact';
+import { ethers } from 'ethers';
 
 import TextField from '@material-ui/core/TextField';
 import AddressInputENS from '../UI/AddressInputENS';
 
-import { ethers } from 'ethers';
-import { abi as ABIFactory } from '../../abi/NFWalletFactory.json';
-
 const MintWallet = (props) =>
 {
-	const factory = new ethers.Contract('nfwallets.eth', ABIFactory, props.provider.getSigner());
-
 	const [ open, setOpen ] = React.useState(false);
 	const [ full, setFull ] = React.useState(!!props.advanced);
 	const [ addr, setAddr ] = React.useState(props.accounts[0]);
@@ -27,7 +23,7 @@ const MintWallet = (props) =>
 	const handleSubmit = (ev) =>
 	{
 		ev.preventDefault();
-		factory.createWallet(
+		props.registry.createWallet(
 			addr,
 			full ? ethers.utils.id(seed) : ethers.utils.randomBytes(32),
 		)

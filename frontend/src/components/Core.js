@@ -11,6 +11,8 @@ import Notifications from './Notifications';
 import Main  from './Main';
 import Error from './Error';
 
+import { abi as ABIFactory } from '../abi/NFWalletFactory.json';
+
 import config from '../config.json';
 
 
@@ -25,9 +27,12 @@ const Core = () =>
 		try
 		{
 			const provider = new ethers.providers.Web3Provider(web3)
+			const registry = new ethers.Contract('nfwallets.eth', ABIFactory, provider.getSigner());
 			const accounts = await provider.listAccounts()
 			const network  = await provider.getNetwork()
-			setServices({ provider, accounts, network, emitter });
+			registry.addressPromised = await registry.addressPromise;
+
+			setServices({ provider, accounts, network, registry, emitter });
 			try
 			{
 				const uri     = config.networks[network.name].endpoint

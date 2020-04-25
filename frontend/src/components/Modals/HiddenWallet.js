@@ -7,19 +7,15 @@ import {
 	MDBModalBody,
 	MDBModalFooter,
 } from 'mdbreact';
+import { ethers } from 'ethers';
 
 import TextField       from '@material-ui/core/TextField';
 import AccountItem     from '../UI/AccountItem';
 import AddressInputENS from '../UI/AddressInputENS';
 
-import { ethers } from 'ethers';
-import { abi as ABIFactory } from '../../abi/NFWalletFactory.json';
-
 
 const HiddenWallet = (props) =>
 {
-	const factory = new ethers.Contract('nfwallets.eth', ABIFactory, props.provider.getSigner());
-
 	const [ open, setOpen ] = React.useState(false);
 	const [ addr, setAddr ] = React.useState(props.accounts[0]);
 	const [ seed, setSeed ] = React.useState('');
@@ -29,13 +25,13 @@ const HiddenWallet = (props) =>
 	React.useEffect(() => {
 		try
 		{
-			factory.predictWallet(addr.toLowerCase(), ethers.utils.id(seed)).then(setPred).catch(() => {})
+			props.registry.predictWallet(addr.toLowerCase(), ethers.utils.id(seed)).then(setPred).catch(() => {})
 		}
 		catch (_)
 		{
 			setPred('')
 		}
-	}, [addr, seed, factory]);
+	}, [addr, seed]);
 
 	return (
 		<>
