@@ -10,7 +10,7 @@ const WalletActivity = (props) =>
 		<MDBTableBody>
 			{
 				props.data.wallet.events.map(event =>
-					<tr>
+					<tr key={event.id}>
 						<td>
 							<strong>{event.__typename}</strong>
 						</td>
