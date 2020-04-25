@@ -13,8 +13,7 @@ const WalletList = (props) =>
 {
 	const settings = { ...DEFAULT, ...props };
 	const [first, setFirst] = React.useState(parseInt(settings.first) || 0);
-
-	let { data, loading, error } = useQuery(
+	const { data, loading, error } = useQuery(
 		graphql.wallets,
 		{
 			variables:
@@ -27,7 +26,7 @@ const WalletList = (props) =>
 		}
 	)
 
-	if (loading) { data = { entries: [] } } // TODO: add a loading icon spinner
+	if (loading) { data.entries = []; } // TODO: add a loading icon spinner
 	if (error  ) { return `Error! ${error}`; }
 
 	return (

@@ -1,13 +1,36 @@
 import * as React from 'react';
-import { MDBAlert } from 'mdbreact';
 import * as EthereumReactComponents from 'ethereum-react-components';
-import { ethers } from 'ethers';
+import {
+	MDBRow,
+	MDBCol,
+	MDBAlert,
+	MDBCard,
+	MDBCardTitle,
+	MDBCardBody,
+} from 'mdbreact';
 import { useQuery } from '@apollo/react-hooks';
 import graphql from '../../graphql';
 
+import Masonry            from 'react-masonry-component';
+import WalletBalanceChart from './WalletBalanceChart';
+import WalletDetails      from './WalletDetails';
+import WalletActivity     from './WalletActivity';
+
+
+const CardWapper = (props) =>
+	<MDBCol size={props.size || '6'} className={`p-2 ${props.className}`}>
+		<MDBCard>
+			<MDBCardBody className={ props.center && 'd-flex justify-content-center align-items-center'}>
+				{ props.title && <MDBCardTitle>{props.title}</MDBCardTitle> }
+				{ props.title && <hr className='hr-grey'/> }
+				{ props.children }
+			</MDBCardBody>
+		</MDBCard>
+	</MDBCol>
+
 const WalletView = (props) =>
 {
-	let { data, loading, error } = useQuery(
+	const { data, loading, error } = useQuery(
 		graphql.wallet,
 		{
 			variables:
@@ -20,68 +43,33 @@ const WalletView = (props) =>
 
 	if (error) { return `Error! ${error}`; }
 
-	const admin = data && data.wallet.owner.id === props.services.accounts[0].toLowerCase();
-
 	return (
 		loading
 		?
-			<p className='text-center text-muted'>Loading...</p>
+			<CardWapper size='12' center>
+				<span>Loading...</span>
+			</CardWapper>
 		:
 			data.wallet
 		?
-			<MDBAlert color={ admin ? 'success' : 'secondary' }>
-
-				<h2 className='text-center mb-3'>This board is still work in progress</h2>
-
-				<div className='d-flex flex-wrap justify-content-center align-items-center'>
-					<EthereumReactComponents.AccountItem
-						name    = 'NFWallet'
-						address = {data.wallet.id}
-						balance = {data.wallet.balance}
-					/>
-				</div>
-
-				<h3>Details</h3>
-				<ul>
-					<li key='owner'>
-						<strong>Owner:</strong>
-						<a href={`${props.services.config.etherscan}/address/${data.wallet.owner.id}`} target='_blank' rel='nofollow noopener noreferrer'>
-							{ ethers.utils.getAddress(data.wallet.owner.id) }
-						</a>
-					</li>
-					<li key='address'>
-						<strong>Address:</strong>
-						<a href={`${props.services.config.etherscan}/address/${data.wallet.id}`} target='_blank' rel='nofollow noopener noreferrer'>
-							{ ethers.utils.getAddress(data.wallet.id) }
-						</a>
-					</li>
-					<li key='tokenid'>
-						<strong>TokenID:</strong>
-						<a href={`${props.services.config.opensea}/assets/${props.services.registry.addressPromised}/${ethers.utils.bigNumberify(data.wallet.id).toString()}`} target='_blank' rel='nofollow noopener noreferrer'>
-							{ ethers.utils.bigNumberify(data.wallet.id).toString() }
-						</a>
-					</li>
-					<li key='balance'>
-						<strong>Balance:</strong> { data.wallet.balance } { ethers.constants.EtherSymbol }
-					</li>
-				</ul>
-				<h3>History</h3>
-				<ul>
-				{
-					data.wallet.events.map(event =>
-						<li key={event.id}>
-							<a href={`${props.services.config.etherscan}/tx/${event.transaction.id}`} target='_blank' rel='nofollow noopener noreferrer'>
-								<strong>[{event.__typename}]</strong>
-							</a>
-							<small>
-								{ (new Date(Number(event.timestamp)*1000)).toLocaleString() }
-							</small>
-						</li>
-					)
-				}
-				</ul>
-
-			</MDBAlert>
+			<>
+				<MDBRow>
+					<CardWapper size='12' center>
+						<div className='pt-3'>
+							<EthereumReactComponents.AccountItem
+								name    = 'NFWallet'
+								address = {data.wallet.id}
+								balance = {data.wallet.balance}
+							/>
+						</div>
+					</CardWapper>
+				</MDBRow>
+				<Masonry className='row'>
+					<CardWapper size='6' title='Details'      ><WalletDetails      data={data} services={props.services}/></CardWapper>
+					<CardWapper size='6' title='Balance chart'><WalletBalanceChart data={data} services={props.services}/></CardWapper>
+					<CardWapper size='6' title='Activity logs'><WalletActivity     data={data} services={props.services}/></CardWapper>
+				</Masonry>
+			</>
 		:
 			<MDBAlert color='danger' className='text-center font-weight-bold'>
 				No wallet details for { props.address } on { props.services.network.name }
