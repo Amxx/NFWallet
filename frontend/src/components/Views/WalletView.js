@@ -20,7 +20,7 @@ const WalletView = (props) =>
 
 	if (error) { return `Error! ${error}`; }
 
-	const admin = data && data.wallet.owner.id === props.accounts[0].toLowerCase();
+	const admin = data && data.wallet.owner.id === props.services.accounts[0].toLowerCase();
 
 	return (
 		loading
@@ -57,7 +57,7 @@ const WalletView = (props) =>
 					</li>
 					<li key='tokenid'>
 						<strong>TokenID:</strong>
-						<a href={`https://rinkeby.opensea.io/assets/${props.registry.addressPromised}/${ethers.utils.bigNumberify(data.wallet.id).toString()}`} target='_blank' rel='nofollow noopener noreferrer'>
+						<a href={`https://rinkeby.opensea.io/assets/${props.services.registry.addressPromised}/${ethers.utils.bigNumberify(data.wallet.id).toString()}`} target='_blank' rel='nofollow noopener noreferrer'>
 							{ ethers.utils.bigNumberify(data.wallet.id).toString() }
 						</a>
 					</li>
@@ -84,7 +84,7 @@ const WalletView = (props) =>
 			</MDBAlert>
 		:
 			<MDBAlert color='danger' className='text-center font-weight-bold'>
-				No wallet details for { props.address } on { props.network.name }
+				No wallet details for { props.address } on { props.services.network.name }
 			</MDBAlert>
 	);
 }

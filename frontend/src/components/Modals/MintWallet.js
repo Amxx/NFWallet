@@ -15,7 +15,7 @@ const MintWallet = (props) =>
 {
 	const [ open, setOpen ] = React.useState(false);
 	const [ full, setFull ] = React.useState(!!props.advanced);
-	const [ addr, setAddr ] = React.useState(props.accounts[0]);
+	const [ addr, setAddr ] = React.useState(props.services.accounts[0]);
 	const [ seed, setSeed ] = React.useState('');
 	const toggle     = () => setOpen(!open);
 	const toggleFull = () => setFull(!full);
@@ -23,21 +23,21 @@ const MintWallet = (props) =>
 	const handleSubmit = (ev) =>
 	{
 		ev.preventDefault();
-		props.registry.createWallet(
+		props.services.registry.createWallet(
 			addr,
 			full ? ethers.utils.id(seed) : ethers.utils.randomBytes(32),
 		)
 		.then(txPromise => {
 			txPromise.wait()
 			.then(() => {
-				props.emitter.emit('Notify', 'success', 'New wallet minted');
+				props.services.emitter.emit('Notify', 'success', 'New wallet minted');
 			}) // success
 			.catch(() => {
-				props.emitter.emit('Notify', 'error', 'Transaction failled');
+				props.services.emitter.emit('Notify', 'error', 'Transaction failled');
 			}) // transaction error
 		})
 		.catch(() => {
-			props.emitter.emit('Notify', 'error', 'Signature required');
+			props.services.emitter.emit('Notify', 'error', 'Signature required');
 		}) // signature error
 		.finally(toggle);
 	}

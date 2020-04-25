@@ -7,13 +7,13 @@ import { EventEmitter   } from 'fbemitter';
 import { ethers         } from 'ethers';
 import LoginWithEthereum  from '../libs/login-with-ethereum';
 
-import Notifications from './Notifications';
-import Main  from './Main';
-import Error from './Error';
+import Main          from './Main';
+import Error         from './UI/Error';
+import Notifications from './Services/Notifications';
 
 import { abi as ABIFactory } from '../abi/NFWalletFactory.json';
 
-import config from '../config.json';
+import CONFIG from '../config.json';
 
 
 
@@ -26,16 +26,27 @@ const Core = () =>
 	const setup = async (web3) => {
 		try
 		{
+			// setup services
 			const provider = new ethers.providers.Web3Provider(web3)
 			const registry = new ethers.Contract('nfwallets.eth', ABIFactory, provider.getSigner());
 			const accounts = await provider.listAccounts()
 			const network  = await provider.getNetwork()
-			registry.addressPromised = await registry.addressPromise;
+			const config   = CONFIG.networks[network.name]
+			setServices({
+				provider,
+				network,
+				accounts,
+				registry,
+				emitter,
+				config,
+			});
 
-			setServices({ provider, accounts, network, registry, emitter });
 			try
 			{
-				const uri     = config.networks[network.name].endpoint
+				// this throws if address is not found
+				registry.addressPromised = await registry.addressPromise;
+				// setup apollo client
+				const uri     = config.endpoint;
 				const cache   = new InMemoryCache();
 				const link    = new HttpLink({ uri });
 				const client  = new ApolloClient({ cache, link });
@@ -71,7 +82,7 @@ const Core = () =>
 			<Notifications emitter={emitter}/>
 			<LoginWithEthereum
 				className    = { services ? 'connected' : 'disconnected' }
-				config       = { config.enslogin                         }
+				config       = { CONFIG.enslogin                         }
 				connect      = { connect                                 }
 				disconnect   = { disconnect                              }
 				startVisible = { true                                    }
@@ -80,7 +91,7 @@ const Core = () =>
 				services &&
 				(
 					client
-					? <ApolloProvider client={ client }><Main { ...services }/></ApolloProvider>
+					? <ApolloProvider client={client}><Main services={services}/></ApolloProvider>
 					: <Error message='Please switch network to a supported network (only rinkeby for now)'/>
 				)
 			}

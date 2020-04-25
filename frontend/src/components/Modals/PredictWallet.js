@@ -14,10 +14,10 @@ import AccountItem     from '../UI/AccountItem';
 import AddressInputENS from '../UI/AddressInputENS';
 
 
-const HiddenWallet = (props) =>
+const PredictWallet = (props) =>
 {
 	const [ open, setOpen ] = React.useState(false);
-	const [ addr, setAddr ] = React.useState(props.accounts[0]);
+	const [ addr, setAddr ] = React.useState(props.services.accounts[0]);
 	const [ seed, setSeed ] = React.useState('');
 	const [ pred, setPred ] = React.useState('');
 	const toggle = () => setOpen(!open);
@@ -25,13 +25,13 @@ const HiddenWallet = (props) =>
 	React.useEffect(() => {
 		try
 		{
-			props.registry.predictWallet(addr.toLowerCase(), ethers.utils.id(seed)).then(setPred).catch(() => {})
+			props.services.registry.predictWallet(addr.toLowerCase(), ethers.utils.id(seed)).then(setPred).catch(() => {})
 		}
 		catch (_)
 		{
 			setPred('')
 		}
-	}, [addr, seed, props.registry]);
+	}, [addr, seed, props.services]);
 
 	return (
 		<>
@@ -42,7 +42,7 @@ const HiddenWallet = (props) =>
 				<MDBModalHeader toggle={toggle}>Predict hidden wallet</MDBModalHeader>
 				<MDBModalBody>
 					<div className='d-flex flex-column justify-content-center'>
-						<AddressInputENS className='my-1' label='initial owner' defaultValue={addr} onChange={setAddr} {...props}/>
+						<AddressInputENS className='my-1' label='initial owner' defaultValue={addr} onChange={setAddr} provider={props.services.provider}/>
 						<TextField       className='my-1' label='seed'          defaultValue={seed} onChange={e => setSeed(e.target.value)} variant='outlined'/>
 						<MDBIcon         className='my-3 text-center' icon='arrow-down'/>
 						<AccountItem     className='my-1' name='hidden wallet address' address={pred}/>
@@ -64,4 +64,4 @@ const HiddenWallet = (props) =>
 	);
 }
 
-export default HiddenWallet;
+export default PredictWallet;

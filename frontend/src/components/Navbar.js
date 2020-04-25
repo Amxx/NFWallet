@@ -8,9 +8,8 @@ import {
 	MDBNavbarToggler,
 	MDBCollapse,
 } from 'mdbreact';
-import MintWallet   from './Modals/MintWallet';
-import HiddenWallet from './Modals/HiddenWallet';
-
+import MintWallet    from './Modals/MintWallet';
+import PredictWallet from './Modals/PredictWallet';
 
 const Navbar = (props) =>
 {
@@ -39,10 +38,10 @@ const Navbar = (props) =>
 				<MDBNavbarNav right>
 
 					<MDBNavItem>
-						<MintWallet {...props}/>
+						<MintWallet services={props.services}/>
 					</MDBNavItem>
 					<MDBNavItem>
-						<HiddenWallet {...props}/>
+						<PredictWallet services={props.services}/>
 					</MDBNavItem>
 
 				</MDBNavbarNav>

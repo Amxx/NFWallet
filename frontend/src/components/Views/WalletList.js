@@ -32,7 +32,7 @@ const WalletList = (props) =>
 
 	return (
 		<>
-			<div className='d-flex flex-wrap justify-content-center'>
+			<div className={`d-flex flex-wrap ${props.center ? 'justify-content-center': ''}`}>
 				{
 					loading && <p className='text-muted'>Loading...</p>
 				}
@@ -41,7 +41,7 @@ const WalletList = (props) =>
 				}
 				{
 					data.entries.map((wallet, i) =>
-						<Link key={i} to={`/dashboard/${wallet.id}`}>
+						<Link key={i} to={`/wallet/${wallet.id}`}>
 							<EthereumReactComponents.AccountItem
 								name    = 'NFWallet'
 								address = {wallet.id}

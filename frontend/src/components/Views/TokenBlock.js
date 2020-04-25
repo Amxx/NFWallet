@@ -6,7 +6,7 @@ import * as utils from '../../libs/utils';
 
 const Entry = (props) =>
 {
-	const owner = props.accounts[0].toLowerCase() === props.entry.owner.id;
+	const owner = props.services.accounts[0].toLowerCase() === props.entry.owner.id;
 	const color = owner ? 'primary' : 'secondary'
 
 	return (
@@ -19,7 +19,7 @@ const Entry = (props) =>
 					</Tooltip>
 				}
 			>
-				<Link className={`content alert alert-${color}`} to={`/dashboard/${props.entry.id}`}/>
+				<Link className={`content alert alert-${color}`} to={`/wallet/${props.entry.id}`}/>
 			</OverlayTrigger>
 		</div>
 	);
