@@ -45,12 +45,14 @@ const Wallet = (props) =>
 	if (error) { return `Error! ${error}`; }
 
 	return (
-		<div className='container my-auto text-center'>
+		<div className='container my-auto'>
 			{
 				loading &&
-					<Spinner animation='grow'>
-						<span className='sr-only'>Loading...</span>
-					</Spinner>
+					<div class='d-flex justify-content-center'>
+						<Spinner animation='grow'>
+							<span className='sr-only'>Loading...</span>
+						</Spinner>
+					</div>
 			}
 			{
 				data && !data.wallet &&
