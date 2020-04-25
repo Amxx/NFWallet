@@ -31,7 +31,7 @@ const HiddenWallet = (props) =>
 		{
 			setPred('')
 		}
-	}, [addr, seed]);
+	}, [addr, seed, props.registry]);
 
 	return (
 		<>

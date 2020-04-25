@@ -12,7 +12,7 @@ const DEFAULT = {
 const WalletList = (props) =>
 {
 	const settings = { ...DEFAULT, ...props };
-	const [page, setPage] = React.useState(parseInt(settings.page) || 0);
+	const [first, setFirst] = React.useState(parseInt(settings.first) || 0);
 
 	let { data, loading, error } = useQuery(
 		graphql.wallets,
@@ -21,7 +21,7 @@ const WalletList = (props) =>
 			{
 				account: props.owner.toLowerCase(),
 				first:   settings.pageSize,
-				skip:    page * settings.pageSize,
+				skip:    first,
 			},
 			pollInterval: settings.poolInterval
 		}
@@ -52,19 +52,19 @@ const WalletList = (props) =>
 				}
 			</div>
 			<ul className='pagination'>
-				<li className={ `page-item ${page>0?'':'disabled'}` }>
-					<a className='page-link' href='#!' onClick={ () => setPage(0) }>«</a>
+				<li className={ `page-item ${first>0?'':'disabled'}` }>
+					<a className='page-link' href='#!' onClick={ () => setFirst(0) }>«</a>
 				</li>
-				<li className={ `page-item ${page>0?'':'disabled'}` }>
-					<a className='page-link' href='#!' onClick={ () => setPage(page-1) }>‹</a>
+				<li className={ `page-item ${first>0?'':'disabled'}` }>
+					<a className='page-link' href='#!' onClick={ () => setFirst(first-settings.pageSize) }>‹</a>
 				</li>
 				<li className='page-item disabled'>
 					<a className='page-link' href='#!'>
-						{ data.entries.length && `${page*settings.pageSize+1} - ${page*settings.pageSize+data.entries.length}` }
+						{ data.entries.length && `${first+1} - ${first+data.entries.length}` }
 					</a>
 				</li>
 				<li className={ `page-item ${data.entries.length === settings.pageSize?'':'disabled'}` }>
-					<a className='page-link' href='#!' onClick={ () => setPage(page+1) }>›</a>
+					<a className='page-link' href='#!' onClick={ () => setFirst(first+settings.pageSize) }>›</a>
 				</li>
 				<li className='page-item disabled'>
 					<a className='page-link' href='#!'>&#8239;</a>

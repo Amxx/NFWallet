@@ -18,7 +18,9 @@ const WalletView = (props) =>
 		}
 	)
 
-	if (error  ) { return `Error! ${error}`; }
+	if (error) { return `Error! ${error}`; }
+
+	const admin = data && data.wallet.owner.id === props.accounts[0].toLowerCase();
 
 	return (
 		loading
@@ -27,7 +29,10 @@ const WalletView = (props) =>
 		:
 			data.wallet
 		?
-			<MDBAlert color='primary'>
+			<MDBAlert color={ admin ? 'success' : 'secondary' }>
+
+				<h2 className='text-center mb-3'>This board is still work in progress</h2>
+
 				<div className='d-flex flex-wrap justify-content-center align-items-center'>
 					<EthereumReactComponents.AccountItem
 						name    = 'NFWallet'
@@ -38,25 +43,25 @@ const WalletView = (props) =>
 
 				<h3>Details</h3>
 				<ul>
-					<li>
+					<li key='owner'>
 						<strong>Owner:</strong>
 						<a href={`https://rinkeby.etherscan.io/address/${data.wallet.owner.id}`} target='_blank' rel='nofollow noopener noreferrer'>
 							{ ethers.utils.getAddress(data.wallet.owner.id) }
 						</a>
 					</li>
-					<li>
+					<li key='address'>
 						<strong>Address:</strong>
 						<a href={`https://rinkeby.etherscan.io/address/${data.wallet.id}`} target='_blank' rel='nofollow noopener noreferrer'>
 							{ ethers.utils.getAddress(data.wallet.id) }
 						</a>
 					</li>
-					<li>
+					<li key='tokenid'>
 						<strong>TokenID:</strong>
 						<a href={`https://rinkeby.opensea.io/assets/${props.registry.addressPromised}/${ethers.utils.bigNumberify(data.wallet.id).toString()}`} target='_blank' rel='nofollow noopener noreferrer'>
 							{ ethers.utils.bigNumberify(data.wallet.id).toString() }
 						</a>
 					</li>
-					<li>
+					<li key='balance'>
 						<strong>Balance:</strong> { data.wallet.balance } { ethers.constants.EtherSymbol }
 					</li>
 				</ul>

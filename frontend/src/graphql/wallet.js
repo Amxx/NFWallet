@@ -11,6 +11,7 @@ query wallet($wallet: String)
 		events(first: 1000, orderBy: timestamp, orderDirection: desc)
 		{
 			__typename
+			id
 			timestamp
 			transaction { id }
 		}

@@ -5,16 +5,23 @@ import WalletView from './WalletView';
 
 const Dashboard = (props) =>
 {
+	let classes = 'm-auto container flex-grow-1';
+	if (!props.routing.match.params.wallet)
+	{
+		classes += 'd-flex align-items-center justify-content-center';
+	}
+
 	return (
-		<div className='m-auto container flex-grow-1'>
+		<div className={classes}>
 			<div className='my-5'>
-				<WalletList owner={props.accounts[0]}/>
+				<WalletList owner={props.accounts[0]} pageSize={props.routing.match.params.wallet ? 5 : 25}/>
 			</div>
-			<div className='my-5'>
-				{
-					props.routing.match.params.wallet && <WalletView address={props.routing.match.params.wallet} {...props}/>
-				}
-			</div>
+			{
+				props.routing.match.params.wallet &&
+				<div className='my-5'>
+					<WalletView address={props.routing.match.params.wallet} {...props}/>
+				</div>
+			}
 		</div>
 	);
 }
