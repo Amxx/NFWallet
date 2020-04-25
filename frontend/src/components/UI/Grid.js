@@ -20,7 +20,7 @@ const PlaceHolder = () => {
 const Grid = (props) => {
 	const settings = { ...DEFAULT, ...props };
 	const [page, setPage] = React.useState(parseInt(settings.page) || 0);
-	const { data, loading, error } = useQuery(
+	let { data, loading, error } = useQuery(
 		settings.query,
 		{
 			variables:
@@ -33,7 +33,7 @@ const Grid = (props) => {
 		}
 	)
 
-	if (loading) { data.entries = []; } // TODO: add a loading icon spinner
+	if (loading) { data = { entries: [] } } // TODO: add a loading icon spinner
 	if (error  ) { return `Error! ${error}`; }
 
 	return (
