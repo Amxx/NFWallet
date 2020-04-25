@@ -23,15 +23,17 @@ const Core = () =>
 	const [ services, setServices ] = React.useState(null);
 	const [ client,   setClient   ] = React.useState(null);
 
-	const setup = async (web3) => {
+	const setupServices = async (web3) => {
 		try
 		{
-			// setup services
 			const provider = new ethers.providers.Web3Provider(web3)
-			const registry = new ethers.Contract('nfwallets.eth', ABIFactory, provider.getSigner());
 			const accounts = await provider.listAccounts()
 			const network  = await provider.getNetwork()
 			const config   = CONFIG.networks[network.name]
+			const registry = new ethers.Contract(config.nfwfactory, ABIFactory, provider.getSigner());
+
+			registry.addressPromise.then(addr => registry.addressPromised = addr).catch(() => {});
+
 			setServices({
 				provider,
 				network,
@@ -40,41 +42,40 @@ const Core = () =>
 				emitter,
 				config,
 			});
-
-			try
-			{
-				// this throws if address is not found
-				registry.addressPromised = await registry.addressPromise;
-				// setup apollo client
-				const uri     = config.subgraph;
-				const cache   = new InMemoryCache();
-				const link    = new HttpLink({ uri });
-				const client  = new ApolloClient({ cache, link });
-				setClient(client);
-			}
-			catch
-			{
-				setClient(null);
-			}
+			setupSubgraph(config);
 		}
 		catch (_)
 		{
 			setServices(null);
-			setClient(null);
 		}
 	}
 
+	const setupSubgraph = async (subconfig) => {
+		if (subconfig)
+		{
+			const uri     = subconfig.subgraph;
+			const cache   = new InMemoryCache();
+			const link    = new HttpLink({ uri });
+			const client  = new ApolloClient({ cache, link });
+			setClient(client);
+		}
+		else
+		{
+			setClient(null);
+		}
+	}
+	
 	const connect = (web3) => {
 		emitter.emit('Notify', 'success', 'You are connected');
-		web3.on('accountsChanged', () => setup(web3));
-		web3.on('networkChanged',  () => setup(web3));
+		web3.on('accountsChanged', () => setupServices(web3));
+		web3.on('networkChanged',  () => setupServices(web3));
 		web3.autoRefreshOnNetworkChange = false;
-		setup(web3);
+		setupServices(web3);
 	}
 
 	const disconnect = () => {
 		emitter.emit('Notify', 'warning', 'You are disconnect');
-		setup(null);
+		setupServices(null);
 	}
 
 	return (

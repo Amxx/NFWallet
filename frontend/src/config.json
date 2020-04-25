@@ -16,9 +16,10 @@
 	{
 		"rinkeby":
 		{
-			"subgraph":  "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets",
-			"etherscan": "https://rinkeby.etherscan.io",
-			"opensea":   "https://rinkeby.opensea.io"
+			"nfwfactory": "nfwallets.eth",
+			"subgraph":   "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets",
+			"etherscan":  "https://rinkeby.etherscan.io",
+			"opensea":    "https://rinkeby.opensea.io"
 		}
 	}
 }
