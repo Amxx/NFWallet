@@ -46,7 +46,7 @@ const Core = () =>
 				// this throws if address is not found
 				registry.addressPromised = await registry.addressPromise;
 				// setup apollo client
-				const uri     = config.endpoint;
+				const uri     = config.subgraph;
 				const cache   = new InMemoryCache();
 				const link    = new HttpLink({ uri });
 				const client  = new ApolloClient({ cache, link });

@@ -14,6 +14,11 @@
 	},
 	"networks":
 	{
-		"rinkeby": { "endpoint": "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets" }
+		"rinkeby":
+		{
+			"subgraph":  "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets",
+			"etherscan": "https://rinkeby.etherscan.io",
+			"opensea":   "https://rinkeby.opensea.io"
+		}
 	}
 }

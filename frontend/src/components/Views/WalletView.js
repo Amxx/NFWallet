@@ -45,19 +45,19 @@ const WalletView = (props) =>
 				<ul>
 					<li key='owner'>
 						<strong>Owner:</strong>
-						<a href={`https://rinkeby.etherscan.io/address/${data.wallet.owner.id}`} target='_blank' rel='nofollow noopener noreferrer'>
+						<a href={`${props.services.config.etherscan}/address/${data.wallet.owner.id}`} target='_blank' rel='nofollow noopener noreferrer'>
 							{ ethers.utils.getAddress(data.wallet.owner.id) }
 						</a>
 					</li>
 					<li key='address'>
 						<strong>Address:</strong>
-						<a href={`https://rinkeby.etherscan.io/address/${data.wallet.id}`} target='_blank' rel='nofollow noopener noreferrer'>
+						<a href={`${props.services.config.etherscan}/address/${data.wallet.id}`} target='_blank' rel='nofollow noopener noreferrer'>
 							{ ethers.utils.getAddress(data.wallet.id) }
 						</a>
 					</li>
 					<li key='tokenid'>
 						<strong>TokenID:</strong>
-						<a href={`https://rinkeby.opensea.io/assets/${props.services.registry.addressPromised}/${ethers.utils.bigNumberify(data.wallet.id).toString()}`} target='_blank' rel='nofollow noopener noreferrer'>
+						<a href={`${props.services.config.opensea}/assets/${props.services.registry.addressPromised}/${ethers.utils.bigNumberify(data.wallet.id).toString()}`} target='_blank' rel='nofollow noopener noreferrer'>
 							{ ethers.utils.bigNumberify(data.wallet.id).toString() }
 						</a>
 					</li>
@@ -70,7 +70,7 @@ const WalletView = (props) =>
 				{
 					data.wallet.events.map(event =>
 						<li key={event.id}>
-							<a href={`https://rinkeby.etherscan.io/tx/${event.transaction.id}`} target='_blank' rel='nofollow noopener noreferrer'>
+							<a href={`${props.services.config.etherscan}/tx/${event.transaction.id}`} target='_blank' rel='nofollow noopener noreferrer'>
 								<strong>[{event.__typename}]</strong>
 							</a>
 							<small>
