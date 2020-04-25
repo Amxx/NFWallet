@@ -2,7 +2,7 @@ import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useQuery } from '@apollo/react-hooks';
 
-import './Grid.css';
+import '../../css/UI/Grid.css';
 
 const DEFAULT = {
 	pageSize:     20**2,

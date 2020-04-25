@@ -1,4 +1,17 @@
 {
+	"enslogin":
+	{
+		"provider":
+		{
+			"network": "ropsten"
+		},
+		"ipfs":
+		{
+			"host": "ipfs.infura.io",
+			"port": 5001,
+			"protocol": "https"
+		}
+	},
 	"networks":
 	{
 		"rinkeby": { "endpoint": "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets" }

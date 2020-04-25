@@ -31,3 +31,23 @@ code
 	padding:    0 .5em;
 	font-size:  .8em;
 }
+
+#LoginWithEthereum-Button.disconnected
+{
+	display:          flex;
+	position:         sticky;
+	top:              0;
+	height:           100vh;
+	padding:          10px;
+	align-items:      center;
+	justify-content:  center;
+	background-color: #ffffff;
+}
+
+#LoginWithEthereum-Button.connected
+{
+	position:         fixed;
+	bottom:           0;
+	right:            0;
+	box-shadow:       0 .125rem .25rem rgba(0,0,0,.075) !important;
+}

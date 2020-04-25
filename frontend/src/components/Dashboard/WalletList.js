@@ -34,6 +34,9 @@ const WalletList = (props) =>
 		<>
 			<div className='d-flex flex-wrap justify-content-center'>
 				{
+					!data.entries.length && <p className='text-muted'>You do not own any nfwallets.</p>
+				}
+				{
 					data.entries.map((wallet, i) =>
 						<Link key={i} to={`/dashboard/${wallet.id}`}>
 							<EthereumReactComponents.AccountItem

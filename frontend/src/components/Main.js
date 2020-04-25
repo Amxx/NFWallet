@@ -5,7 +5,7 @@ import Navbar    from './Navbar';
 import Dashboard from './Dashboard/Dashboard';
 import Overview  from './Overview/Overview';
 
-const App = (props) =>
+const Main = (props) =>
 {
 	return (
 		<Router>
@@ -17,4 +17,4 @@ const App = (props) =>
 	);
 }
 
-export default App;
+export default Main;

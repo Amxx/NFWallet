@@ -29,13 +29,13 @@ const HiddenWallet = (props) =>
 	React.useEffect(() => {
 		try
 		{
-			factory.predictWallet(addr, ethers.utils.id(seed)).then(setPred).catch(() => {})
+			factory.predictWallet(addr.toLowerCase(), ethers.utils.id(seed)).then(setPred).catch(() => {})
 		}
 		catch (_)
 		{
 			setPred('')
 		}
-	}, [addr, seed]);
+	}, [addr, seed, factory]);
 
 	return (
 		<>
@@ -55,8 +55,9 @@ const HiddenWallet = (props) =>
 				<MDBModalFooter className='justify-content-center text-justify text-muted'>
 					<small>
 						This modal will help you predict the address of a NFWallet.
-						Given the address of the initial owner and a seed, you can get the address of a wallet that you can use traight away.
-						When you finally want to withdraw assets from an hidden wallet, use the advanced options in the “New Wallet” modal.
+						Given the address of the initial owner and a seed, you can get the address of a wallet that you can use straight away.
+						This hidden wallet won't show up uptill you instanciate it.
+						When you finally want to withdraw assets from an hidden wallet, instanciate it using the advanced options in the “New Wallet” modal.
 					</small>
 					<small>
 						<strong>Be carefull not to lose your seed!</strong>

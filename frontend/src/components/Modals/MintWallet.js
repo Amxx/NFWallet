@@ -33,10 +33,16 @@ const MintWallet = (props) =>
 		)
 		.then(txPromise => {
 			txPromise.wait()
-			.then(() => {}) // success
-			.catch(() => {}) // transaction error
+			.then(() => {
+				props.emitter.emit('Notify', 'success', 'New wallet minted');
+			}) // success
+			.catch(() => {
+				props.emitter.emit('Notify', 'error', 'Transaction failled');
+			}) // transaction error
 		})
-		.catch(() => {}) // signature error
+		.catch(() => {
+			props.emitter.emit('Notify', 'error', 'Signature required');
+		}) // signature error
 		.finally(toggle);
 	}
 
