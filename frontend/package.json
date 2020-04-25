@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
+    "@enslogin/sdk": "^0.1.8",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -29,6 +30,7 @@
     "fbemitter": "^2.1.1",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
+    "localforage": "^1.7.3",
     "mdbreact": "^4.25.6",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
