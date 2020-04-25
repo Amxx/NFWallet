@@ -359,9 +359,6 @@ export class LoginWithEthereum extends React.Component<Props, State>
 							<span className='pointer-hover' onClick={ () => this.enslogin('metamask.enslogin.eth') }>
 								<img alt='metamask' height='30px' className='rounded mx-2' src='https://betoken.fund/iao/semantic/dist/themes/default/assets/images/metamask-big.png'/>
 							</span>
-							<span className='pointer-hover' onClick={ () => this.enslogin('authereum.enslogin.eth') }>
-								<img alt='authereum' height='30px' className='rounded mx-2' src='https://miro.medium.com/fit/c/160/160/1*w__iPpsW58dKOv7ZU4tD2A.png'/>
-							</span>
 							<span className='pointer-hover' onClick={ () => this.enslogin('portis.enslogin.eth') }>
 								<img alt='portis' height='30px' className='rounded mx-2' src='https://wallet.portis.io/805b29212ec4c056ac686d150789aeca.svg'/>
 							</span>

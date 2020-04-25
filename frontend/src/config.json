@@ -3,7 +3,7 @@
 	{
 		"provider":
 		{
-			"network": "ropsten"
+			"network": "rinkeby"
 		},
 		"ipfs":
 		{

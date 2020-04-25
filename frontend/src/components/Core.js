@@ -66,10 +66,10 @@ const Core = () =>
 			<Notifications emitter={emitter}/>
 			<LoginWithEthereum
 				className    = { services ? 'connected' : 'disconnected' }
-				config       = { config.enslogin }
-				connect      = { connect }
-				disconnect   = { disconnect }
-				startVisible = { true }
+				config       = { config.enslogin                         }
+				connect      = { connect                                 }
+				disconnect   = { disconnect                              }
+				startVisible = { true                                    }
 			/>
 			{
 				services &&

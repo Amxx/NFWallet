@@ -34,7 +34,10 @@ const WalletList = (props) =>
 		<>
 			<div className='d-flex flex-wrap justify-content-center'>
 				{
-					!data.entries.length && <p className='text-muted'>You do not own any nfwallets.</p>
+					loading && <p className='text-muted'>Loading...</p>
+				}
+				{
+					!loading && !data.entries.length && <p className='text-muted'>You do not own any nfwallets.</p>
 				}
 				{
 					data.entries.map((wallet, i) =>
