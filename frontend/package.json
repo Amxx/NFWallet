@@ -31,6 +31,7 @@
     "fbemitter": "^2.1.1",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
+    "jquery": "^3.5.0",
     "localforage": "^1.7.3",
     "mdbreact": "^4.25.6",
     "react": "^16.13.1",
@@ -39,6 +40,7 @@
     "react-dom": "^16.13.1",
     "react-masonry-component": "^6.2.1",
     "react-notifications": "^1.6.0",
+    "react-packery-component": "^1.0.2",
     "react-scripts": "3.4.1",
     "react-spinners": "^0.8.1",
     "typescript": "^3.8.3"

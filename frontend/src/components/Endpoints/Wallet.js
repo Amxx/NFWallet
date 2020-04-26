@@ -2,26 +2,39 @@ import * as React from 'react';
 import * as EthereumReactComponents from 'ethereum-react-components';
 import { Spinner } from 'react-bootstrap';
 import {
-	MDBRow,
-	MDBCol,
 	MDBAlert,
 	MDBCard,
 	MDBCardTitle,
 	MDBCardBody,
+	MDBCol,
+	MDBRow,
 } from 'mdbreact';
 import { useQuery } from '@apollo/react-hooks';
 import graphql from '../../graphql';
 
-import Masonry            from 'react-masonry-component';
-import WalletBalanceChart from '../Views/WalletBalanceChart';
+import Masonry from 'react-masonry-component';
+import WalletTX           from '../Views/WalletTX';
 import WalletDetails      from '../Views/WalletDetails';
 import WalletActivity     from '../Views/WalletActivity';
+import WalletBalanceChart from '../Views/WalletBalanceChart';
+
 
 
 const CardWapper = (props) =>
-	<MDBCol className={`p-2 ${props.className}`} {...props}>
+	<MDBCol
+		bottom    = {props.bottom}
+		className = {'p-2 '+props.className}
+		lg        = {props.lg}
+		md        = {props.md}
+		size      = {props.size}
+		sm        = {props.sm}
+		middle    = {props.middle}
+		top       = {props.top}
+		xl        = {props.xl}
+		x         = {props.x}
+	>
 		<MDBCard>
-			<MDBCardBody className={ props.center && 'd-flex justify-content-center align-items-center'}>
+			<MDBCardBody className={props.center && 'd-flex justify-content-center align-items-center'}>
 				{ props.title && <MDBCardTitle>{props.title}</MDBCardTitle> }
 				{ props.title && <hr className='hr-grey'/> }
 				{ props.children }
@@ -48,7 +61,7 @@ const Wallet = (props) =>
 		<div className='container my-auto'>
 			{
 				loading &&
-					<div class='d-flex justify-content-center'>
+					<div className='d-flex justify-content-center'>
 						<Spinner animation='grow'>
 							<span className='sr-only'>Loading...</span>
 						</Spinner>
@@ -75,9 +88,10 @@ const Wallet = (props) =>
 							</CardWapper>
 						</MDBRow>
 						<Masonry className='row'>
-							<CardWapper lg='6' md='12' title='Details'      ><WalletDetails      data={data} services={props.services}/></CardWapper>
-							<CardWapper lg='6' md='12' title='Balance chart'><WalletBalanceChart data={data} services={props.services}/></CardWapper>
-							<CardWapper lg='6' md='12' title='Activity logs'><WalletActivity     data={data} services={props.services}/></CardWapper>
+							<CardWapper className='masonry-item' lg='6' md='12' title='Send'         ><WalletTX           data={data} services={props.services}/></CardWapper>
+							<CardWapper className='masonry-item' lg='6' md='12' title='Details'      ><WalletDetails      data={data} services={props.services}/></CardWapper>
+							<CardWapper className='masonry-item' lg='6' md='12' title='Balance chart'><WalletBalanceChart data={data} services={props.services}/></CardWapper>
+							<CardWapper className='masonry-item' lg='6' md='12' title='Activity logs'><WalletActivity     data={data} services={props.services}/></CardWapper>
 						</Masonry>
 					</>
 			}

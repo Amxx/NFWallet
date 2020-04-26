@@ -52,3 +52,23 @@ code
 	box-shadow:       0 .125rem .25rem rgba(0,0,0,.075) !important;
 	z-index:          10000;
 }
+
+
+
+
+
+
+
+
+
+/* .masonry-container
+{
+  display: flex;
+  flex-flow: column wrap;
+	align-content: space-between;
+  max-height: 800px;
+}
+
+.masonry-container .masonry-item:nth-child(3n+1) { order: 1; }
+.masonry-container .masonry-item:nth-child(3n+2) { order: 2; }
+.masonry-container .masonry-item:nth-child(3n)   { order: 3; } */
