@@ -4,7 +4,7 @@ var useEnv = !!process.env.MNEMONIC && !!process.env.DEV_NODE;
 
 module.exports =
 {
-	plugins: [ "solidity-coverage" ],
+	plugins: [ "solidity-coverage", "truffle-plugin-verify" ],
 	api_keys:
 	{
 		etherscan: process.env.ETHERSCAN_APIKEY,
