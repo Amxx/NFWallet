@@ -36,7 +36,7 @@ const WalletBalanceChart = (props) =>
 				yaxis:      { show:    false      },
 				grid:       { show:    false      },
 				tooltip:    { enabled: false    },
-				dataLabels: { enabled: true, formatter: (val) => `${val}${ethers.constants.EtherSymbol}` },
+				dataLabels: { enabled: true, formatter: (val) => `${ethers.constants.EtherSymbol}${val}` },
 				chart:      { toolbar: { show: false }},
 			}}
 			{...props.extra}
