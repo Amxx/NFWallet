@@ -7,21 +7,21 @@ import { ethers } from 'ethers';
 
 
 const WalletDetails = (props) =>
-	<MDBTable responsive borderless small>
+	<MDBTable responsive borderless small className={props.className}>
 		<MDBTableBody>
+			<tr>
+				<td><strong>Address:</strong></td>
+				<td className='text-monospace'>
+					<a className='blue-text' href={`${props.services.config.etherscan}/address/${props.data.wallet.id}`} target='_blank' rel='nofollow noopener noreferrer'>
+						{ ethers.utils.getAddress(props.data.wallet.id) }
+					</a>
+				</td>
+			</tr>
 			<tr>
 				<td><strong>Owner:</strong></td>
 				<td className='text-monospace'>
 					<a className='blue-text' href={`${props.services.config.etherscan}/address/${props.data.wallet.owner.id}`} target='_blank' rel='nofollow noopener noreferrer'>
 						{ ethers.utils.getAddress(props.data.wallet.owner.id) }
-					</a>
-				</td>
-			</tr>
-			<tr>
-				<td><strong>Wallet:</strong></td>
-				<td className='text-monospace'>
-					<a className='blue-text' href={`${props.services.config.etherscan}/address/${props.data.wallet.id}`} target='_blank' rel='nofollow noopener noreferrer'>
-						{ ethers.utils.getAddress(props.data.wallet.id) }
 					</a>
 				</td>
 			</tr>
