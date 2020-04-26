@@ -19,7 +19,34 @@
 			"nfwfactory": "nfwallets.eth",
 			"subgraph":   "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets",
 			"etherscan":  "https://rinkeby.etherscan.io",
-			"opensea":    "https://rinkeby.opensea.io"
+			"opensea":    "https://rinkeby.opensea.io",
+			"exchange":
+			{
+				"UniswapV2Router": "0xcDbE04934d89e97a24BCc07c3562DC8CF17d8167",
+				"tokens":
+				{
+					"WETH": {
+						"name": "Wrapped Ether",
+						"decimals": 18,
+						"address": "0xc778417E063141139Fce010982780140Aa0cD5Ab",
+						"img": "https://s2.coinmarketcap.com/static/img/coins/64x64/2396.png"
+					},
+					"DAI":  {
+						"name": "Dai Stablecoin",
+						"decimals": 18,
+						"address": "0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735",
+						"pair": "0x3DDd4674C99979EAd4a3160f12567c90a07f0e94",
+						"img": "https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png"
+					},
+					"MKR":  {
+						"name": "Maker",
+						"decimals": 18,
+						"address": "0xF9bA5210F91D0474bd1e1DcDAeC4C58E359AaD85",
+						"pair": "0x9e16507DB70650Be772F965DB6966c4ca2abbfcA",
+						"img": "https://s2.coinmarketcap.com/static/img/coins/64x64/1518.png"
+					}
+				}
+			}
 		}
 	}
 }

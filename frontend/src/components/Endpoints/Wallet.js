@@ -15,6 +15,7 @@ import { useQuery } from '@apollo/react-hooks';
 import graphql from '../../graphql';
 
 import WalletTX              from '../Views/WalletTX';
+import WalletBalances        from '../Views/WalletBalances';
 import WalletDetailsExpanded from '../Views/WalletDetailsExpanded';
 import WalletActivity        from '../Views/WalletActivity';
 import WalletBalanceChart    from '../Views/WalletBalanceChart';
@@ -100,6 +101,13 @@ const Wallet = (props) =>
 
 						</MDBCol>
 						<MDBCol lg='6' md='12' className='p-0'>
+
+							<CardWrapper title='Balances'>
+								<WalletBalances
+									data={data}
+									services={props.services}
+								/>
+							</CardWrapper>
 
 							<CardWrapper title='Balance chart'>
 								<WalletBalanceChart
