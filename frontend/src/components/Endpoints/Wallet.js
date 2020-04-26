@@ -89,8 +89,8 @@ const Wallet = (props) =>
 						</MDBRow>
 						<Masonry className='row'>
 							<CardWapper className='masonry-item' lg='6' md='12' title='Send'         ><WalletTX           data={data} services={props.services}/></CardWapper>
-							<CardWapper className='masonry-item' lg='6' md='12' title='Details'      ><WalletDetails      data={data} services={props.services}/></CardWapper>
 							<CardWapper className='masonry-item' lg='6' md='12' title='Balance chart'><WalletBalanceChart data={data} services={props.services}/></CardWapper>
+							<CardWapper className='masonry-item' lg='6' md='12' title='Details'      ><WalletDetails      data={data} services={props.services}/></CardWapper>
 							<CardWapper className='masonry-item' lg='6' md='12' title='Activity logs'><WalletActivity     data={data} services={props.services}/></CardWapper>
 						</Masonry>
 					</>
