@@ -18,7 +18,7 @@ const WalletTrade = (props) =>
 	const [ balances,  setBalances ] = React.useState([]);
 	const [ base,      setBase     ] = React.useState(ethers.constants.EtherSymbol);
 	const [ quote,     setQuote    ] = React.useState('DAI');
-	const [ value,     setValue    ] = React.useState(0);
+	const [ value,     setValue    ] = React.useState('');
 	const [ estimated, setEstimated] = React.useState(0);
 
 	const handleBaseChange = (e) =>
@@ -33,7 +33,6 @@ const WalletTrade = (props) =>
 	{
 		setQuote(e.target.value);
 	}
-
 
 	React.useEffect(() => {
 		Promise.all(
@@ -56,22 +55,38 @@ const WalletTrade = (props) =>
 	}, [props])
 
 	React.useEffect(() => {
-		console.log('estimate');
-		setEstimated('estimated value comming soon');
+		try
+		{
+			const amount  = ethers.utils.bigNumberify(String(Number(value) * 10 ** balances.find(({symbol}) => symbol === base).decimals))
+			const fromEth = base  === ethers.constants.EtherSymbol;
+			const toEth   = quote === ethers.constants.EtherSymbol;
+			const weth    = props.services.config.exchange.tokens.WETH;
+
+			const path = [
+				fromEth            ? weth.address : props.services.config.exchange.tokens[base ].address,
+				!fromEth && !toEth ? weth.address : undefined,
+				toEth              ? weth.address : props.services.config.exchange.tokens[quote].address,
+			].filter(Boolean)
+
+			router.getAmountsOut(amount, path)
+			.then(values => setEstimated(Number(values[values.length-1]) / 10 ** balances.find(({ symbol }) => symbol === quote).decimals))
+			.catch(() => setEstimated(0))
+		}
+		catch
+		{
+			setEstimated(0);
+		}
 	}, [base, quote, value]);
 
 
 	const handleSubmit = (ev) =>
 	{
 		ev.preventDefault();
+
 		const amount  = ethers.utils.bigNumberify(String(Number(value) * 10 ** balances.find(({symbol}) => symbol === base).decimals))
 		const fromEth = base  === ethers.constants.EtherSymbol;
 		const toEth   = quote === ethers.constants.EtherSymbol;
 		const weth    = props.services.config.exchange.tokens.WETH;
-
-		console.log(amount)
-		console.log(base)
-		console.log(quote)
 
 		const path = [
 			fromEth            ? weth.address : props.services.config.exchange.tokens[base ].address,
@@ -149,7 +164,6 @@ const WalletTrade = (props) =>
 				disabled
 				className='my-1'
 				label='Receive'
-				placeholder='0.1'
 				value={estimated}
 				InputProps={{
 					startAdornment:
