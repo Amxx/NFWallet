@@ -14,11 +14,12 @@ import { Spinner } from 'react-bootstrap';
 import { useQuery } from '@apollo/react-hooks';
 import graphql from '../../graphql';
 
-import WalletTX              from '../Views/WalletTX';
-import WalletBalances        from '../Views/WalletBalances';
-import WalletDetailsExpanded from '../Views/WalletDetailsExpanded';
 import WalletActivity        from '../Views/WalletActivity';
+import WalletBalances        from '../Views/WalletBalances';
 import WalletBalanceChart    from '../Views/WalletBalanceChart';
+import WalletDetailsExpanded from '../Views/WalletDetailsExpanded';
+import WalletTrade           from '../Views/WalletTrade';
+import WalletTX              from '../Views/WalletTX';
 
 
 
@@ -94,6 +95,13 @@ const Wallet = (props) =>
 
 							<CardWrapper title='Send Ether'>
 								<WalletTX
+									data={data}
+									services={props.services}
+								/>
+							</CardWrapper>
+
+							<CardWrapper title='Exchange'>
+								<WalletTrade
 									data={data}
 									services={props.services}
 								/>

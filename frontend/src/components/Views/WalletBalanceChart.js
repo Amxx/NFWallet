@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Chart from 'react-apexcharts';
-import { ethers } from 'ethers';
 
 
 const WalletBalanceChart = (props) =>
@@ -30,18 +29,19 @@ const WalletBalanceChart = (props) =>
 			type    = 'area'
 			series  = {[ { name: "Balance", data: history } ]}
 			options = {{
-				stroke:     { curve:   'stepline' },
-				fill:       { type:    'gradient' },
-				xaxis:      { type:    'datetime' },
-				yaxis:      { show:    false      },
-				grid:       { show:    false      },
-				tooltip:    { enabled: false    },
-				dataLabels: { enabled: true, formatter: (val) => `${ethers.constants.EtherSymbol}${val}` },
+				stroke:     { curve:   'stepline'     },
+				fill:       { type:    'gradient'     },
+				xaxis:      { type:    'datetime'     },
+				yaxis:      { show:    false          },
+				grid:       { show:    false          },
+				tooltip:    { enabled: false          },
+				dataLabels: { enabled: false,         },
 				chart:      { toolbar: { show: false }},
 			}}
 			{...props.extra}
 		/>
 	);
 }
+// dataLabels: { enabled: true, formatter: (val) => `${ethers.constants.EtherSymbol}${val}` },
 
 export default WalletBalanceChart;

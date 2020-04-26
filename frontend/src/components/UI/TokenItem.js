@@ -11,7 +11,7 @@ const AccountItem = (props) =>
 				{props.token.name}
 			</StyledName>
 			<StyledBalance>
-				{props.token.balance} <StyledBalanceEther>{props.token.symbol}</StyledBalanceEther>
+				<StyledBalanceEther>{props.token.symbol}</StyledBalanceEther> {String(props.token.balance).slice(0, 16)}
 			</StyledBalance>
 		</FlexWrapper>
 	</StyledWrapper>
@@ -43,7 +43,7 @@ const StyledName = styled.div`
 
 const StyledBalance = styled.div`
 	color: #827a7a;
-	font-size: 1.3em;
+	font-size: 1.0em;
 	line-height: 22px;
 	text-overflow: ellipsis;
 	text-align: left;
