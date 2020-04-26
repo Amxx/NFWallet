@@ -22,9 +22,10 @@ const WalletTX = (props) =>
 		(new ethers.Contract(props.data.wallet.id, ABIWallet, props.services.provider.getSigner()))
 		.forward(addr, ethers.utils.parseUnits(value, 'ether'), '0x')
 		.then(txPromise => {
+			props.services.emitter.emit('Notify', 'info', 'Transaction sent');
 			txPromise.wait()
 			.then(() => {
-				props.services.emitter.emit('Notify', 'success', 'Transaction successfulln');
+				props.services.emitter.emit('Notify', 'success', 'Transaction successfull');
 			}) // success
 			.catch(() => {
 				props.services.emitter.emit('Notify', 'error', 'Transaction failled');

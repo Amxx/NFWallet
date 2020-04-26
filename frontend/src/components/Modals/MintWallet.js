@@ -28,6 +28,7 @@ const MintWallet = (props) =>
 			full ? ethers.utils.id(seed) : ethers.utils.randomBytes(32),
 		)
 		.then(txPromise => {
+			props.services.emitter.emit('Notify', 'info', 'Transaction sent');
 			txPromise.wait()
 			.then(() => {
 				props.services.emitter.emit('Notify', 'success', 'New wallet minted');
