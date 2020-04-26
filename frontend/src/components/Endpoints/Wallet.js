@@ -88,7 +88,17 @@ const Wallet = (props) =>
 
 						</MDBCol>
 						</MDBRow>
-						<MDBRow>
+						<MDBRow className='flex-row-reverse'>
+						<MDBCol lg='6' md='12' className='p-0'>
+
+							<CardWrapper title='Send Ether'>
+								<WalletTX
+									data={data}
+									services={props.services}
+								/>
+							</CardWrapper>
+
+						</MDBCol>
 						<MDBCol lg='6' md='12' className='p-0'>
 
 							<CardWrapper title='Balance chart'>
@@ -100,16 +110,6 @@ const Wallet = (props) =>
 
 							<CardWrapper title='Activity logs'>
 								<WalletActivity
-									data={data}
-									services={props.services}
-								/>
-							</CardWrapper>
-
-						</MDBCol>
-						<MDBCol lg='6' md='12' className='p-0'>
-
-							<CardWrapper title='Send Ether'>
-								<WalletTX
 									data={data}
 									services={props.services}
 								/>

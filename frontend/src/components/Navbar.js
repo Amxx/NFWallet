@@ -17,7 +17,7 @@ const Navbar = (props) =>
 	const toggle = () => setOpen(!open);
 
 	return (
-		<MDBNavbar color='blue-gradient' dark expand='md'>
+		<MDBNavbar color='blue-gradient' dark expand='md' className='sticky-top'>
 			<MDBNavbarBrand>
 				<strong className='white-text'>
 					NFWExplorer

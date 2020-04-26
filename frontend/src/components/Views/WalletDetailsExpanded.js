@@ -10,7 +10,7 @@ import WalletDetails from './WalletDetails';
 const WalletDetailsExpanded = (props) =>
 	<MDBRow className='flex-grow-1 d-flex justify-content-center align-items-center m-0'>
 		<MDBCol lg='6' md='12' className='p-0'>
-			<div className='d-flex justify-content-center align-items-center p-0 pt-3'>
+			<div className='d-flex justify-content-center align-items-center p-0 pt-2'>
 				<EthereumReactComponents.AccountItem
 					name    = 'NFWallet'
 					address = {props.data.wallet.id}
