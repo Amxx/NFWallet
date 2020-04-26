@@ -4,8 +4,9 @@ import {
 	MDBBtn,
 } from 'mdbreact';
 import AddressInputENS from '../UI/AddressInputENS';
-import TextField       from '@material-ui/core/TextField';
 import InputAdornment  from '@material-ui/core/InputAdornment';
+import TextField       from '@material-ui/core/TextField';
+
 import { ethers } from 'ethers';
 import { abi as ABIWallet } from '../../abi/NFWallet.json';
 
@@ -13,7 +14,7 @@ import { abi as ABIWallet } from '../../abi/NFWallet.json';
 const WalletTX = (props) =>
 {
 	const [ addr,  setAddr ] = React.useState('');
-	const [ value, setValue] = React.useState(null);
+	const [ value, setValue] = React.useState('');
 
 	const handleSubmit = (ev) =>
 	{
@@ -52,9 +53,17 @@ const WalletTX = (props) =>
 						className='my-1'
 						label='amount'
 						placeholder='0.1'
+						value={value}
 						onChange={e => setValue(e.target.value)}
 						InputProps={{
-							startAdornment: <InputAdornment position="start">{ethers.constants.EtherSymbol}</InputAdornment>,
+							startAdornment:
+								<InputAdornment position='start'>
+									{ethers.constants.EtherSymbol}
+								</InputAdornment>,
+							endAdornment:
+								<InputAdornment position='end'>
+									<MDBBtn color='blue' className='z-depth-0' size='sm' onClick={() => setValue(props.data.wallet.balance)}>max</MDBBtn>
+								</InputAdornment>,
 						}}
 						variant='outlined'
 					/>
