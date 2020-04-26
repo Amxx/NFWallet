@@ -1,8 +1,5 @@
 import * as React from 'react';
-import {
-	MDBAlert,
-	MDBBtn,
-} from 'mdbreact';
+import { MDBBtn } from 'mdbreact';
 import InputAdornment  from '@material-ui/core/InputAdornment';
 import TextField       from '@material-ui/core/TextField';
 
@@ -64,12 +61,17 @@ const WalletTrade = (props) =>
 	}, [base, quote, value]);
 
 
-	const handleSubmit = () =>
+	const handleSubmit = (ev) =>
 	{
+		ev.preventDefault();
 		const amount  = ethers.utils.bigNumberify(String(Number(value) * 10 ** balances.find(({symbol}) => symbol === base).decimals))
 		const fromEth = base  === ethers.constants.EtherSymbol;
 		const toEth   = quote === ethers.constants.EtherSymbol;
 		const weth    = props.services.config.exchange.tokens.WETH;
+
+		console.log(amount)
+		console.log(base)
+		console.log(quote)
 
 		const path = [
 			fromEth            ? weth.address : props.services.config.exchange.tokens[base ].address,
@@ -118,59 +120,55 @@ const WalletTrade = (props) =>
 	}
 
 	return (
-		(props.data.wallet.owner.id === props.services.accounts[0].toLowerCase())
-		?
-			<div className={`d-flex flex-column align-items-stretch ${props.className}`}>
-				<TextField
-					className='my-1'
-					label='Pay with'
-					placeholder='0.1'
-					value={value}
-					onChange={e => setValue(e.target.value)}
-					InputProps={{
-						startAdornment:
-							<InputAdornment position='start'>
-								<select value={base} onChange={handleBaseChange} style={{ 'width':'100px' }}>
-									{
-										balances
-											.filter(({balance}) => balance > 0)
-											.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
-									}
-								</select>
-							</InputAdornment>,
-						endAdornment:
-							<InputAdornment position='end'>
-								<MDBBtn color='blue' className='z-depth-0' size='sm' onClick={() => setValue(balances.find(({symbol}) => symbol === base).balance)}>max</MDBBtn>
-							</InputAdornment>,
-					}}
-					variant='outlined'
-				/>
-				<TextField
-					disabled
-					className='my-1'
-					label='Receive'
-					placeholder='0.1'
-					value={estimated}
-					InputProps={{
-						startAdornment:
-							<InputAdornment position='start'>
-								<select value={quote} onChange={handleQuoteChange} style={{ 'width':'100px' }}>
-									{
-										balances
-											.filter(({symbol, pair}) => symbol !== base && (symbol === ethers.constants.EtherSymbol || pair))
-											.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
-									}
-								</select>
-							</InputAdornment>,
-					}}
-					variant='outlined'
-				/>
-				<MDBBtn color='blue' className='z-depth-0 mx-0' size='sm' onClick={handleSubmit}>Exchange</MDBBtn>
-			</div>
-		:
-			<MDBAlert color='danger'>
-				Only the owner of this wallet can submit transactions
-			</MDBAlert>
+		<form onSubmit={handleSubmit} className={`d-flex flex-column align-items-stretch ${props.className}`}>
+			<TextField
+				className='my-1'
+				label='Pay with'
+				placeholder='0.1'
+				value={value}
+				onChange={e => setValue(e.target.value)}
+				InputProps={{
+					startAdornment:
+						<InputAdornment position='start'>
+							<select value={base} onChange={handleBaseChange} style={{ 'width':'100px' }}>
+								{
+									balances
+										.filter(({balance}) => balance > 0)
+										.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
+								}
+							</select>
+						</InputAdornment>,
+					endAdornment:
+						<InputAdornment position='end'>
+							<MDBBtn color='blue' className='z-depth-0' size='sm' onClick={() => setValue(balances.find(({symbol}) => symbol === base).balance)}>max</MDBBtn>
+						</InputAdornment>,
+				}}
+				variant='outlined'
+			/>
+			<TextField
+				disabled
+				className='my-1'
+				label='Receive'
+				placeholder='0.1'
+				value={estimated}
+				InputProps={{
+					startAdornment:
+						<InputAdornment position='start'>
+							<select value={quote} onChange={handleQuoteChange} style={{ 'width':'100px' }}>
+								{
+									balances
+										.filter(({symbol, pair}) => symbol !== base && (symbol === ethers.constants.EtherSymbol || pair))
+										.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
+								}
+							</select>
+						</InputAdornment>,
+				}}
+				variant='outlined'
+			/>
+			<MDBBtn color='blue' type='sumbit' className='mx-0' size='sm' disabled={(props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
+				Exchange { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}
+			</MDBBtn>
+		</form>
 	);
 }
 

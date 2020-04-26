@@ -27,7 +27,7 @@ const WalletBalances = (props) =>
 				},
 				...tokens.sort((t1, t2) => t1.balance < t2.balance)
 			]))
-	}, [props.data])
+	}, [props.data.wallet.events])
 
 	return (
 		<div className={`d-flex flex-column align-items-center justify-content-center ${props.className}`}>
