@@ -1,21 +1,15 @@
 import * as React from 'react';
 import * as EthereumReactComponents from 'ethereum-react-components';
-import {
-	MDBCol,
-	MDBRow,
-} from 'mdbreact';
+import { MDBCol, MDBRow } from 'mdbreact';
+import QRCode from 'qrcode.react';
 import WalletDetails from './WalletDetails';
 
 
 const WalletDetailsExpanded = (props) =>
 	<MDBRow className='flex-grow-1 d-flex justify-content-center align-items-center m-0'>
 		<MDBCol lg='6' md='12' className='p-0'>
-			<div className='d-flex justify-content-center align-items-center p-0 pt-2'>
-				<EthereumReactComponents.AccountItem
-					name    = 'NFWallet'
-					address = {props.data.wallet.id}
-					balance = {props.data.wallet.balance}
-				/>
+			<div className='d-flex justify-content-center align-items-center p-2'>
+				<QRCode value={props.data.wallet.id}/>
 			</div>
 		</MDBCol>
 		<MDBCol lg='6' md='12' className='p-0'>
