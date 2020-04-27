@@ -29,7 +29,7 @@ const WalletView = (props) =>
 		<MDBRow className='flex-row-reverse'>
 		<MDBCol lg='6' md='12' className='p-0'>
 
-			<CardWrapper className='p-2' title='Send Ether'>
+			<CardWrapper className='p-2' title='Send'>
 				<WalletTX
 					data={props.data}
 					balances={props.balances}

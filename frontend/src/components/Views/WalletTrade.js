@@ -9,7 +9,6 @@ import { abi as ABIWallet            } from '../../abi/NFWallet.json';
 import { abi as ABIUniswapV2Router01 } from '../../abi/UniswapV2Router01.json';
 
 
-
 const WalletTrade = (props) =>
 {
 	const router = new ethers.Contract(props.services.config.exchange.UniswapV2Router, ABIUniswapV2Router01, props.services.provider.getSigner());
@@ -34,6 +33,7 @@ const WalletTrade = (props) =>
 			)
 		}
 	}
+	
 	const handleQuoteChange = (e) =>
 	{
 		setQuote(e.target.value);
@@ -131,7 +131,6 @@ const WalletTrade = (props) =>
 
 	return (
 		<form onSubmit={handleSubmit} className={`d-flex flex-column align-items-stretch ${props.className}`}>
-		{enough}
 			<TextField
 				error={!enough}
 				className='my-1'
