@@ -9,7 +9,6 @@ const WalletBalances = (props) =>
 {
 	const [ balances, setBalances ] = React.useState([]);
 
-
 	React.useEffect(() => {
 		const fetchBalances = () =>
 		{

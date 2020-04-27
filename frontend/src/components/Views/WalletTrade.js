@@ -37,9 +37,38 @@ const WalletTrade = (props) =>
 		setQuote(e.target.value);
 	}
 
+	// Get balance hook - on start and on transaction successfull
+	React.useEffect(() => {
+		const fetchBalances = () =>
+		{
+			Promise.all(
+				Object.values(props.services.config.exchange.tokens)
+				.filter(({pair}) => pair)
+				.map(async (token, i) => {
+					const contract = new ethers.Contract(token.address, ABIERC20, props.services.provider.getSigner());
+					const amount   = await contract.balanceOf(props.data.wallet.id);
+					return { ...token, balance: amount / 10 ** token.decimals };
+				})
+			).then(tokens => setBalances([
+				{
+					symbol:   ethers.constants.EtherSymbol,
+					name:     'ether',
+					decimals: 18,
+					address:  props.services.config.exchange.tokens.WETH.address, // use weth address in uniswap path
+					img:      'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png',
+					balance:  props.data.wallet.balance,
+				},
+				...tokens.sort((t1, t2) => t1.balance < t2.balance)
+			]))
+		}
+		// trigger and subscribe
+		fetchBalances()
+		const subscription = props.services.emitter.addListener('tx', fetchBalances);
+		return () => subscription.remove();
+	}, [props]);
+
 	// Uniswap params hook - on base, quote, value change
-	React.useEffect(() =>
-	{
+	React.useEffect(() => {
 		try
 		{
 			const from       = balances.find(({symbol}) => symbol === base);
@@ -63,36 +92,6 @@ const WalletTrade = (props) =>
 			setUniparams({});
 		}
 	}, [balances, base, quote, value]);
-
-	// Get balance hook - on start and on transaction successfull
-		React.useEffect(() => {
-			const fetchBalances = () =>
-			{
-				Promise.all(
-					Object.values(props.services.config.exchange.tokens)
-					.filter(({pair}) => pair)
-					.map(async (token, i) => {
-						const contract = new ethers.Contract(token.address, ABIERC20, props.services.provider.getSigner());
-						const amount   = await contract.balanceOf(props.data.wallet.id);
-						return { ...token, balance: amount / 10 ** token.decimals };
-					})
-				).then(tokens => setBalances([
-					{
-						symbol:   ethers.constants.EtherSymbol,
-						name:     'ether',
-						decimals: 18,
-						address:  props.services.config.exchange.tokens.WETH.address, // use weth address in uniswap path
-						img:      'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png',
-						balance:  props.data.wallet.balance,
-					},
-					...tokens.sort((t1, t2) => t1.balance < t2.balance)
-				]))
-			}
-			// trigger and subscribe
-			fetchBalances()
-			const subscription = props.services.emitter.addListener('tx', fetchBalances);
-			return () => subscription.remove();
-		}, [props]);
 
 	// Check balance hook - on balances, base, value change
 	React.useEffect(() => {
