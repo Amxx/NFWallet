@@ -26,6 +26,7 @@ const WalletTX = (props) =>
 			txPromise.wait()
 			.then(() => {
 				props.services.emitter.emit('Notify', 'success', 'Transaction successfull');
+				props.services.emitter.emit('tx');
 			}) // success
 			.catch(() => {
 				props.services.emitter.emit('Notify', 'error', 'Transaction failled');
@@ -46,6 +47,7 @@ const WalletTX = (props) =>
 				provider={props.services.provider}
 			/>
 			<TextField
+				error={value > props.data.wallet.balance}
 				className='my-1'
 				label='amount'
 				placeholder='0.1'
@@ -63,7 +65,7 @@ const WalletTX = (props) =>
 				}}
 				variant='outlined'
 			/>
-			<MDBBtn color='blue' type='sumbit' className='mx-0' size='sm' disabled={(props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
+			<MDBBtn color='blue' type='sumbit' className='mx-0' size='sm' disabled={value > props.data.wallet.balance || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
 				Send { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}
 			</MDBBtn>
 		</form>

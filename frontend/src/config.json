@@ -26,12 +26,14 @@
 				"tokens":
 				{
 					"WETH": {
+						"symbol": "WETH",
 						"name": "Wrapped Ether",
 						"decimals": 18,
 						"address": "0xc778417E063141139Fce010982780140Aa0cD5Ab",
 						"img": "https://s2.coinmarketcap.com/static/img/coins/64x64/2396.png"
 					},
 					"DAI":  {
+						"symbol": "DAI",
 						"name": "Dai Stablecoin",
 						"decimals": 18,
 						"address": "0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735",
@@ -39,6 +41,7 @@
 						"img": "https://s2.coinmarketcap.com/static/img/coins/64x64/4943.png"
 					},
 					"MKR":  {
+						"symbol": "MKR",
 						"name": "Maker",
 						"decimals": 18,
 						"address": "0xF9bA5210F91D0474bd1e1DcDAeC4C58E359AaD85",

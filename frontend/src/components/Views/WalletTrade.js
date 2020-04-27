@@ -15,11 +15,14 @@ const WalletTrade = (props) =>
 	const router = new ethers.Contract(props.services.config.exchange.UniswapV2Router, ABIUniswapV2Router01, props.services.provider.getSigner());
 	const wallet = new ethers.Contract(props.data.wallet.id, ABIWallet, props.services.provider.getSigner());
 
-	const [ balances,  setBalances ] = React.useState([]);
-	const [ base,      setBase     ] = React.useState(ethers.constants.EtherSymbol);
-	const [ quote,     setQuote    ] = React.useState('DAI');
-	const [ value,     setValue    ] = React.useState('');
-	const [ estimated, setEstimated] = React.useState(0);
+	const [ balances,  setBalances  ] = React.useState([]);
+	const [ base,      setBase      ] = React.useState(ethers.constants.EtherSymbol);
+	const [ quote,     setQuote     ] = React.useState('DAI');
+	const [ value,     setValue     ] = React.useState('');
+	const [ uniparams, setUniparams ] = React.useState({});
+	const [ estimated, setEstimated ] = React.useState(0);
+	const [ enough,    setEnough    ] = React.useState(true);
+
 
 	const handleBaseChange = (e) =>
 	{
@@ -34,85 +37,106 @@ const WalletTrade = (props) =>
 		setQuote(e.target.value);
 	}
 
-	React.useEffect(() => {
-		Promise.all(
-			Object.entries(props.services.config.exchange.tokens)
-			.map(async ([ symbol, token ], i) => {
-				const contract = new ethers.Contract(token.address, ABIERC20, props.services.provider.getSigner());
-				const amount   = await contract.balanceOf(props.data.wallet.id);
-				return { symbol, ...token, balance: amount / 10 ** token.decimals };
-			})
-		).then(tokens => setBalances([
-				{
-					symbol:   ethers.constants.EtherSymbol,
-					name:     'ether',
-					decimals: 18,
-					balance:  props.data.wallet.balance,
-					img:      'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'
-				},
-				...tokens.sort((t1, t2) => t1.balance < t2.balance)
-			]))
-	}, [props])
+	// Uniswap params hook - on base, quote, value change
+	React.useEffect(() =>
+	{
+		try
+		{
+			const from       = balances.find(({symbol}) => symbol === base);
+			const to         = balances.find(({symbol}) => symbol === quote);
+			from.isEth       = from.symbol === ethers.constants.EtherSymbol;
+			to.isEth         = to.symbol   === ethers.constants.EtherSymbol;
+			const weth       = balances.find(({symbol}) => symbol === ethers.constants.EtherSymbol);
+			const amount     = ethers.utils.bigNumberify(String(Number(value) * 10 ** from.decimals));
+			const method     = from.isEth ? 'swapExactETHForTokens' : to.isEth ? 'swapExactTokensForETH' : 'swapExactTokensForTokens';
 
+			const path = [
+				from.address,
+				!from.isEth && !to.isEth ? weth.address : undefined,
+				to.address,
+			].filter(Boolean);
+
+			setUniparams({ from, to, amount, method, path });
+		}
+		catch
+		{
+			setUniparams({});
+		}
+	}, [balances, base, quote, value]);
+
+	// Get balance hook - on start and on transaction successfull
+		React.useEffect(() => {
+			const fetchBalances = () =>
+			{
+				Promise.all(
+					Object.values(props.services.config.exchange.tokens)
+					.filter(({pair}) => pair)
+					.map(async (token, i) => {
+						const contract = new ethers.Contract(token.address, ABIERC20, props.services.provider.getSigner());
+						const amount   = await contract.balanceOf(props.data.wallet.id);
+						return { ...token, balance: amount / 10 ** token.decimals };
+					})
+				).then(tokens => setBalances([
+					{
+						symbol:   ethers.constants.EtherSymbol,
+						name:     'ether',
+						decimals: 18,
+						address:  props.services.config.exchange.tokens.WETH.address, // use weth address in uniswap path
+						img:      'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png',
+						balance:  props.data.wallet.balance,
+					},
+					...tokens.sort((t1, t2) => t1.balance < t2.balance)
+				]))
+			}
+			// trigger and subscribe
+			fetchBalances()
+			const subscription = props.services.emitter.addListener('tx', fetchBalances);
+			return () => subscription.remove();
+		}, [props]);
+
+	// Check balance hook - on balances, base, value change
 	React.useEffect(() => {
 		try
 		{
-			const amount  = ethers.utils.bigNumberify(String(Number(value) * 10 ** balances.find(({symbol}) => symbol === base).decimals))
-			const fromEth = base  === ethers.constants.EtherSymbol;
-			const toEth   = quote === ethers.constants.EtherSymbol;
-			const weth    = props.services.config.exchange.tokens.WETH;
+			setEnough(balances.find(({symbol}) => symbol === base).balance >= value)
+		} catch {}
+	}, [balances, base, value])
 
-			const path = [
-				fromEth            ? weth.address : props.services.config.exchange.tokens[base ].address,
-				!fromEth && !toEth ? weth.address : undefined,
-				toEth              ? weth.address : props.services.config.exchange.tokens[quote].address,
-			].filter(Boolean)
-
-			router.getAmountsOut(amount, path)
-			.then(values => setEstimated(Number(values[values.length-1]) / 10 ** balances.find(({ symbol }) => symbol === quote).decimals))
+	// Predict outcome hook - on base, quote, value change
+	React.useEffect(() => {
+		try
+		{
+			router.getAmountsOut(uniparams.amount, uniparams.path)
+			.then(values => setEstimated(Number(values[values.length-1]) / 10 ** uniparams.to.decimals))
 			.catch(() => setEstimated(0))
 		}
 		catch
 		{
 			setEstimated(0);
 		}
-	}, [base, quote, value]);
+	}, [router, uniparams, base, quote, value]);
 
-
+	// Execute hook
 	const handleSubmit = (ev) =>
 	{
 		ev.preventDefault();
 
-		const amount  = ethers.utils.bigNumberify(String(Number(value) * 10 ** balances.find(({symbol}) => symbol === base).decimals))
-		const fromEth = base  === ethers.constants.EtherSymbol;
-		const toEth   = quote === ethers.constants.EtherSymbol;
-		const weth    = props.services.config.exchange.tokens.WETH;
-
-		const path = [
-			fromEth            ? weth.address : props.services.config.exchange.tokens[base ].address,
-			!fromEth && !toEth ? weth.address : undefined,
-			toEth              ? weth.address : props.services.config.exchange.tokens[quote].address,
-		].filter(Boolean)
-
 		wallet.forwardBatch([
 			// approve if source is an erc20
-			!fromEth &&
+			!uniparams.from.isEth &&
 			[
-				path[0],
+				uniparams.from.address,
 				'0',
-				(new ethers.utils.Interface(ABIERC20)).functions['approve'].encode([
-					router.address,
-					amount,
-				])
+				(new ethers.utils.Interface(ABIERC20)).functions['approve'].encode([ router.address, uniparams.amount ])
 			],
 			// call UniswapV2Router
 			[
 				router.address,
-				fromEth ? amount : 0,
-				router.interface.functions[fromEth ? 'swapExactETHForTokens' : toEth ? 'swapExactTokensForETH' : 'swapExactTokensForTokens'].encode([
-					!fromEth ? amount : undefined,
+				uniparams.from.isEth ? uniparams.amount : 0,
+				router.interface.functions[uniparams.method].encode([
+					!uniparams.from.isEth ? uniparams.amount : undefined,
 					'0',
-					path,
+					uniparams.path,
 					props.data.wallet.id,
 					ethers.constants.MaxUint256,
 				].filter(Boolean))
@@ -123,6 +147,7 @@ const WalletTrade = (props) =>
 			txPromise.wait()
 			.then(() => {
 				props.services.emitter.emit('Notify', 'success', 'Transaction successfull');
+				props.services.emitter.emit('tx');
 			}) // success
 			.catch(() => {
 				props.services.emitter.emit('Notify', 'error', 'Transaction failled');
@@ -131,12 +156,13 @@ const WalletTrade = (props) =>
 		.catch(() => {
 			props.services.emitter.emit('Notify', 'error', 'Signature required');
 		}) // signature error
-
 	}
 
 	return (
 		<form onSubmit={handleSubmit} className={`d-flex flex-column align-items-stretch ${props.className}`}>
+		{enough}
 			<TextField
+				error={!enough}
 				className='my-1'
 				label='Pay with'
 				placeholder='0.1'
@@ -179,7 +205,7 @@ const WalletTrade = (props) =>
 				}}
 				variant='outlined'
 			/>
-			<MDBBtn color='blue' type='sumbit' className='mx-0' size='sm' disabled={(props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
+			<MDBBtn color='blue' type='sumbit' className='mx-0' size='sm' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
 				Exchange { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}
 			</MDBBtn>
 		</form>

@@ -24,7 +24,7 @@ import WalletTX              from '../Views/WalletTX';
 
 
 const ExpansionWrapper = (props) =>
-	<ExpansionPanel className='m-2'>
+	<ExpansionPanel className='m-2 mb-3'>
 		<ExpansionPanelSummary>
 			{ props.title }
 		</ExpansionPanelSummary>
@@ -34,7 +34,7 @@ const ExpansionWrapper = (props) =>
 	</ExpansionPanel>
 
 const CardWrapper = (props) =>
-	<MDBCard className='m-2'>
+	<MDBCard className='m-2 mb-3'>
 		<MDBCardBody className={props.center && 'd-flex justify-content-center align-items-center'}>
 			{ props.title && <MDBCardTitle>{ props.title }</MDBCardTitle> }
 			{ props.title && <hr className='hr-grey'/> }
