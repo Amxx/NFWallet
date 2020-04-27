@@ -64,18 +64,18 @@ const Core = () =>
 			setClient(null);
 		}
 	}
-	
+
 	const connect = (web3) => {
 		emitter.emit('Notify', 'success', 'You are connected');
-		web3.on('accountsChanged', () => setupServices(web3));
-		web3.on('networkChanged',  () => setupServices(web3));
+		web3.on('accountsChanged', (accounts) => (accounts.length === 0) ? setServices(null) : setupServices(web3)); // should not be needed, but prevents crash
+		web3.on('networkChanged',  (network ) =>                                               setupServices(web3));
 		web3.autoRefreshOnNetworkChange = false;
 		setupServices(web3);
 	}
 
 	const disconnect = () => {
 		emitter.emit('Notify', 'warning', 'You are disconnect');
-		setupServices(null);
+		setServices(null);
 	}
 
 	return (
@@ -87,6 +87,7 @@ const Core = () =>
 				connect      = { connect                                 }
 				disconnect   = { disconnect                              }
 				startVisible = { true                                    }
+				noInjected   = { false                                   }
 			/>
 			{
 				services &&

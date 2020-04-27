@@ -1,9 +1,8 @@
 import * as React from 'react';
-import * as EthereumReactComponents from 'ethereum-react-components';
 import { MDBCol, MDBRow } from 'mdbreact';
 import QRCode from 'qrcode.react';
-import WalletDetails from './WalletDetails';
 
+import WalletDetails from './WalletDetails';
 
 const WalletDetailsExpanded = (props) =>
 	<MDBRow className='flex-grow-1 d-flex justify-content-center align-items-center m-0'>

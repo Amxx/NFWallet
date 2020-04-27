@@ -62,7 +62,6 @@ export class LoginWithEthereum extends React.Component<Props, State>
 	componentDidMount = () : void => {
 		this.props.config.__callbacks = this.props.config.__callbacks || {}
 
-
 		const super_resolved = this.props.config.__callbacks.resolved
 		this.props.config.__callbacks.resolved = (username, addr, descr) => {
 			this.setState({ details: 'username resolved' }, () => {
@@ -101,6 +100,7 @@ export class LoginWithEthereum extends React.Component<Props, State>
 				loading:  false,
 			}, () => {
 				if (this.props.connect) this.props.connect(provider)
+				provider.on('accountsChanged', (accounts) => (accounts.length === 0) && this.disconnect());
 				resolve()
 			})
 		})
