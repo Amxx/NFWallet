@@ -15,7 +15,6 @@ const WalletTrade = (props) =>
 	const router = new ethers.Contract(props.services.config.exchange.UniswapV2Router, ABIUniswapV2Router01, props.services.provider.getSigner());
 	const wallet = new ethers.Contract(props.data.wallet.id, ABIWallet, props.services.provider.getSigner());
 
-	const [ balances,  setBalances  ] = React.useState([]);
 	const [ base,      setBase      ] = React.useState(ethers.constants.EtherSymbol);
 	const [ quote,     setQuote     ] = React.useState('DAI');
 	const [ value,     setValue     ] = React.useState('');
@@ -23,13 +22,16 @@ const WalletTrade = (props) =>
 	const [ estimated, setEstimated ] = React.useState(0);
 	const [ enough,    setEnough    ] = React.useState(true);
 
-
 	const handleBaseChange = (e) =>
 	{
 		setBase(e.target.value);
 		if (e.target.value === quote)
 		{
-			setQuote(balances.find(({symbol, pair}) => symbol !== e.target.value && (symbol === ethers.constants.EtherSymbol || pair)).symbol)
+			setQuote(
+				Object.values(props.balances)
+				.find(({symbol, pair}) => symbol !== e.target.value && (symbol === ethers.constants.EtherSymbol || pair))
+				.symbol
+			)
 		}
 	}
 	const handleQuoteChange = (e) =>
@@ -37,45 +39,15 @@ const WalletTrade = (props) =>
 		setQuote(e.target.value);
 	}
 
-	// Get balance hook - on start and on transaction successfull
-	React.useEffect(() => {
-		const fetchBalances = () =>
-		{
-			Promise.all(
-				Object.values(props.services.config.exchange.tokens)
-				.filter(({pair}) => pair)
-				.map(async (token, i) => {
-					const contract = new ethers.Contract(token.address, ABIERC20, props.services.provider.getSigner());
-					const amount   = await contract.balanceOf(props.data.wallet.id);
-					return { ...token, balance: amount / 10 ** token.decimals };
-				})
-			).then(tokens => setBalances([
-				{
-					symbol:   ethers.constants.EtherSymbol,
-					name:     'ether',
-					decimals: 18,
-					address:  props.services.config.exchange.tokens.WETH.address, // use weth address in uniswap path
-					img:      'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png',
-					balance:  props.data.wallet.balance,
-				},
-				...tokens.sort((t1, t2) => t1.balance < t2.balance)
-			]))
-		}
-		// trigger and subscribe
-		fetchBalances()
-		const subscription = props.services.emitter.addListener('tx', fetchBalances);
-		return () => subscription.remove();
-	}, [props]);
-
 	// Uniswap params hook - on base, quote, value change
 	React.useEffect(() => {
 		try
 		{
-			const from       = balances.find(({symbol}) => symbol === base);
-			const to         = balances.find(({symbol}) => symbol === quote);
+			const weth       = props.balances[ethers.constants.EtherSymbol];
+			const from       = props.balances[base];
+			const to         = props.balances[quote];
 			from.isEth       = from.symbol === ethers.constants.EtherSymbol;
 			to.isEth         = to.symbol   === ethers.constants.EtherSymbol;
-			const weth       = balances.find(({symbol}) => symbol === ethers.constants.EtherSymbol);
 			const amount     = ethers.utils.bigNumberify(String(Number(value) * 10 ** from.decimals));
 			const method     = from.isEth ? 'swapExactETHForTokens' : to.isEth ? 'swapExactTokensForETH' : 'swapExactTokensForTokens';
 
@@ -91,15 +63,15 @@ const WalletTrade = (props) =>
 		{
 			setUniparams({});
 		}
-	}, [balances, base, quote, value]);
+	}, [props, base, quote, value]);
 
 	// Check balance hook - on balances, base, value change
 	React.useEffect(() => {
 		try
 		{
-			setEnough(balances.find(({symbol}) => symbol === base).balance >= value)
+			setEnough(props.balances[base].balance >= value)
 		} catch {}
-	}, [balances, base, value])
+	}, [props, base, value])
 
 	// Predict outcome hook - on base, quote, value change
 	React.useEffect(() => {
@@ -172,7 +144,7 @@ const WalletTrade = (props) =>
 						<InputAdornment position='start'>
 							<select value={base} onChange={handleBaseChange} style={{ 'width':'100px' }}>
 								{
-									balances
+									Object.values(props.balances)
 										.filter(({balance}) => balance > 0)
 										.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
 								}
@@ -180,7 +152,7 @@ const WalletTrade = (props) =>
 						</InputAdornment>,
 					endAdornment:
 						<InputAdornment position='end'>
-							<MDBBtn color='blue' className='z-depth-0' size='sm' onClick={() => setValue(balances.find(({symbol}) => symbol === base).balance)}>max</MDBBtn>
+							<MDBBtn color='blue' className='z-depth-0' size='sm' onClick={() => setValue(props.balances[base].balance)}>max</MDBBtn>
 						</InputAdornment>,
 				}}
 				variant='outlined'
@@ -195,7 +167,7 @@ const WalletTrade = (props) =>
 						<InputAdornment position='start'>
 							<select value={quote} onChange={handleQuoteChange} style={{ 'width':'100px' }}>
 								{
-									balances
+									Object.values(props.balances)
 										.filter(({symbol, pair}) => symbol !== base && (symbol === ethers.constants.EtherSymbol || pair))
 										.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
 								}

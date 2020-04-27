@@ -1,48 +1,11 @@
 import * as React from 'react';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import {
-	MDBAlert,
-	MDBCard,
-	MDBCardTitle,
-	MDBCardBody,
-	MDBCol,
-	MDBRow,
-} from 'mdbreact';
-import { Spinner } from 'react-bootstrap';
+import { MDBAlert } from 'mdbreact';
+import { Spinner  } from 'react-bootstrap';
 import { useQuery } from '@apollo/react-hooks';
 import graphql from '../../graphql';
 
-import WalletActivity        from '../Views/WalletActivity';
-import WalletBalances        from '../Views/WalletBalances';
-import WalletBalanceChart    from '../Views/WalletBalanceChart';
-import WalletDetailsExpanded from '../Views/WalletDetailsExpanded';
-import WalletTrade           from '../Views/WalletTrade';
-import WalletTX              from '../Views/WalletTX';
-
-
-
-const ExpansionWrapper = (props) =>
-	<ExpansionPanel className='m-2 mb-3'>
-		<ExpansionPanelSummary>
-			{ props.title }
-		</ExpansionPanelSummary>
-		<ExpansionPanelDetails className={props.center && 'd-flex justify-content-center align-items-center'}>
-			{ props.children }
-		</ExpansionPanelDetails>
-	</ExpansionPanel>
-
-const CardWrapper = (props) =>
-	<MDBCard className='m-2 mb-3'>
-		<MDBCardBody className={props.center && 'd-flex justify-content-center align-items-center'}>
-			{ props.title && <MDBCardTitle>{ props.title }</MDBCardTitle> }
-			{ props.title && <hr className='hr-grey'/> }
-			{ props.children }
-		</MDBCardBody>
-	</MDBCard>
-
-
+import WithBalance from './Wallet/WithBalance';
+import WalletView  from './Wallet/WalletView';
 
 const Wallet = (props) =>
 {
@@ -77,63 +40,9 @@ const Wallet = (props) =>
 			}
 			{
 				data && data.wallet &&
-					<>
-						<MDBRow>
-						<MDBCol size='12' className='p-0'>
-
-							<CardWrapper>
-								<WalletDetailsExpanded
-									data={data}
-									services={props.services}
-								/>
-							</CardWrapper>
-
-						</MDBCol>
-						</MDBRow>
-						<MDBRow className='flex-row-reverse'>
-						<MDBCol lg='6' md='12' className='p-0'>
-
-							<CardWrapper title='Send Ether'>
-								<WalletTX
-									data={data}
-									services={props.services}
-								/>
-							</CardWrapper>
-
-							<CardWrapper title='Exchange'>
-								<WalletTrade
-									data={data}
-									services={props.services}
-								/>
-							</CardWrapper>
-
-						</MDBCol>
-						<MDBCol lg='6' md='12' className='p-0'>
-
-							<CardWrapper title='Balances'>
-								<WalletBalances
-									data={data}
-									services={props.services}
-								/>
-							</CardWrapper>
-
-							<CardWrapper title='Balance chart'>
-								<WalletBalanceChart
-									data={data}
-									services={props.services}
-									/>
-							</CardWrapper>
-
-							<CardWrapper title='Activity logs'>
-								<WalletActivity
-									data={data}
-									services={props.services}
-								/>
-							</CardWrapper>
-
-						</MDBCol>
-						</MDBRow>
-					</>
+					<WithBalance data={data} services={props.services}>
+						<WalletView data={data} services={props.services}/>
+					</WithBalance>
 			}
 		</div>
 	);
