@@ -15,7 +15,7 @@ const WithBalance = (props) =>
 				.map(async (token) => {
 					if (token.symbol === ethers.constants.EtherSymbol)
 					{
-						return { ...token, balance: Number(props.data.wallet.balance) };
+						return { ...token, balance: props.data.wallet.balance / 10 ** token.decimals };
 					}
 					else
 					{

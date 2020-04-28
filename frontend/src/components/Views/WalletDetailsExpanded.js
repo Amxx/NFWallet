@@ -12,7 +12,7 @@ const WalletDetailsExpanded = (props) =>
 			</div>
 		</MDBCol>
 		<MDBCol lg='6' md='12' className='p-0'>
-			<WalletDetails data={props.data} services={props.services} className='flex-grow-1 m-0'/>
+			<WalletDetails {...props} className='flex-grow-1 m-0'/>
 		</MDBCol>
 	</MDBRow>
 

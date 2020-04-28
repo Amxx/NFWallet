@@ -44,7 +44,7 @@ const WalletDetails = (props) =>
 					Balance:
 				</td>
 				<td className='py-1'>
-					{ ethers.constants.EtherSymbol }&nbsp;{ props.data.wallet.balance }
+					{ ethers.constants.EtherSymbol }&nbsp;{ ethers.utils.formatEther(props.data.wallet.balance) }
 				</td>
 			</tr>
 		</MDBTableBody>
