@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Chart from 'react-apexcharts';
-
+import {ethers} from 'ethers';
 
 const WalletBalanceChart = (props) =>
 {
@@ -35,13 +35,12 @@ const WalletBalanceChart = (props) =>
 				yaxis:      { show:    false          },
 				grid:       { show:    false          },
 				tooltip:    { enabled: false          },
-				dataLabels: { enabled: false,         },
-				chart:      { toolbar: { show: false }},
+				chart:      { toolbar: { show: true } },
+				dataLabels: { enabled: true, formatter: (val) => `${ethers.constants.EtherSymbol}${parseFloat(val).toFixed(2)}` },
 			}}
 			{...props.extra}
 		/>
 	);
 }
-// dataLabels: { enabled: true, formatter: (val) => `${ethers.constants.EtherSymbol}${val}` },
 
 export default WalletBalanceChart;

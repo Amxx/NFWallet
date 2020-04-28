@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-	MDBBtn,
-	MDBModal,
-	MDBModalHeader,
-	MDBModalBody,
-} from 'mdbreact';
+import { MDBBtn, MDBModal, MDBModalBody } from 'mdbreact';
 import Instascan from '@eventstag/instascan'
-
 
 
 class Scan extends React.Component
@@ -55,7 +49,6 @@ class Scan extends React.Component
 					<i className="fas fa-qrcode"></i>
 				</MDBBtn>
 				<MDBModal isOpen={this.state.open} toggle={this.close.bind(this)} centered>
-					<MDBModalHeader toggle={this.close.bind(this)}>Scan address</MDBModalHeader>
 					<MDBModalBody>
 						<video id='preview' style={{width: '100%'}}/>
 					</MDBModalBody>

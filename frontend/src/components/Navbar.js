@@ -11,6 +11,8 @@ import {
 import MintWallet    from './Modals/MintWallet';
 import PredictWallet from './Modals/PredictWallet';
 
+import icon from '../assets/nfw-logo-03.svg'
+
 const Navbar = (props) =>
 {
 	const [ open, setOpen ] = React.useState(false);
@@ -18,9 +20,10 @@ const Navbar = (props) =>
 
 	return (
 		<MDBNavbar color='blue-gradient' dark expand='md' className='sticky-top'>
-			<MDBNavbarBrand>
-				<strong className='white-text'>
-					NFWExplorer
+			<MDBNavbarBrand className='d-flex align-items-center'>
+				<img src={icon} alt='nfw-logo' height={32}/>
+				<strong className='white-text ml-2'>
+					NFWExplorer ({props.services.network.name})
 				</strong>
 			</MDBNavbarBrand>
 			<MDBNavbarToggler onClick={toggle} />
