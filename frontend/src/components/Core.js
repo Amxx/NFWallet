@@ -25,13 +25,19 @@ const Core = () =>
 
 	const configure = async (web3) => {
 
-		if (!web3) { setProvider(null); return; }
+		// Disconnect
+		if (!web3)
+		{
+			setProvider(null);
+			setServices(null);
+			return;
+		}
 
-		console.log('configure')
+		// initiate provider
 		const provider = new ethers.providers.Web3Provider(web3)
-		console.log(provider)
 		setProvider(provider);
 
+		// configure services
 		try
 		{
 			const accounts = await provider.listAccounts()
