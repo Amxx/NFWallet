@@ -24,16 +24,17 @@ const WalletTrade = (props) =>
 	const handleBaseChange = (e) =>
 	{
 		setBase(e.target.value);
+
 		if (e.target.value === quote)
 		{
 			setQuote(
 				Object.values(props.balances)
-				.find(({symbol, pair}) => symbol !== e.target.value && (symbol === ethers.constants.EtherSymbol || pair))
+				.find(({symbol, UniswapV2Pair}) => symbol !== e.target.value && (symbol === ethers.constants.EtherSymbol || UniswapV2Pair))
 				.symbol
-			)
+			);
 		}
 	}
-	
+
 	const handleQuoteChange = (e) =>
 	{
 		setQuote(e.target.value);
@@ -43,17 +44,16 @@ const WalletTrade = (props) =>
 	React.useEffect(() => {
 		try
 		{
-			const weth       = props.balances[ethers.constants.EtherSymbol];
-			const from       = props.balances[base];
-			const to         = props.balances[quote];
-			from.isEth       = from.symbol === ethers.constants.EtherSymbol;
-			to.isEth         = to.symbol   === ethers.constants.EtherSymbol;
-			const amount     = ethers.utils.bigNumberify(String(Number(value) * 10 ** from.decimals));
-			const method     = from.isEth ? 'swapExactETHForTokens' : to.isEth ? 'swapExactTokensForETH' : 'swapExactTokensForTokens';
+			const from   = props.balances[base];
+			const to     = props.balances[quote];
+			from.isEth   = from.symbol === ethers.constants.EtherSymbol;
+			to.isEth     = to.symbol   === ethers.constants.EtherSymbol;
+			const amount = ethers.utils.bigNumberify(String(Number(value) * 10 ** from.decimals));
+			const method = from.isEth ? 'swapExactETHForTokens' : to.isEth ? 'swapExactTokensForETH' : 'swapExactTokensForTokens';
 
 			const path = [
 				from.address,
-				!from.isEth && !to.isEth ? weth.address : undefined,
+				!from.isEth && !to.isEth ? props.balances[ethers.constants.EtherSymbol].address : undefined, // weth
 				to.address,
 			].filter(Boolean);
 
@@ -167,7 +167,7 @@ const WalletTrade = (props) =>
 							<select value={quote} onChange={handleQuoteChange} style={{ 'width':'100px' }}>
 								{
 									Object.values(props.balances)
-										.filter(({symbol, pair}) => symbol !== base && (symbol === ethers.constants.EtherSymbol || pair))
+										.filter(({symbol, UniswapV2Pair}) => symbol !== base && (symbol === ethers.constants.EtherSymbol || UniswapV2Pair))
 										.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
 								}
 							</select>
