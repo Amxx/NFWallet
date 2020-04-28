@@ -144,7 +144,7 @@ const WalletTrade = (props) =>
 							<select value={base} onChange={handleBaseChange} style={{ 'width':'100px' }}>
 								{
 									Object.values(props.balances)
-										.filter(({balance}) => balance > 0)
+										.filter(({symbol, balance}) => symbol === ethers.constants.EtherSymbol || balance > 0)
 										.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
 								}
 							</select>

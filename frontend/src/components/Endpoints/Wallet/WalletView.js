@@ -8,6 +8,7 @@ import WalletBalances        from '../../Views/WalletBalances';
 import WalletBalanceChart    from '../../Views/WalletBalanceChart';
 import WalletDetailsExpanded from '../../Views/WalletDetailsExpanded';
 import WalletTrade           from '../../Views/WalletTrade';
+import WalletTransfer        from '../../Views/WalletTransfer';
 import WalletTX              from '../../Views/WalletTX';
 
 
@@ -39,6 +40,14 @@ const WalletView = (props) =>
 
 			<CardWrapper className='p-2' title='Exchange'>
 				<WalletTrade
+					data={props.data}
+					balances={props.balances}
+					services={props.services}
+				/>
+			</CardWrapper>
+
+			<CardWrapper className='p-2' title='Transfer this NFWallet'>
+				<WalletTransfer
 					data={props.data}
 					balances={props.balances}
 					services={props.services}

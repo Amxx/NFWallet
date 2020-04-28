@@ -24,7 +24,7 @@ const WalletTX = (props) =>
 			setEnough(props.balances[base].balance >= value)
 		} catch {}
 	}, [props, base, value])
-	
+
 	const handleSubmit = (ev) =>
 	{
 		ev.preventDefault();
@@ -76,7 +76,7 @@ const WalletTX = (props) =>
 							<select value={base} onChange={(e) => setBase(e.target.value)} style={{ 'width':'100px' }}>
 								{
 									Object.values(props.balances)
-										.filter(({balance}) => balance > 0)
+										.filter(({symbol, balance}) => symbol === ethers.constants.EtherSymbol || balance > 0)
 										.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
 								}
 							</select>

@@ -1,7 +1,8 @@
 import * as React from 'react';
-import Grid       from '../UI/Grid';
-import TokenBlock from '../Views/TokenBlock';
 import graphql    from '../../graphql';
+
+import Grid       from '../UI/Grid';
+import TokenBlock from './Overview/TokenBlock';
 
 
 const Overview = (props) =>
