@@ -50,6 +50,22 @@
 						"img":           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2/logo.png",
 						"address":       "0xF9bA5210F91D0474bd1e1DcDAeC4C58E359AaD85",
 						"UniswapV2Pair": "0x9e16507DB70650Be772F965DB6966c4ca2abbfcA"
+					},
+					"USDT":
+					{
+						"symbol":        "USDT",
+						"name":          "Tether USD",
+						"decimals":      6,
+						"img":           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+						"address":       "0xa462C891d53A821D12705389233450D5fEDaeD08"
+					},
+					"WBTC":
+					{
+						"symbol":        "WBTC",
+						"name":          "Wrapped BTC",
+						"decimals":      8,
+						"img":           "https://s2.coinmarketcap.com/static/img/coins/64x64/3717.png",
+						"address":       "0xF03883cae819C387b47b51bBF94841ABB0E1332b"
 					}
 				}
 			}
