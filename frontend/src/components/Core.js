@@ -20,69 +20,62 @@ import CONFIG from '../config.json';
 const Core = () =>
 {
 	const emitter = new EventEmitter();
+	const [ provider, setProvider ] = React.useState(null);
 	const [ services, setServices ] = React.useState(null);
-	const [ client,   setClient   ] = React.useState(null);
 
-	const setupServices = async (web3) => {
+	const configure = async (web3) => {
+
+		if (!web3) { setProvider(null); return; }
+
+		console.log('configure')
+		const provider = new ethers.providers.Web3Provider(web3)
+		console.log(provider)
+		setProvider(provider);
+
 		try
 		{
-			const provider = new ethers.providers.Web3Provider(web3)
 			const accounts = await provider.listAccounts()
 			const network  = await provider.getNetwork()
 			const config   = CONFIG.networks[network.name]
 			const registry = new ethers.Contract(config.nfwfactory, ABIFactory, provider.getSigner());
-
 			registry.addressPromise.then(addr => registry.addressPromised = addr).catch(() => {});
+			const uri      = config.subgraph;
+			const cache    = new InMemoryCache();
+			const link     = new HttpLink({ uri });
+			const client   = new ApolloClient({ cache, link });
 
 			setServices({
-				provider,
-				network,
 				accounts,
-				registry,
-				emitter,
+				network,
 				config,
+				registry,
+				client,
 			});
-			setupSubgraph(config);
 		}
-		catch (_)
+		catch (e)
 		{
 			setServices(null);
 		}
 	}
 
-	const setupSubgraph = async (subconfig) => {
-		if (subconfig)
-		{
-			const uri     = subconfig.subgraph;
-			const cache   = new InMemoryCache();
-			const link    = new HttpLink({ uri });
-			const client  = new ApolloClient({ cache, link });
-			setClient(client);
-		}
-		else
-		{
-			setClient(null);
-		}
-	}
-
 	const connect = (web3) => {
 		emitter.emit('Notify', 'success', 'You are connected');
-		web3.on('accountsChanged', (accounts) => (accounts.length === 0) ? setServices(null) : setupServices(web3)); // should not be needed, but prevents crash
-		web3.on('networkChanged',  (network ) =>                                               setupServices(web3));
+		web3.on('accountsChanged', (accounts) => (accounts.length === 0) ? setProvider(null) : configure(web3)); // should not be needed, but prevents crash
+		web3.on('networkChanged',  (network ) =>                                               configure(web3));
 		web3.autoRefreshOnNetworkChange = false;
-		setupServices(web3);
+		configure(web3);
 	}
 
 	const disconnect = () => {
 		emitter.emit('Notify', 'warning', 'You are disconnect');
-		setServices(null);
+		setProvider(null);
 	}
 
 	return (
 		<>
 			<Notifications emitter={emitter}/>
 			<LoginWithEthereum
-				className    = { services ? 'connected' : 'disconnected' }
+				className    = { provider ? 'connected' : 'disconnected' }
 				config       = { CONFIG.enslogin                         }
 				connect      = { connect                                 }
 				disconnect   = { disconnect                              }
@@ -90,11 +83,19 @@ const Core = () =>
 				noInjected   = { false                                   }
 			/>
 			{
-				services &&
+				provider &&
 				(
-					client
-					? <ApolloProvider client={client}><Main services={services}/></ApolloProvider>
-					: <Error message='Please switch network to a supported network (only rinkeby for now)'/>
+					services
+					?
+						<ApolloProvider client={services.client}>
+							<Main services={{
+								emitter,
+								provider,
+								...services
+							}}/>
+						</ApolloProvider>
+					:
+						<Error message='Please switch network to a supported network (only rinkeby for now)'/>
 				)
 			}
 		</>
