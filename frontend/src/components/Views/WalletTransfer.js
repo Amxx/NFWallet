@@ -33,7 +33,6 @@ const WalletTransfer = (props) =>
 			<AddressInputENS
 				className='my-1'
 				label='destination'
-				defaultValue={addr}
 				onChange={setAddr}
 				provider={props.services.provider}
 			/>

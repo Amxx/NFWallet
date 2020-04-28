@@ -132,13 +132,14 @@ const WalletTrade = (props) =>
 	return (
 		<form onSubmit={handleSubmit} className={`d-flex flex-column align-items-stretch ${props.className}`}>
 			<TextField
-				error={!enough}
-				className='my-1'
-				label='Pay with'
-				placeholder='0.1'
-				value={value}
-				onChange={e => setValue(e.target.value)}
-				InputProps={{
+				error       = {!enough}
+				label       = 'Pay with'
+				placeholder = '0.1'
+				value       = {value}
+				variant     = 'outlined'
+				className   = 'my-1'
+				onChange    = {e => setValue(e.target.value)}
+				InputProps  = {{
 					startAdornment:
 						<InputAdornment position='start'>
 							<select value={base} onChange={handleBaseChange} style={{ 'width':'100px' }}>
@@ -154,14 +155,14 @@ const WalletTrade = (props) =>
 							<MDBBtn color='blue' className='z-depth-0' size='sm' onClick={() => setValue(props.balances[base].balance)}>max</MDBBtn>
 						</InputAdornment>,
 				}}
-				variant='outlined'
 			/>
 			<TextField
 				disabled
-				className='my-1'
-				label='Receive'
-				value={estimated}
-				InputProps={{
+				label      = 'Receive'
+				value      = {estimated}
+				variant    = 'outlined'
+				className  = 'my-1'
+				InputProps = {{
 					startAdornment:
 						<InputAdornment position='start'>
 							<select value={quote} onChange={handleQuoteChange} style={{ 'width':'100px' }}>
@@ -173,7 +174,6 @@ const WalletTrade = (props) =>
 							</select>
 						</InputAdornment>,
 				}}
-				variant='outlined'
 			/>
 			<MDBBtn color='blue' type='sumbit' className='mx-0' size='sm' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
 				Exchange { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}

@@ -1,7 +1,11 @@
 import * as React from 'react'
 import * as EthereumReactComponents from 'ethereum-react-components';
+import TextField      from '@material-ui/core/TextField'
+import InputAdornment from '@material-ui/core/InputAdornment'
 import Cross      from './Cross';
 import { ethers } from 'ethers';
+
+import Scan from '../Modals/Scan';
 
 function addressToIcon(address)
 {
@@ -27,25 +31,67 @@ function addressToIcon(address)
 
 class AddressInputENS extends EthereumReactComponents.AddressInput
 {
-	componentDidMount = () =>
+	constructor(props)
 	{
-		this.updateIcon(this.props.value || this.props.defaultValue || '')
+		super(props);
+		this.state = {
+			icon: '',
+			addr: this.props.value || this.props.defaultValue || '',
+		}
 	}
 
-	updateIcon = async (value) => {
-		let icon = null;
+	componentDidMount()
+	{
+		this.updateIcon(this.state.addr)
+	}
+
+	async updateIconENS(value)
+	{
 		try
 		{
-			icon = addressToIcon(await this.props.provider.resolveName(value) || value);
+			this.setState({ icon: addressToIcon(await this.props.provider.resolveName(value) || value) });
 		}
-		catch (_)
+		catch
 		{
-			icon = addressToIcon(value);
+			this.setState({ icon: addressToIcon(value) });
 		}
-		finally
+	}
+
+	setAddr(addr)
+	{
+		this.setState({ addr });
+		this.updateIconENS(addr);
+		this.props.onChange && this.props.onChange(addr);
+	}
+
+	callback(value)
+	{
+		try
 		{
-			this.setState({ icon }, () => this.props.onChange && this.props.onChange(value));
+			this.setAddr(ethers.utils.getAddress((/0x[0-9a-zA-Z]{40}/).exec(value)[0]))
 		}
+		catch
+		{
+			this.setAddr(value)
+		}
+	}
+
+	render()
+	{
+		return (
+			<TextField
+				label       = {this.props.label}
+				value       = {this.state.addr}
+				variant     = 'outlined'
+				className   = {this.props.className}
+				onChange    = {e => this.setAddr(e.target.value)}
+				placeholder = '0x000000...'
+				InputProps  = {{
+					startAdornment: <InputAdornment>{this.state.icon}</InputAdornment>,
+					endAdornment:   <InputAdornment><Scan color='blue' className='z-depth-0' size='sm' callback={this.callback.bind(this)}/></InputAdornment>,
+				}}
+			/>
+		)
 	}
 }
 
