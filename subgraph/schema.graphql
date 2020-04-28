@@ -21,7 +21,7 @@ type NFWallet @entity
 {
 	id:                           ID!
 	owner:                        Account!
-	balance:                      BigDecimal!
+	balance:                      BigInt!
 	events:                       [Event!]! @derivedFrom(field: "wallet")
 }
 
@@ -51,7 +51,7 @@ type Received implements Event @entity
 	timestamp:                    BigInt!
 	wallet:                       NFWallet!
 	from:                         Account!
-	value:                        BigDecimal!
+	value:                        BigInt!
 }
 
 type Executed implements Event @entity
@@ -61,6 +61,6 @@ type Executed implements Event @entity
 	timestamp:                    BigInt!
 	wallet:                       NFWallet!
 	to:                           Account!
-	value:                        BigDecimal!
+	value:                        BigInt!
 	data:                         Bytes!
 }

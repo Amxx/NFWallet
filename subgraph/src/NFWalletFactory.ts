@@ -1,5 +1,5 @@
 import {
-	BigDecimal,
+	BigInt,
 } from '@graphprotocol/graph-ts'
 
 import {
@@ -30,7 +30,7 @@ export function handleTransfer(event: TransferEvent): void {
 	let transfer = new Transfer(createEventID(event));
 
 	wallet.owner   = to.id;
-	wallet.balance = BigDecimal.fromString('0');
+	wallet.balance = BigInt.fromI32(0);
 
 	transfer.transaction = logTransaction(event).id;
 	transfer.timestamp   = event.block.timestamp;
