@@ -40,13 +40,23 @@ const WalletUniswapV2 = (props) =>
 		setQuote(e.target.value);
 	}
 
+	// Check balance hook - on balances, base, value change
+	React.useEffect(() => {
+		try
+		{
+			setEnough(props.balances[base].balance >= value || 'max' === value)
+		} catch {}
+	}, [props, base, value])
+
 	// Uniswap params hook - on base, quote, value change
 	React.useEffect(() => {
 		try
 		{
 			const from   = props.balances[base];
 			const to     = props.balances[quote];
-			const amount = ethers.utils.bigNumberify(String(Number(value) * 10 ** from.decimals));
+			const amount = value === 'max'
+				? ethers.utils.bigNumberify(String(Number(from.balance) * 10 ** from.decimals))
+				: ethers.utils.bigNumberify(String(Number(value)        * 10 ** from.decimals));
 			const method = from.isEth ? 'swapExactETHForTokens' : to.isEth ? 'swapExactTokensForETH' : 'swapExactTokensForTokens';
 
 			const path = [
@@ -62,14 +72,6 @@ const WalletUniswapV2 = (props) =>
 			setUniparams({});
 		}
 	}, [props, base, quote, value]);
-
-	// Check balance hook - on balances, base, value change
-	React.useEffect(() => {
-		try
-		{
-			setEnough(props.balances[base].balance >= value)
-		} catch {}
-	}, [props, base, value])
 
 	// Predict outcome hook - on base, quote, value change
 	React.useEffect(() => {
@@ -140,7 +142,7 @@ const WalletUniswapV2 = (props) =>
 						</InputAdornment>,
 					endAdornment:
 						<InputAdornment position='end'>
-							<MDBBtn color='light' className='z-depth-0' size='sm' onClick={() => setValue(props.balances[base].balance)}>max</MDBBtn>
+							<MDBBtn color='light' className='z-depth-0' size='sm' onClick={() => setValue('max')}>max</MDBBtn>
 						</InputAdornment>,
 				}}
 			/>

@@ -41,13 +41,12 @@ const WalletLending = (props) =>
 		ev.preventDefault();
 
 		const asset  = props.balances[token];
-
 		const amount =
 			value === 'max'
 			? !deposit
 			? ethers.constants.MaxUint256
 			: ethers.utils.bigNumberify(String(Number(asset.balance) * 10 ** asset.decimals))
-			: ethers.utils.bigNumberify(String(Number(value) * 10 ** asset.decimals))
+			: ethers.utils.bigNumberify(String(Number(value)         * 10 ** asset.decimals));
 
 		utils.executeTransactions(
 			props.data.wallet.id,

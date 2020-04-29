@@ -20,7 +20,7 @@ const WalletSend = (props) =>
 	React.useEffect(() => {
 		try
 		{
-			setEnough(props.balances[base].balance >= value)
+			setEnough(props.balances[base].balance >= value || 'max' === value)
 		} catch {}
 	}, [props, base, value])
 
@@ -29,7 +29,9 @@ const WalletSend = (props) =>
 		ev.preventDefault();
 
 		const asset  = props.balances[base];
-		const amount = ethers.utils.bigNumberify(String(Number(value) * 10 ** asset.decimals));
+		const amount = value === 'max'
+			? ethers.utils.bigNumberify(String(Number(asset.balance) * 10 ** asset.decimals))
+			: ethers.utils.bigNumberify(String(Number(value)         * 10 ** asset.decimals));
 
 		utils.executeTransactions(
 			props.data.wallet.id,
@@ -72,7 +74,7 @@ const WalletSend = (props) =>
 						</InputAdornment>,
 					endAdornment:
 						<InputAdornment position='end'>
-							<MDBBtn color='light' className='z-depth-0' size='sm' onClick={() => setValue(props.balances[base].balance)}>max</MDBBtn>
+							<MDBBtn color='light' className='z-depth-0' size='sm' onClick={() => setValue('max')}>max</MDBBtn>
 						</InputAdornment>,
 				}}
 			/>

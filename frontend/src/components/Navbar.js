@@ -19,7 +19,7 @@ const Navbar = (props) =>
 	const toggle = () => setOpen(!open);
 
 	return (
-		<MDBNavbar color='blue-gradient' dark expand='md' className='sticky-top'>
+		<MDBNavbar color='blue-gradient' dark expand='md' className='sticky-top z-depth-2'>
 			<MDBNavbarBrand className='d-flex align-items-center'>
 				<img src={icon} alt='nfw-logo' height={32}/>
 				<strong className='white-text ml-2'>
