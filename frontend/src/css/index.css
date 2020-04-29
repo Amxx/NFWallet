@@ -18,18 +18,9 @@ code
 	flex-direction: column;
 }
 
-.lined
+.navbar
 {
-	text-align:    center;
-	border-bottom: 1px solid #CCCCCC;
-	line-height:   0.1em;
-	margin:        1em 0 0 0;
-}
-.lined *
-{
-	background: #FFFFFF;
-	padding:    0 .5em;
-	font-size:  .8em;
+	z-index: 2000;
 }
 
 #LoginWithEthereum-Button.disconnected
@@ -52,23 +43,3 @@ code
 	box-shadow:       0 .125rem .25rem rgba(0,0,0,.075) !important;
 	z-index:          10000;
 }
-
-
-
-
-
-
-
-
-
-/* .masonry-container
-{
-  display: flex;
-  flex-flow: column wrap;
-	align-content: space-between;
-  max-height: 800px;
-}
-
-.masonry-container .masonry-item:nth-child(3n+1) { order: 1; }
-.masonry-container .masonry-item:nth-child(3n+2) { order: 2; }
-.masonry-container .masonry-item:nth-child(3n)   { order: 3; } */
