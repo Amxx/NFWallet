@@ -23,7 +23,7 @@ const Wallet = (props) =>
 	if (error) { return `Error! ${error}`; }
 
 	return (
-		<div className={`container ${!(data && data.wallet) && 'my-auto'}`}>
+		<div className='container my-auto'>
 			{
 				loading &&
 					<div className='d-flex justify-content-center'>

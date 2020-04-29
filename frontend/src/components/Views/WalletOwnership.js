@@ -3,7 +3,7 @@ import { MDBBtn } from 'mdbreact';
 import AddressInputENS from '../UI/AddressInputENS';
 
 
-const WalletTransfer = (props) =>
+const WalletOwnership = (props) =>
 {
 	const [ addr, setAddr ] = React.useState('');
 
@@ -31,16 +31,17 @@ const WalletTransfer = (props) =>
 	return (
 		<form onSubmit={handleSubmit} className={`d-flex flex-column ${props.className}`}>
 			<AddressInputENS
-				className='my-1'
-				label='destination'
-				onChange={setAddr}
-				provider={props.services.provider}
+				color     = 'light'
+				className = 'my-1'
+				label     = 'destination'
+				onChange  = {setAddr}
+				provider  = {props.services.provider}
 			/>
-			<MDBBtn color='blue' type='sumbit' className='mx-0' size='sm' disabled={ (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
+			<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={ (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
 				Transfer { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}
 			</MDBBtn>
 		</form>
 	);
 }
 
-export default WalletTransfer;
+export default WalletOwnership;

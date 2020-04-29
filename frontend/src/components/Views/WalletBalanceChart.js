@@ -27,7 +27,7 @@ const WalletBalanceChart = (props) =>
 	return (
 		<Chart
 			type    = 'area'
-			series  = {[ { name: "Balance", data: history.map(([timestamp, value]) => ([timestamp, value / 10 ** 18]))  } ]}
+			series  = {[ { name: 'Balance', data: history.map(([timestamp, value]) => ([timestamp, value / 10 ** 18]))  } ]}
 			options = {{
 				stroke:     { curve:   'stepline'     },
 				fill:       { type:    'gradient'     },

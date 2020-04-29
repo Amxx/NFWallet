@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBBtn, MDBModal, MDBModalBody } from 'mdbreact';
+import { MDBBtn, MDBIcon, MDBModal, MDBModalBody } from 'mdbreact';
 import Instascan from '@eventstag/instascan'
 
 
@@ -46,7 +46,7 @@ class Scan extends React.Component
 					className = {this.props.className}
 					onClick   = {this.open.bind(this)}
 				>
-					<i className="fas fa-qrcode"></i>
+					<MDBIcon icon='qrcode' />
 				</MDBBtn>
 				<MDBModal isOpen={this.state.open} toggle={this.close.bind(this)} centered>
 					<MDBModalBody>

@@ -298,6 +298,18 @@
       "type": "function"
     }
   ],
-
-  "networks": {}
+  "networks": {
+    "3": {
+      "address": "0xcDbE04934d89e97a24BCc07c3562DC8CF17d8167"
+    },
+    "4": {
+      "address": "0xcDbE04934d89e97a24BCc07c3562DC8CF17d8167"
+    },
+    "5": {
+      "address": "0xcDbE04934d89e97a24BCc07c3562DC8CF17d8167"
+    },
+    "42": {
+      "address": "0xcDbE04934d89e97a24BCc07c3562DC8CF17d8167"
+    }
+  }
 }

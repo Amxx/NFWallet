@@ -3,16 +3,16 @@ import { MDBBtn } from 'mdbreact';
 import InputAdornment  from '@material-ui/core/InputAdornment';
 import TextField       from '@material-ui/core/TextField';
 
-import { ethers } from 'ethers';
-import { abi as ABIERC20             } from '../../abi/ERC20.json';
-import { abi as ABIWallet            } from '../../abi/NFWallet.json';
-import { abi as ABIUniswapV2Router01 } from '../../abi/UniswapV2Router01.json';
+import { ethers }        from 'ethers';
+import * as utils        from '../../libs/utils'
+
+import ERC20             from '../../abi/ERC20.json';
+import UniswapV2Router01 from '../../abi/UniswapV2Router01.json';
 
 
-const WalletTradeUniswapV2 = (props) =>
+const WalletUniswapV2 = (props) =>
 {
-	const router = new ethers.Contract(props.services.config.exchange.UniswapV2Router, ABIUniswapV2Router01, props.services.provider.getSigner());
-	const wallet = new ethers.Contract(props.data.wallet.id, ABIWallet, props.services.provider.getSigner());
+	const router = new ethers.Contract(UniswapV2Router01.networks[props.services.network.chainId].address, UniswapV2Router01.abi, props.services.provider.getSigner());
 
 	const [ base,      setBase      ] = React.useState(ethers.constants.EtherSymbol);
 	const [ quote,     setQuote     ] = React.useState('DAI');
@@ -29,7 +29,7 @@ const WalletTradeUniswapV2 = (props) =>
 		{
 			setQuote(
 				Object.values(props.balances)
-				.find(({symbol, UniswapV2Pair}) => symbol !== e.target.value && (symbol === ethers.constants.EtherSymbol || UniswapV2Pair))
+				.find(({symbol, UniswapV2}) => symbol !== e.target.value && UniswapV2)
 				.symbol
 			);
 		}
@@ -46,8 +46,6 @@ const WalletTradeUniswapV2 = (props) =>
 		{
 			const from   = props.balances[base];
 			const to     = props.balances[quote];
-			from.isEth   = from.symbol === ethers.constants.EtherSymbol;
-			to.isEth     = to.symbol   === ethers.constants.EtherSymbol;
 			const amount = ethers.utils.bigNumberify(String(Number(value) * 10 ** from.decimals));
 			const method = from.isEth ? 'swapExactETHForTokens' : to.isEth ? 'swapExactTokensForETH' : 'swapExactTokensForTokens';
 
@@ -92,41 +90,31 @@ const WalletTradeUniswapV2 = (props) =>
 	{
 		ev.preventDefault();
 
-		wallet.forwardBatch([
-			// approve if source is an erc20
-			!uniparams.from.isEth &&
+		utils.executeTransactions(
+			props.data.wallet.id,
 			[
-				uniparams.from.address,
-				'0',
-				(new ethers.utils.Interface(ABIERC20)).functions['approve'].encode([ router.address, uniparams.amount ])
-			],
-			// call UniswapV2Router
-			[
-				router.address,
-				uniparams.from.isEth ? uniparams.amount : 0,
-				router.interface.functions[uniparams.method].encode([
-					!uniparams.from.isEth ? uniparams.amount : undefined,
+				// approve if source is an erc20
+				!uniparams.from.isEth &&
+				[
+					uniparams.from.address,
 					'0',
-					uniparams.path,
-					props.data.wallet.id,
-					ethers.constants.MaxUint256,
-				].filter(Boolean))
-			]
-		].filter(Boolean))
-		.then(txPromise => {
-			props.services.emitter.emit('Notify', 'info', 'Transaction sent');
-			txPromise.wait()
-			.then(() => {
-				props.services.emitter.emit('Notify', 'success', 'Transaction successfull');
-				props.services.emitter.emit('tx');
-			}) // success
-			.catch(() => {
-				props.services.emitter.emit('Notify', 'error', 'Transaction failled');
-			}) // transaction error
-		})
-		.catch(() => {
-			props.services.emitter.emit('Notify', 'error', 'Signature required');
-		}) // signature error
+					(new ethers.utils.Interface(ERC20.abi)).functions['approve'].encode([ router.address, uniparams.amount ])
+				],
+				// call UniswapV2Router
+				[
+					router.address,
+					uniparams.from.isEth ? uniparams.amount : 0,
+					router.interface.functions[uniparams.method].encode([
+						!uniparams.from.isEth ? uniparams.amount : undefined,
+						'0',
+						uniparams.path,
+						props.data.wallet.id,
+						ethers.constants.MaxUint256,
+					].filter(Boolean))
+				]
+			],
+			props.services
+		);
 	}
 
 	return (
@@ -145,14 +133,14 @@ const WalletTradeUniswapV2 = (props) =>
 							<select value={base} onChange={handleBaseChange} style={{ 'width':'100px' }}>
 								{
 									Object.values(props.balances)
-										.filter(({symbol, balance}) => symbol === ethers.constants.EtherSymbol || balance > 0)
+										.filter(({isEth, balance}) => isEth || balance > 0)
 										.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
 								}
 							</select>
 						</InputAdornment>,
 					endAdornment:
 						<InputAdornment position='end'>
-							<MDBBtn color='blue' className='z-depth-0' size='sm' onClick={() => setValue(props.balances[base].balance)}>max</MDBBtn>
+							<MDBBtn color='light' className='z-depth-0' size='sm' onClick={() => setValue(props.balances[base].balance)}>max</MDBBtn>
 						</InputAdornment>,
 				}}
 			/>
@@ -168,18 +156,18 @@ const WalletTradeUniswapV2 = (props) =>
 							<select value={quote} onChange={handleQuoteChange} style={{ 'width':'100px' }}>
 								{
 									Object.values(props.balances)
-										.filter(({symbol, UniswapV2Pair}) => symbol !== base && (symbol === ethers.constants.EtherSymbol || UniswapV2Pair))
+										.filter(({symbol, UniswapV2}) => symbol !== base && UniswapV2)
 										.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
 								}
 							</select>
 						</InputAdornment>,
 				}}
 			/>
-			<MDBBtn color='blue' type='sumbit' className='mx-0' size='sm' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
+			<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
 				Exchange { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}
 			</MDBBtn>
 		</form>
 	);
 }
 
-export default WalletTradeUniswapV2;
+export default WalletUniswapV2;

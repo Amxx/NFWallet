@@ -6,9 +6,10 @@ import WalletActivity        from '../../Views/WalletActivity';
 import WalletBalances        from '../../Views/WalletBalances';
 import WalletBalanceChart    from '../../Views/WalletBalanceChart';
 import WalletDetailsExpanded from '../../Views/WalletDetailsExpanded';
-import WalletTradeUniswapV2  from '../../Views/WalletTradeUniswapV2';
-import WalletTransfer        from '../../Views/WalletTransfer';
-import WalletTX              from '../../Views/WalletTX';
+import WalletLending         from '../../Views/WalletLending';
+import WalletOwnership       from '../../Views/WalletOwnership';
+import WalletSend            from '../../Views/WalletSend';
+import WalletUniswapV2       from '../../Views/WalletUniswapV2';
 
 
 const WalletView = (props) =>
@@ -17,7 +18,7 @@ const WalletView = (props) =>
 		<MDBCol size='12' className='p-0'>
 
 			<div className='py-3'>
-				<MDBCard>
+				<MDBCard className='z-depth-3'>
 					<TabSlider
 						entries={[
 							{ label: 'Details',              render: <WalletDetailsExpanded {...props}/> },
@@ -27,30 +28,30 @@ const WalletView = (props) =>
 			</div>
 
 			<div className='py-3'>
-				<MDBCard>
+				<MDBCard className='z-depth-3'>
 					<TabSlider
 						entries={[
-							{ label: 'Send',                 render: <WalletTX              {...props}/> },
-							{ label: 'Swap',                 render: <WalletTradeUniswapV2  {...props}/> },
-							{ label: 'Wallet ownership',     render: <WalletTransfer        {...props}/> },
+							{ label: 'Send',                 render: <WalletSend            {...props}/> },
+							{ label: 'Swap',                 render: <WalletUniswapV2       {...props}/> },
+							{ label: 'Wallet ownership',     render: <WalletOwnership       {...props}/> },
 						]}
 					/>
 				</MDBCard>
 			</div>
 
 			<div className='py-3'>
-				<MDBCard>
+				<MDBCard className='z-depth-3'>
 					<TabSlider
 						entries={[
-							{ label: 'Lend',                 render: <span>Soon (with AAVE)</span> },
-							{ label: 'Borrow',               render: <span>Soon (with AAVE)</span> },
+							{ label: 'Lend',                 render: <WalletLending         {...props} /> },
+							{ label: 'Borrow' },
 						]}
 					/>
 				</MDBCard>
 			</div>
 
 			<div className='py-3'>
-				<MDBCard>
+				<MDBCard className='z-depth-3'>
 					<TabSlider
 						entries={[
 							{ label: 'Balances',             render: <WalletBalances        {...props}/> },

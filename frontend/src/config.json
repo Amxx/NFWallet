@@ -16,71 +16,87 @@
 	{
 		"ropsten":
 		{
-			"nfwfactory": "nfwallets.eth",
 			"subgraph":   "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets-ropsten",
 			"etherscan":  "https://ropsten.etherscan.io",
 			"opensea":    "",
 			"exchange":
 			{
-				"UniswapV2Router": "0xcDbE04934d89e97a24BCc07c3562DC8CF17d8167",
 				"tokens":
 				{
 					"Ξ":
 					{
-						"symbol":        "Ξ",
-						"name":          "Ether",
-						"decimals":      18,
-						"img":           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
-						"address":       "0xc778417E063141139Fce010982780140Aa0cD5Ab"
+						"isEth":     true,
+						"symbol":    "Ξ",
+						"name":      "Ether",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
+						"address":   "0xc778417E063141139Fce010982780140Aa0cD5Ab",
+						"UniswapV2": true
 					},
 					"DAI":
 					{
-						"symbol":        "DAI",
-						"name":          "Dai Stablecoin",
-						"decimals":      18,
-						"img":           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
-						"address":       "0x59DdAdcE870827186fC0aB55d8BFA9C601c3C4C0",
-						"UniswapV2Pair": true
+						"symbol":    "DAI",
+						"name":      "Dai Stablecoin",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+						"address":   "0xf80A32A835F79D7787E8a8ee5721D0fEaFd78108",
+						"UniswapV2": true
+					},
+					"aETH":
+					{
+						"symbol":    "aETH",
+						"name":      "AAVE Ether",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
+						"address":   "0x2433A1b6FcF156956599280C3Eb1863247CFE675"
+					},
+					"aDAI":
+					{
+						"symbol":    "aDAI",
+						"name":      "AAVE Dai",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+						"address":   "0xcB1Fe6F440c49E9290c3eb7f158534c2dC374201"
 					}
 				}
 			}
 		},
 		"rinkeby":
 		{
-			"nfwfactory": "nfwallets.eth",
 			"subgraph":   "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets-rinkeby",
 			"etherscan":  "https://rinkeby.etherscan.io",
 			"opensea":    "https://rinkeby.opensea.io",
 			"exchange":
 			{
-				"UniswapV2Router": "0xcDbE04934d89e97a24BCc07c3562DC8CF17d8167",
 				"tokens":
 				{
 					"Ξ":
 					{
-						"symbol":        "Ξ",
-						"name":          "Ether",
-						"decimals":      18,
-						"img":           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
-						"address":       "0xc778417E063141139Fce010982780140Aa0cD5Ab"
+						"isEth":     true,
+						"symbol":    "Ξ",
+						"name":      "Ether",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
+						"address":   "0xc778417E063141139Fce010982780140Aa0cD5Ab",
+						"UniswapV2": true
 					},
 					"DAI":
 					{
-						"symbol":        "DAI",
-						"name":          "Dai Stablecoin",
-						"decimals":      18,
-						"img":           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
-						"address":       "0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735",
-						"UniswapV2Pair": true
+						"symbol":    "DAI",
+						"name":      "Dai Stablecoin",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+						"address":   "0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735",
+						"UniswapV2": true
 					},
 					"MKR":
 					{
-						"symbol":        "MKR",
-						"name":          "Maker",
-						"decimals":      18,
-						"img":           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2/logo.png",
-						"address":       "0xF9bA5210F91D0474bd1e1DcDAeC4C58E359AaD85",
-						"UniswapV2Pair": true
+						"symbol":    "MKR",
+						"name":      "Maker",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2/logo.png",
+						"address":   "0xF9bA5210F91D0474bd1e1DcDAeC4C58E359AaD85",
+						"UniswapV2": true
 					},
 					"USDT":
 					{
@@ -103,71 +119,87 @@
 		},
 		"goerli":
 		{
-			"nfwfactory": "nfwallets.eth",
 			"subgraph":   "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets-goerli",
 			"etherscan":  "https://goerli.etherscan.io",
 			"opensea":    "",
 			"exchange":
 			{
-				"UniswapV2Router": "0xcDbE04934d89e97a24BCc07c3562DC8CF17d8167",
 				"tokens":
 				{
 					"Ξ":
 					{
-						"symbol":        "Ξ",
-						"name":          "Ether",
-						"decimals":      18,
-						"img":           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
-						"address":       "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6"
+						"isEth":     true,
+						"symbol":    "Ξ",
+						"name":      "Ether",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
+						"address":   "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
+						"UniswapV2": true
 					},
 					"USDT":
 					{
-						"symbol":        "USDT",
-						"name":          "Tether USDT",
-						"decimals":      6,
-						"img":           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
-						"address":       "0xc6be317de3198C3124710f744570Af569Ce860FF",
-						"UniswapV2Pair": true
+						"symbol":    "USDT",
+						"name":      "Tether USDT",
+						"decimals":  6,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+						"address":   "0xc6be317de3198C3124710f744570Af569Ce860FF",
+						"UniswapV2": true
 					},
 					"RLC":
 					{
-						"symbol":        "RLC",
-						"name":          "iExec RLC Token",
-						"decimals":      9,
-						"img":           "https://iex.ec/wp-content/uploads/2018/12/token.svg",
-						"address":       "0xe0d00540a3729B4fdB96f92534dA97DC7973Af8b",
-						"UniswapV2Pair": true
+						"symbol":    "RLC",
+						"name":      "iExec RLC Token",
+						"decimals":  9,
+						"img":       "https://iex.ec/wp-content/uploads/2018/12/token.svg",
+						"address":   "0xe0d00540a3729B4fdB96f92534dA97DC7973Af8b",
+						"UniswapV2": true
 					}
 				}
 			}
 		},
 		"kovan":
 		{
-			"nfwfactory": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
 			"subgraph":   "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets-kovan",
 			"etherscan":  "https://kovan.etherscan.io",
 			"opensea":    "",
 			"exchange":
 			{
-				"UniswapV2Router": "0xcDbE04934d89e97a24BCc07c3562DC8CF17d8167",
 				"tokens":
 				{
 					"Ξ":
 					{
-						"symbol":        "Ξ",
-						"name":          "Ether",
-						"decimals":      18,
-						"img":           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
-						"address":       "0xd0A1E359811322d97991E03f863a0C30C2cF029C"
+						"isEth":     true,
+						"symbol":    "Ξ",
+						"name":      "Ether",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
+						"address":   "0xd0A1E359811322d97991E03f863a0C30C2cF029C",
+						"UniswapV2": true
 					},
 					"DAI":
 					{
-						"symbol":        "DAI",
-						"name":          "Dai Stablecoin",
-						"decimals":      18,
-						"img":           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
-						"address":       "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa",
-						"UniswapV2Pair": true
+						"symbol":    "DAI",
+						"name":      "Dai Stablecoin",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+						"address":   "0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD",
+						"UniswapV2": true
+					},
+					"aETH":
+					{
+						"symbol":    "aETH",
+						"name":      "AAVE Ether",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
+						"address":   "0xD483B49F2d55D2c53D32bE6efF735cB001880F79"
+					},
+					"aDAI":
+					{
+						"symbol":    "aDAI",
+						"name":      "AAVE Dai",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+						"address":   "0x58AD4cB396411B691A9AAb6F74545b2C5217FE6a"
 					}
 				}
 			}

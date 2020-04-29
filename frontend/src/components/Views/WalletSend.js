@@ -5,14 +5,13 @@ import InputAdornment  from '@material-ui/core/InputAdornment';
 import TextField       from '@material-ui/core/TextField';
 
 import { ethers } from 'ethers';
-import { abi as ABIERC20  } from '../../abi/ERC20.json';
-import { abi as ABIWallet } from '../../abi/NFWallet.json';
+import * as utils from '../../libs/utils'
+
+import ERC20      from '../../abi/ERC20.json';
 
 
-const WalletTX = (props) =>
+const WalletSend = (props) =>
 {
-	const wallet = new ethers.Contract(props.data.wallet.id, ABIWallet, props.services.provider.getSigner());
-
 	const [ base,   setBase   ] = React.useState(ethers.constants.EtherSymbol);
 	const [ addr,   setAddr   ] = React.useState('');
 	const [ value,  setValue  ] = React.useState('');
@@ -31,36 +30,26 @@ const WalletTX = (props) =>
 
 		const asset  = props.balances[base];
 		const amount = ethers.utils.bigNumberify(String(Number(value) * 10 ** asset.decimals));
-		const isEth  = asset.symbol === ethers.constants.EtherSymbol;
 
-		wallet.forward(
-			isEth ? addr   : props.balances[base].address,
-			isEth ? amount : 0,
-			isEth ? '0x'   : (new ethers.utils.Interface(ABIERC20)).functions['transfer'].encode([ addr, amount ]),
-		)
-		.then(txPromise => {
-			props.services.emitter.emit('Notify', 'info', 'Transaction sent');
-			txPromise.wait()
-			.then(() => {
-				props.services.emitter.emit('Notify', 'success', 'Transaction successfull');
-				props.services.emitter.emit('tx');
-			}) // success
-			.catch(() => {
-				props.services.emitter.emit('Notify', 'error', 'Transaction failled');
-			}) // transaction error
-		})
-		.catch(() => {
-			props.services.emitter.emit('Notify', 'error', 'Signature required');
-		}) // signature error
+		utils.executeTransactions(
+			props.data.wallet.id,
+			[[
+				asset.isEth ? addr   : props.balances[base].address,
+				asset.isEth ? amount : 0,
+				asset.isEth ? '0x'   : (new ethers.utils.Interface(ERC20.abi)).functions['transfer'].encode([ addr, amount ]),
+			]],
+			props.services
+		);
 	}
 
 	return (
 		<form onSubmit={handleSubmit} className={`d-flex flex-column ${props.className}`}>
 			<AddressInputENS
-				label        = 'destination'
-				className    = 'my-1'
-				onChange     = {setAddr}
-				provider     = {props.services.provider}
+				color       = 'light'
+				label       = 'destination'
+				className   = 'my-1'
+				onChange    = {setAddr}
+				provider    = {props.services.provider}
 			/>
 			<TextField
 				error       = {!enough}
@@ -76,22 +65,22 @@ const WalletTX = (props) =>
 							<select value={base} onChange={(e) => setBase(e.target.value)} style={{ 'width':'100px' }}>
 								{
 									Object.values(props.balances)
-										.filter(({symbol, balance}) => symbol === ethers.constants.EtherSymbol || balance > 0)
+										.filter(({isEth, balance}) => isEth || balance > 0)
 										.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
 								}
 							</select>
 						</InputAdornment>,
 					endAdornment:
 						<InputAdornment position='end'>
-							<MDBBtn color='blue' className='z-depth-0' size='sm' onClick={() => setValue(props.balances[base].balance)}>max</MDBBtn>
+							<MDBBtn color='light' className='z-depth-0' size='sm' onClick={() => setValue(props.balances[base].balance)}>max</MDBBtn>
 						</InputAdornment>,
 				}}
 			/>
-			<MDBBtn color='blue' type='sumbit' className='mx-0' size='sm' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
+			<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
 				Send { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}
 			</MDBBtn>
 		</form>
 	);
 }
 
-export default WalletTX;
+export default WalletSend;

@@ -18,15 +18,15 @@ const TabSlider = (props) =>
 					variant        = 'fullWidth'
 				>
 					{
-						props.entries.map(({label, icon, render}) => <Tab label={label} icon={icon} disabled={!render}/>)
+						props.entries.map(({label, icon, render}, i) => <Tab key={i} label={label} icon={icon} disabled={!render}/>)
 					}
 				</Tabs>
 			</AppBar>
 			<SwipeableViews axis='x' index={value} onChangeIndex={setValue}>
 				{
-					props.entries.map(({render}, index) =>
-						<div hidden={value !== index} className='p-4'>
-							{value === index && render}
+					props.entries.map(({render}, i) =>
+						<div key={i} hidden={value !== i} className='p-4'>
+							{value === i && render}
 						</div>
 					)
 				}

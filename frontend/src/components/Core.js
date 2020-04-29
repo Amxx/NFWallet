@@ -11,7 +11,7 @@ import Main          from './Main';
 import Error         from './UI/Error';
 import Notifications from './Services/Notifications';
 
-import { abi as ABIFactory } from '../abi/NFWalletFactory.json';
+import NFWalletFactory from '../abi/NFWalletFactory.json';
 
 import CONFIG from '../config.json';
 
@@ -43,8 +43,7 @@ const Core = () =>
 			const accounts = await provider.listAccounts()
 			const network  = await provider.getNetwork()
 			const config   = CONFIG.networks[network.name]
-			const registry = new ethers.Contract(config.nfwfactory, ABIFactory, provider.getSigner());
-			registry.addressPromise.then(addr => registry.addressPromised = addr).catch(() => {});
+			const registry = new ethers.Contract(NFWalletFactory.networks[network.chainId].address, NFWalletFactory.abi, provider.getSigner());
 			const uri      = config.subgraph;
 			const cache    = new InMemoryCache();
 			const link     = new HttpLink({ uri });
