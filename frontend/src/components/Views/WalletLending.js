@@ -34,7 +34,7 @@ const WalletLending = (props) =>
 		{
 			setEnough((deposit ? props.balances[token].balance : props.balances[token].aBalance) >= value || 'max' === value)
 		} catch {}
-	}, [deposit, token, value])
+	}, [props, deposit, token, value])
 
 	const handleSubmit = (ev) =>
 	{
