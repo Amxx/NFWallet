@@ -20,7 +20,7 @@ const WalletView = (props) =>
 				<MDBCard>
 					<TabSlider
 						entries={[
-							{ label: 'Details',              render: () => <WalletDetailsExpanded {...props}/> },
+							{ label: 'Details',              render: <WalletDetailsExpanded {...props}/> },
 						]}
 					/>
 				</MDBCard>
@@ -30,10 +30,9 @@ const WalletView = (props) =>
 				<MDBCard>
 					<TabSlider
 						entries={[
-							{ label: 'ETH & ERC20',          render: () => <WalletTX              {...props}/> },
-							{ label: 'UniswapV2',            render: () => <WalletTradeUniswapV2  {...props}/> },
-							{ label: 'AAVE', },
-							{ label: 'Transfer this wallet', render: () => <WalletTransfer        {...props}/> },
+							{ label: 'Send',                 render: <WalletTX              {...props}/> },
+							{ label: 'Swap',                 render: <WalletTradeUniswapV2  {...props}/> },
+							{ label: 'Wallet ownership',     render: <WalletTransfer        {...props}/> },
 						]}
 					/>
 				</MDBCard>
@@ -43,9 +42,20 @@ const WalletView = (props) =>
 				<MDBCard>
 					<TabSlider
 						entries={[
-							{ label: 'Balances',             render: () => <WalletBalances        {...props}/> },
-							{ label: 'Chart',                render: () => <WalletBalanceChart    {...props}/> },
-							{ label: 'Detailed activity',    render: () => <WalletActivity        {...props}/> },
+							{ label: 'Lend',                 render: <span>Soon (with AAVE)</span> },
+							{ label: 'Borrow',               render: <span>Soon (with AAVE)</span> },
+						]}
+					/>
+				</MDBCard>
+			</div>
+
+			<div className='py-3'>
+				<MDBCard>
+					<TabSlider
+						entries={[
+							{ label: 'Balances',             render: <WalletBalances        {...props}/> },
+							{ label: 'Chart',                render: <WalletBalanceChart    {...props}/> },
+							{ label: 'Detailed activity',    render: <WalletActivity        {...props}/> },
 						]}
 					/>
 				</MDBCard>

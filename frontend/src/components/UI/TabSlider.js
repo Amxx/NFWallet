@@ -26,7 +26,7 @@ const TabSlider = (props) =>
 				{
 					props.entries.map(({render}, index) =>
 						<div hidden={value !== index} className='p-4'>
-							{value === index && render()}
+							{value === index && render}
 						</div>
 					)
 				}
