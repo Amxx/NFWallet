@@ -43,6 +43,7 @@
     "react-notifications": "^1.6.0",
     "react-scripts": "3.4.1",
     "react-spinners": "^0.8.1",
+    "react-swipeable-views": "^0.13.9",
     "typescript": "^3.8.3"
   },
   "eslintConfig": {

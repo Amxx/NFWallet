@@ -9,7 +9,7 @@ import { abi as ABIWallet            } from '../../abi/NFWallet.json';
 import { abi as ABIUniswapV2Router01 } from '../../abi/UniswapV2Router01.json';
 
 
-const WalletTrade = (props) =>
+const WalletTradeUniswapV2 = (props) =>
 {
 	const router = new ethers.Contract(props.services.config.exchange.UniswapV2Router, ABIUniswapV2Router01, props.services.provider.getSigner());
 	const wallet = new ethers.Contract(props.data.wallet.id, ABIWallet, props.services.provider.getSigner());
@@ -182,4 +182,4 @@ const WalletTrade = (props) =>
 	);
 }
 
-export default WalletTrade;
+export default WalletTradeUniswapV2;
