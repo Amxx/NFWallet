@@ -143,7 +143,7 @@
 		},
 		"kovan":
 		{
-			"nfwfactory": "nfwallets.eth",
+			"nfwfactory": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
 			"subgraph":   "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets-kovan",
 			"etherscan":  "https://kovan.etherscan.io",
 			"opensea":    "",
