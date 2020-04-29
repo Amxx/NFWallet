@@ -101,7 +101,7 @@ const Core = () =>
 							}}/>
 						</ApolloProvider>
 					:
-						<Error message='Please switch network to a supported network (only rinkeby for now)'/>
+						<Error message='Please switch network to a supported network'/>
 				)
 			}
 		</>

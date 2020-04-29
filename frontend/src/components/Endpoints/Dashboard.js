@@ -1,5 +1,5 @@
 import * as React from 'react';
-import WalletList from '../Views/WalletList';
+import WalletList from './Dashboard/WalletList';
 
 const Dashboard = (props) =>
 	<div className='container my-auto'>

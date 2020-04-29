@@ -1,8 +1,8 @@
 import * as React from 'react';
 import graphql    from '../../graphql';
 
-import Grid       from '../UI/Grid';
-import TokenBlock from './Overview/TokenBlock';
+import Grid          from './Overview/Grid';
+import GrigItemToken from './Overview/GrigItemToken';
 
 
 const Overview = (props) =>
@@ -10,11 +10,20 @@ const Overview = (props) =>
 		<div className='row'>
 			<div className='col-md-6'>
 				<h1>My Wallets</h1>
-				<Grid query={graphql.wallets}    services={props.services} component={TokenBlock} variables={{ account: props.services.accounts[0].toLowerCase() }}/>
+				<Grid
+					query     = {graphql.wallets}
+					services  = {props.services}
+					component = {GrigItemToken}
+					variables = {{account: props.services.accounts[0].toLowerCase()}}
+					/>
 			</div>
 			<div className='col-md-6'>
 				<h1>All Wallets</h1>
-				<Grid query={graphql.walletsAll} services={props.services} component={TokenBlock}/>
+				<Grid
+					query     = {graphql.walletsAll}
+					services  = {props.services}
+					component = {GrigItemToken}
+				/>
 			</div>
 		</div>
 	</div>;

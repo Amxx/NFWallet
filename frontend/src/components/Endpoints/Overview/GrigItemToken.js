@@ -4,7 +4,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import * as utils from '../../../libs/utils';
 
 
-const Entry = (props) =>
+const GrigItemToken = (props) =>
 {
 	const owner = props.services.accounts[0].toLowerCase() === props.entry.owner.id;
 	const color = owner ? 'primary' : 'secondary'
@@ -25,4 +25,4 @@ const Entry = (props) =>
 	);
 }
 
-export default Entry;
+export default GrigItemToken;
