@@ -68,12 +68,11 @@ const WalletLending = (props) =>
 		<div className='d-flex justify-content-center align-items-stretch'>
 			<div className='d-flex flex-column justify-content-center border-right border-light pr-4 mr-4'>
 				{
-					lendable.map(({symbol, img}, i) =>
+					lendable.map(({symbol, img, reserveData}, i) =>
 						<a href='#!' key={i} onClick={() => setToken(symbol)} className='text-center m-2'>
 							<img src={img} alt={symbol} height={32}/>
-							<div className='text-muted'>
-								{symbol}
-							</div>
+							<div className='text-muted' style={{fontSize: '.8em'}}>{symbol}</div>
+							<div className='text-muted' style={{fontSize: '.6em'}}>{(reserveData.liquidityRate*100).toFixed(2)}% APY</div>
 						</a>
 					)
 				}

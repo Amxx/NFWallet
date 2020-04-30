@@ -27,21 +27,20 @@ const WithBalance = (props) =>
 						const address  = await poolcore.getReserveATokenAddress(reserve);
 						const data     = await pool.getUserReserveData(reserve, props.data.wallet.id);
 
-						console.log(token.symbol, data)
-
 						reserveData = {
 							aTokenAddress: address,
 							aTokenBalance: data.currentATokenBalance / 10 ** token.decimals,
 							borrowBalance: data.currentBorrowBalance / 10 ** token.decimals,
 							// data.principalBorrowBalance,
 							// data.borrowRateMode,
-							// data.borrowRate,
-							// data.liquidityRate,
+							borrowRate:    data.borrowRate           / 10 ** 27,
+							liquidityRate: data.liquidityRate        / 10 ** 27,
 							// data.originationFee,
 							// data.variableBorrowIndex,
 							// data.lastUpdateTimestamp,
 							// data.usageAsCollateralEnabled,
 						};
+						console.log(token.symbol, data, reserveData)
 					}
 					catch
 					{

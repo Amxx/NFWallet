@@ -45,7 +45,10 @@ const WalletBorrowing = (props) =>
 					])
 				]
 			],
-			props.services
+			props.services,
+			{
+				sigerror: () => props.services.emitter.emit('Notify', 'info', 'Operation impossible: Not enough collateral of unsupported rate')
+			}
 		);
 	}
 
@@ -85,11 +88,5 @@ const WalletBorrowing = (props) =>
 		</div>
 	);
 }
-
-// <a href='#!' className='d-flex align-items-center justify-content-center' onClick={toggle}>
-// <div>{token}</div>
-// <MDBIcon icon={deposit?'long-arrow-alt-right':'long-arrow-alt-left'} className='px-2'/>
-// <div>a{token}</div>
-// </a>
 
 export default WalletBorrowingWrapper;

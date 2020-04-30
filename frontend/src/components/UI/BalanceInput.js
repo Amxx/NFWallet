@@ -32,18 +32,18 @@ const BalanceInput = (props) =>
 	React.useEffect(() => {
 		if (props.token)
 		{
-			setToken(props.token)
+			setToken(props.token);
 		}
 	}, [props.token])
 
 	// keep track of balance for current token
 	React.useEffect(() => {
-		setBalance(props.switchAAVE ? props.balances[token].reserveData.aTokenBalance : props.balances[token].balance)
-	}, [props.balances, props.switchAAVE, token])
+		setBalance(props.switchAAVE ? props.balances[token].reserveData.aTokenBalance : props.balances[token].balance);
+	}, [props.maxbalance, props.balances, props.switchAAVE, token])
 
 	// write maxbalance
 	React.useEffect(() => {
-		max && setValue(balance)
+		max && setValue(props.maxvalue ? Math.min(balance, props.maxvalue) : balance);
 	}, [max, balance])
 
 	// check balance

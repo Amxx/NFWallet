@@ -9,7 +9,7 @@ import WalletBorrowing       from '../../Views/WalletBorrowing';
 import WalletDetailsExpanded from '../../Views/WalletDetailsExpanded';
 import WalletLending         from '../../Views/WalletLending';
 import WalletOwnership       from '../../Views/WalletOwnership';
-// import WalletRepay           from '../../Views/WalletRepay';
+import WalletRepaying        from '../../Views/WalletRepaying';
 import WalletSend            from '../../Views/WalletSend';
 import WalletUniswapV2       from '../../Views/WalletUniswapV2';
 
@@ -47,7 +47,7 @@ const WalletView = (props) =>
 						entries={[
 							{ label: 'Lend',                 render: <WalletLending         {...props} /> },
 							{ label: 'Borrow',               render: <WalletBorrowing       {...props} /> },
-							{ label: 'Repay',                render: null },
+							{ label: 'Repay',                render: <WalletRepaying        {...props} /> },
 						]}
 					/>
 				</MDBCard>
