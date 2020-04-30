@@ -3,8 +3,6 @@ import TextField       from '@material-ui/core/TextField';
 import InputAdornment  from '@material-ui/core/InputAdornment';
 import Switch          from '@material-ui/core/Switch';
 
-import { ethers }      from 'ethers';
-
 // props: {
 // 	balances   (required)
 // 	token      (optional) → default use ETH
@@ -14,10 +12,11 @@ import { ethers }      from 'ethers';
 // }
 const BalanceInput = (props) =>
 {
-	const [ value,  setValue  ] = React.useState('');
-	const [ max,    setMax    ] = React.useState(false);
-	const [ token,  setToken  ] = React.useState(props.token || ethers.constants.EtherSymbol);
-	const [ enough, setEnough ] = React.useState(true);
+	const [ value,   setValue   ] = React.useState('');
+	const [ balance, setBalance ] = React.useState('');
+	const [ max,     setMax     ] = React.useState(false);
+	const [ token,   setToken   ] = React.useState(props.token || 'ETH');
+	const [ enough,  setEnough  ] = React.useState(true);
 
 	const handleChange = (e) =>
 	{
@@ -29,15 +28,28 @@ const BalanceInput = (props) =>
 		setMax(e.target.checked);
 	}
 
+	// listen to token prop
+	React.useEffect(() => {
+		if (props.token)
+		{
+			setToken(props.token)
+		}
+	}, [props.token])
+
+	// keep track of balance for current token
+	React.useEffect(() => {
+		setBalance(props.switchAAVE ? props.balances[token].reserveData.aTokenBalance : props.balances[token].balance)
+	}, [props.balances, props.switchAAVE, token])
+
 	// write maxbalance
 	React.useEffect(() => {
-		max && setValue(props.balances[token][props.switchAAVE?'aBalance':'balance'])
-	}, [props.balances, props.switchAAVE, token, max])
+		max && setValue(balance)
+	}, [max, balance])
 
 	// check balance
 	React.useEffect(() => {
-		setEnough(max || value <= props.balances[token][props.switchAAVE?'aBalance':'balance']);
-	}, [props.balances, props.switchAAVE, value, token, max])
+		setEnough(props.unlimited || max || value <= balance);
+	}, [max, balance, value])
 
 	// callbacks
 	React.useEffect(() => {
@@ -81,6 +93,7 @@ const BalanceInput = (props) =>
 							}
 						</InputAdornment>,
 					endAdornment:
+						!props.unlimited &&
 						<InputAdornment position='end'>
 							<Switch color='primary' checked={max} onChange={toogleMax}/><span className='text-muted'>max</span>
 						</InputAdornment>,

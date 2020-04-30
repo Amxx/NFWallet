@@ -5,9 +5,11 @@ import TabSlider             from '../../UI/TabSlider';
 import WalletActivity        from '../../Views/WalletActivity';
 import WalletBalances        from '../../Views/WalletBalances';
 import WalletBalanceChart    from '../../Views/WalletBalanceChart';
+import WalletBorrowing       from '../../Views/WalletBorrowing';
 import WalletDetailsExpanded from '../../Views/WalletDetailsExpanded';
 import WalletLending         from '../../Views/WalletLending';
 import WalletOwnership       from '../../Views/WalletOwnership';
+// import WalletRepay           from '../../Views/WalletRepay';
 import WalletSend            from '../../Views/WalletSend';
 import WalletUniswapV2       from '../../Views/WalletUniswapV2';
 
@@ -44,7 +46,8 @@ const WalletView = (props) =>
 					<TabSlider
 						entries={[
 							{ label: 'Lend',                 render: <WalletLending         {...props} /> },
-							{ label: 'Borrow' },
+							{ label: 'Borrow',               render: <WalletBorrowing       {...props} /> },
+							{ label: 'Repay',                render: null },
 						]}
 					/>
 				</MDBCard>

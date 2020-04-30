@@ -88,11 +88,12 @@ class AddressInputENS extends EthereumReactComponents.AddressInput
 				placeholder = '0x000000...'
 				InputProps  = {{
 					startAdornment: <InputAdornment>{this.state.icon}</InputAdornment>,
-					endAdornment:   <InputAdornment><Scan color={this.props.color || 'blue'} className='z-depth-0' size='sm' callback={this.callback.bind(this)}/></InputAdornment>,
 				}}
 			/>
 		)
 	}
 }
+// modal fails to display correctly
+// endAdornment:   <InputAdornment><Scan color={this.props.color || 'blue'} className='z-depth-0' size='sm' callback={this.callback.bind(this)}/></InputAdornment>,
 
 export default AddressInputENS;

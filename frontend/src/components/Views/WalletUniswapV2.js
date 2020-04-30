@@ -15,7 +15,7 @@ const WalletUniswapV2 = (props) =>
 {
 	const router = new ethers.Contract(UniswapV2Router01.networks[props.services.network.chainId].address, UniswapV2Router01.abi, props.services.provider.getSigner());
 
-	const [ base,      setBase      ] = React.useState(ethers.constants.EtherSymbol);
+	const [ base,      setBase      ] = React.useState('ETH');
 	const [ quote,     setQuote     ] = React.useState('DAI');
 	const [ amount,    setAmount    ] = React.useState('');
 	const [ uniparams, setUniparams ] = React.useState({});
@@ -42,7 +42,7 @@ const WalletUniswapV2 = (props) =>
 			const method = from.isEth ? 'swapExactETHForTokens' : to.isEth ? 'swapExactTokensForETH' : 'swapExactTokensForTokens';
 			const path   = [
 				from.address,
-				!from.isEth && !to.isEth ? props.balances[ethers.constants.EtherSymbol].address : undefined, // weth
+				!from.isEth && !to.isEth ? props.balances['ETH'].address : undefined, // weth
 				to.address,
 			].filter(Boolean);
 

@@ -11,7 +11,7 @@ import ERC20      from '../../abi/ERC20.json';
 
 const WalletSend = (props) =>
 {
-	const [ token,   setToken   ] = React.useState(ethers.constants.EtherSymbol);
+	const [ token,   setToken   ] = React.useState('ETH');
 	const [ addr,    setAddr    ] = React.useState('');
 	const [ amount,  setAmount  ] = React.useState('');
 	const [ enough,  setEnough  ] = React.useState(true);
@@ -21,7 +21,7 @@ const WalletSend = (props) =>
 		ev.preventDefault();
 
 		const asset = props.balances[token];
-		
+
 		utils.executeTransactions(
 			props.data.wallet.id,
 			[[

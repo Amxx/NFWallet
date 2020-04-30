@@ -21,6 +21,7 @@
     "@apollo/react-hooks": "^3.1.5",
     "@enslogin/sdk": "^0.1.8",
     "@eventstag/instascan": "^2.0.1",
+    "@material-ui/core": "^4.9.12",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",

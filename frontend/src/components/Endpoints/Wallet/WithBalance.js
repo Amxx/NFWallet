@@ -3,8 +3,8 @@ import { Spinner } from 'react-bootstrap';
 import { ethers } from 'ethers';
 
 import ERC20           from '../../../abi/ERC20.json';
+import LendingPool     from '../../../abi/LendingPool.json';
 import LendingPoolCore from '../../../abi/LendingPoolCore.json';
-import AToken          from '../../../abi/AToken.json';
 
 
 const WithBalance = (props) =>
@@ -17,30 +17,47 @@ const WithBalance = (props) =>
 			Promise.all(
 				Object.values(props.services.config.exchange.tokens)
 				.map(async (token) => {
-					let extra;
+					let reserveData;
 					try
 					{
+						const reserve  = token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address;
+
+						const pool     = new ethers.Contract(    LendingPool.networks[props.services.network.chainId].address,     LendingPool.abi, props.services.provider.getSigner());
 						const poolcore = new ethers.Contract(LendingPoolCore.networks[props.services.network.chainId].address, LendingPoolCore.abi, props.services.provider.getSigner());
-						const aAddress = await poolcore.getReserveATokenAddress(token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address);
-						const aToken   = new ethers.Contract(aAddress, AToken.abi, props.services.provider.getSigner());
-						const aBalance = await aToken.balanceOf(props.data.wallet.id);
-						extra = { aAddress, aBalance: aBalance / 10 ** token.decimals };
+						const address  = await poolcore.getReserveATokenAddress(reserve);
+						const data     = await pool.getUserReserveData(reserve, props.data.wallet.id);
+
+						console.log(token.symbol, data)
+
+						reserveData = {
+							aTokenAddress: address,
+							aTokenBalance: data.currentATokenBalance / 10 ** token.decimals,
+							borrowBalance: data.currentBorrowBalance / 10 ** token.decimals,
+							// data.principalBorrowBalance,
+							// data.borrowRateMode,
+							// data.borrowRate,
+							// data.liquidityRate,
+							// data.originationFee,
+							// data.variableBorrowIndex,
+							// data.lastUpdateTimestamp,
+							// data.usageAsCollateralEnabled,
+						};
 					}
 					catch
 					{
-						extra = {}
+						reserveData = null
 					}
 					finally
 					{
 						if (token.isEth)
 						{
-							return { ...token, ...extra, balance: props.data.wallet.balance / 10 ** token.decimals };
+							return { ...token, reserveData, balance: props.data.wallet.balance / 10 ** token.decimals };
 						}
 						else
 						{
 							const contract = new ethers.Contract(token.address, ERC20.abi, props.services.provider.getSigner());
 							const amount   = await contract.balanceOf(props.data.wallet.id);
-							return { ...token, ...extra, balance: amount / 10 ** token.decimals };
+							return { ...token, reserveData, balance: amount / 10 ** token.decimals };
 						}
 					}
 				})

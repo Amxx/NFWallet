@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { MDBBtn, MDBIcon } from 'mdbreact';
+import { MDBBtn } from 'mdbreact';
 import BalanceInput from '../UI/BalanceInput';
+import Switch from '@material-ui/core/Switch';
 
 import { ethers }      from 'ethers';
 import * as utils      from '../../libs/utils'
@@ -20,9 +21,10 @@ const WalletLending = (props) =>
 {
 	const pool     = new ethers.Contract(    LendingPool.networks[props.services.network.chainId].address,     LendingPool.abi, props.services.provider.getSigner());
 	const poolcore = new ethers.Contract(LendingPoolCore.networks[props.services.network.chainId].address, LendingPoolCore.abi, props.services.provider.getSigner());
+	const lendable = Object.values(props.balances).filter(({reserveData}) => reserveData)
 
 	const [ deposit, setDeposit ] = React.useState(true);
-	const [ token,   setToken   ] = React.useState(ethers.constants.EtherSymbol);
+	const [ token,   setToken   ] = React.useState('ETH');
 	const [ amount,  setAmount  ] = React.useState('');
 	const [ enough,  setEnough  ] = React.useState(true);
 	const toggle = () => setDeposit(!deposit);
@@ -49,11 +51,11 @@ const WalletLending = (props) =>
 					pool.interface.functions.deposit.encode([
 						asset.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : props.balances[token].address,
 						value,
-						0
+						0 // referal code
 					])
 				],
 				!deposit && [
-					asset.aAddress,
+					asset.reserveData.aTokenAddress,
 					0,
 					(new ethers.utils.Interface(AToken.abi)).functions.redeem.encode([value])
 				]
@@ -63,22 +65,39 @@ const WalletLending = (props) =>
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className={`d-flex flex-column ${props.className}`}>
-			<a href='#!' className='d-flex align-items-center justify-content-center' onClick={toggle}>
-				<div>{token}</div>
-				<MDBIcon icon={deposit?'long-arrow-alt-right':'long-arrow-alt-left'} className='px-2'/>
-				<div>a{token}</div>
-			</a>
-			<BalanceInput
-				balances   = { props.balances }
-				filter     = { ({aAddress, isEth, balance, aBalance}) => aAddress && (isEth || (deposit && balance > 0) || (!deposit && aBalance > 0)) }
-				callbacks  = {{ setToken, setAmount, setEnough }}
-				switchAAVE = { !deposit }
-			/>
-			<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
-				{deposit?'Deposit':'Withdraw'} { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) && '(disabled for non owners)' }
-			</MDBBtn>
-		</form>
+		<div className='d-flex justify-content-center align-items-stretch'>
+			<div className='d-flex flex-column justify-content-center border-right border-light pr-4 mr-4'>
+				{
+					lendable.map(({symbol, img}) =>
+						<a href='#!' onClick={() => setToken(symbol)} className='text-center m-2'>
+							<img src={img} alt={symbol} height={32}/>
+							<div className='text-muted'>
+								{symbol}
+							</div>
+						</a>
+					)
+				}
+			</div>
+
+			<form onSubmit={handleSubmit} className={`flex-grow-1 d-flex flex-column ${props.className}`}>
+				<BalanceInput
+					balances   = { props.balances }
+					token      = { token }
+					callbacks  = {{ setAmount, setEnough }}
+					switchAAVE = { !deposit }
+				/>
+
+				<div className='d-flex justify-content-center align-items-center'>
+					<span className='text-muted'>deposit</span>
+						<Switch color='primary' checked={!deposit} onChange={toggle}/>
+					<span className='text-muted'>withdraw</span>
+				</div>
+
+				<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
+					{deposit?'Deposit':'Withdraw'} {token} { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) && '(disabled for non owners)' }
+				</MDBBtn>
+			</form>
+		</div>
 	);
 }
 
