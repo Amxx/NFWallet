@@ -68,8 +68,8 @@ const WalletLending = (props) =>
 		<div className='d-flex justify-content-center align-items-stretch'>
 			<div className='d-flex flex-column justify-content-center border-right border-light pr-4 mr-4'>
 				{
-					lendable.map(({symbol, img}) =>
-						<a href='#!' onClick={() => setToken(symbol)} className='text-center m-2'>
+					lendable.map(({symbol, img}, i) =>
+						<a href='#!' key={i} onClick={() => setToken(symbol)} className='text-center m-2'>
 							<img src={img} alt={symbol} height={32}/>
 							<div className='text-muted'>
 								{symbol}
