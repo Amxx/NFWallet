@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
 import BalanceInput from '../UI/BalanceInput';
-import Switch from '@material-ui/core/Switch';
+import Switch       from '@material-ui/core/Switch';
 
 import { ethers }      from 'ethers';
 import * as utils      from '../../libs/utils'
@@ -15,8 +15,8 @@ const WalletBorrowingWrapper = (props) =>
 
 const WalletBorrowing = (props) =>
 {
-	const pool       = new ethers.Contract(LendingPool.networks[props.services.network.chainId].address, LendingPool.abi, props.services.provider.getSigner());
-	const borrowable = Object.values(props.balances).filter(({reserveData}) => reserveData)
+	const [ pool                      ] = React.useState(new ethers.Contract(LendingPool.networks[props.services.network.chainId].address, LendingPool.abi, props.services.provider.getSigner()));
+	const [ borrowable                ] = React.useState(Object.values(props.details.tokens).filter(({reserveData}) => reserveData));
 
 	const [ stableRate, setStableRate ] = React.useState(false);
 	const [ token,      setToken      ] = React.useState('ETH');
@@ -28,7 +28,7 @@ const WalletBorrowing = (props) =>
 	{
 		ev.preventDefault();
 
-		const asset = props.balances[token];
+		const asset = props.details.tokens[token];
 		const value = amount.value;
 
 		utils.executeTransactions(
@@ -38,7 +38,7 @@ const WalletBorrowing = (props) =>
 					pool.address,
 					0,
 					pool.interface.functions.borrow.encode([
-						asset.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : props.balances[token].address,
+						asset.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : asset.address,
 						value,
 						stableRate ? 1 : 2,
 						0 // referal code
@@ -69,10 +69,10 @@ const WalletBorrowing = (props) =>
 
 			<form onSubmit={handleSubmit} className={`flex-grow-1 d-flex flex-column ${props.className}`}>
 				<BalanceInput
-					balances   = { props.balances }
-					token      = { token }
-					callbacks  = {{ setAmount, setEnough }}
-					unlimited
+					className     = 'my-1'
+					token         = { token }
+					tokenDecimals = { props.details.tokens[token].decimals }
+					callbacks     = {{ setAmount, setEnough }}
 				/>
 
 				<div className='d-flex justify-content-center align-items-center'>

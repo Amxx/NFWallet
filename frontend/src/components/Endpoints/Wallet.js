@@ -4,7 +4,7 @@ import { Spinner  } from 'react-bootstrap';
 import { useQuery } from '@apollo/react-hooks';
 import graphql from '../../graphql';
 
-import WithBalance from './Wallet/WithBalance';
+import WithDetails from './Wallet/WithDetails';
 import WalletView  from './Wallet/WalletView';
 
 const Wallet = (props) =>
@@ -40,9 +40,9 @@ const Wallet = (props) =>
 			}
 			{
 				data && data.wallet &&
-					<WithBalance data={data} services={props.services}>
+					<WithDetails data={data} services={props.services}>
 						<WalletView data={data} services={props.services}/>
-					</WithBalance>
+					</WithDetails>
 			}
 		</div>
 	);

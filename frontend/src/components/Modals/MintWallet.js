@@ -8,8 +8,9 @@ import {
 } from 'mdbreact';
 import { ethers } from 'ethers';
 
-import TextField from '@material-ui/core/TextField';
+import TextField       from '@material-ui/core/TextField';
 import AddressInputENS from '../UI/AddressInputENS';
+import Switch          from '@material-ui/core/Switch';
 
 const MintWallet = (props) =>
 {
@@ -30,14 +31,15 @@ const MintWallet = (props) =>
 		.then(txPromise => {
 			props.services.emitter.emit('Notify', 'info', 'Transaction sent');
 			txPromise.wait()
-			.then(() => {
+			.then(tx => {
 				props.services.emitter.emit('Notify', 'success', 'New wallet minted');
 			}) // success
-			.catch(() => {
+			.catch(err => {
 				props.services.emitter.emit('Notify', 'error', 'Transaction failled');
 			}) // transaction error
 		})
-		.catch(() => {
+		.catch(err => {
+			console.log(err)
 			props.services.emitter.emit('Notify', 'error', 'Signature required');
 		}) // signature error
 		.finally(toggle);
@@ -54,11 +56,12 @@ const MintWallet = (props) =>
 					<form onSubmit={handleSubmit} className='d-flex flex-column'>
 						<AddressInputENS className='my-1' label='initial owner' defaultValue={addr} onChange={setAddr} services={props.services}/>
 						{ full && <TextField className='my-1' label='seed' defaultValue={seed} onChange={e => setSeed(e.target.value)} variant='outlined'/> }
-						<div className='lined text-muted my-2'>
-							<a href='#!' className='text-reset' onClick={toggleFull}>
-								toggle advanced mode
-							</a>
+
+						<div className='d-flex justify-content-center align-items-center'>
+							<Switch color='primary' checked={full} onChange={toggleFull}/>
+							<span className='text-muted'>advanced mode</span>
 						</div>
+
 						<MDBBtn color='indigo' type='sumbit' className='mx-0'>Mint</MDBBtn>
 					</form>
 				</MDBModalBody>

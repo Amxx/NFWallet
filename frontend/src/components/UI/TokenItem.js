@@ -1,5 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import { ethers } from 'ethers';
 
 const AccountItem = (props) =>
 	<StyledWrapper>
@@ -11,7 +12,7 @@ const AccountItem = (props) =>
 				{props.token.name}
 			</StyledName>
 			<StyledBalance>
-				<StyledBalanceEther>{props.token.symbol}</StyledBalanceEther> {String(props.token.balance).slice(0, 16)}
+				<StyledBalanceEther>{props.token.symbol}</StyledBalanceEther> { ethers.utils.formatUnits(props.token.balance, props.tokenDecimals || 18) }
 			</StyledBalance>
 		</FlexWrapper>
 	</StyledWrapper>
@@ -20,7 +21,7 @@ export default AccountItem;
 
 const StyledWrapper = styled.div`
 	display: flex;
-	width: 220px;
+	width: 280px;
 	margin-bottom: 12px;
 `
 

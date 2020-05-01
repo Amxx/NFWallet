@@ -26,6 +26,7 @@ const WalletBalanceChart = (props) =>
 
 	return (
 		<Chart
+			className='p-4'
 			type    = 'area'
 			series  = {[ { name: 'Balance', data: history.map(([timestamp, value]) => ([timestamp, value / 10 ** 18]))  } ]}
 			options = {{

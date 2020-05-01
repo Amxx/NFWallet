@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
 import BalanceInput from '../UI/BalanceInput';
-import Switch from '@material-ui/core/Switch';
+import Switch       from '@material-ui/core/Switch';
 
 import { ethers }      from 'ethers';
 import * as utils      from '../../libs/utils'
@@ -19,9 +19,9 @@ const WalletLendingWrapper = (props) =>
 
 const WalletLending = (props) =>
 {
-	const pool     = new ethers.Contract(    LendingPool.networks[props.services.network.chainId].address,     LendingPool.abi, props.services.provider.getSigner());
-	const poolcore = new ethers.Contract(LendingPoolCore.networks[props.services.network.chainId].address, LendingPoolCore.abi, props.services.provider.getSigner());
-	const lendable = Object.values(props.balances).filter(({reserveData}) => reserveData)
+	const [ pool                ] = React.useState(new ethers.Contract(    LendingPool.networks[props.services.network.chainId].address,     LendingPool.abi, props.services.provider.getSigner()));
+	const [ poolcore            ] = React.useState(new ethers.Contract(LendingPoolCore.networks[props.services.network.chainId].address, LendingPoolCore.abi, props.services.provider.getSigner()));
+	const [ lendable            ] = React.useState(Object.values(props.details.tokens).filter(({reserveData, isEth, balance}) => reserveData && (isEth || balance.gt(0))));
 
 	const [ deposit, setDeposit ] = React.useState(true);
 	const [ token,   setToken   ] = React.useState('ETH');
@@ -33,7 +33,7 @@ const WalletLending = (props) =>
 	{
 		ev.preventDefault();
 
-		const asset = props.balances[token];
+		const asset = props.details.tokens[token];
 		const value = (amount.max && !deposit) ? ethers.constants.MaxUint256 : amount.value;
 
 		utils.executeTransactions(
@@ -49,7 +49,7 @@ const WalletLending = (props) =>
 					pool.address,
 					asset.isEth ? value : 0,
 					pool.interface.functions.deposit.encode([
-						asset.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : props.balances[token].address,
+						asset.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : asset.address,
 						value,
 						0 // referal code
 					])
@@ -68,22 +68,26 @@ const WalletLending = (props) =>
 		<div className='d-flex justify-content-center align-items-stretch'>
 			<div className='d-flex flex-column justify-content-center border-right border-light pr-4 mr-4'>
 				{
-					lendable.map(({symbol, img, reserveData}, i) =>
-						<a href='#!' key={i} onClick={() => setToken(symbol)} className='text-center m-2'>
-							<img src={img} alt={symbol} height={32}/>
-							<div className='text-muted' style={{fontSize: '.8em'}}>{symbol}</div>
-							<div className='text-muted' style={{fontSize: '.6em'}}>{(reserveData.liquidityRate*100).toFixed(2)}% APY</div>
+					lendable.map((token, i) =>
+						<a href='#!' key={i} onClick={() => setToken(token.symbol)} className='text-center m-2'>
+							<img src={token.img} alt={token.symbol} height={32}/>
+							<div className='text-muted' style={{fontSize: '.8em'}}>
+								{ token.symbol }
+							</div>
+							<div className='text-muted' style={{fontSize: '.6em'}}>
+								{ (ethers.utils.formatUnits(token.reserveData.liquidityRate, 27)*100).toFixed(2) }% APY
+							</div>
 						</a>
 					)
 				}
 			</div>
-
 			<form onSubmit={handleSubmit} className={`flex-grow-1 d-flex flex-column ${props.className}`}>
 				<BalanceInput
-					balances   = { props.balances }
-					token      = { token }
-					callbacks  = {{ setAmount, setEnough }}
-					switchAAVE = { !deposit }
+					className     = 'my-1'
+					token         = { `${deposit?'':'a'}${token}` }
+					tokenDecimals = { props.details.tokens[token].decimals }
+					tokenBalance  = { deposit ? props.details.tokens[token].balance : props.details.tokens[token].reserveData.aTokenBalance }
+					callbacks     = {{ setAmount, setEnough }}
 				/>
 
 				<div className='d-flex justify-content-center align-items-center'>

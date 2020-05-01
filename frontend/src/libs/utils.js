@@ -13,25 +13,29 @@ const executeTransactions = (
 	(new ethers.Contract(wallet, NFWallet.abi, services.provider.getSigner()))
 	.forwardBatch(txs.filter(Boolean))
 	.then(txPromise => {
-		callbacks.sent && callbacks.sent();
-		services.emitter.emit('Notify', 'info', 'Transaction sent');
+		callbacks.sent
+		? callbacks.sent()
+		: services.emitter.emit('Notify', 'info', 'Transaction sent');
 		txPromise.wait()
 		.then(tx => {
 			resolve({ case: 0, tx });
-			callbacks.mined && callbacks.mined(tx);
-			services.emitter.emit('Notify', 'success', 'Transaction successfull');
 			services.emitter.emit('tx');
+			callbacks.mined
+			? callbacks.mined(tx)
+			: services.emitter.emit('Notify', 'success', 'Transaction successfull');
 		}) // success
 		.catch(err => {
 			resolve({ case: 1, err });
-			callbacks.failled && callbacks.failled(err);
-			services.emitter.emit('Notify', 'error', 'Transaction failled');
+			callbacks.failled
+			? callbacks.failled(err)
+			: services.emitter.emit('Notify', 'error', 'Transaction failled');
 		}) // transaction error
 	})
 	.catch(err => {
 		resolve({ case: 2, err });
-		callbacks.sigerror && callbacks.sigerror(err);
-		services.emitter.emit('Notify', 'error', 'Signature required');
+		callbacks.sigerror
+		? callbacks.sigerror(err)
+		: services.emitter.emit('Notify', 'error', 'Signature required');
 	}) // signature error
 })
 

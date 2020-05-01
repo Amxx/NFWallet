@@ -19,7 +19,7 @@ import CONFIG from '../config.json';
 
 const Core = () =>
 {
-	const emitter = new EventEmitter();
+	const [ emitter,              ] = React.useState(new EventEmitter());
 	const [ provider, setProvider ] = React.useState(null);
 	const [ services, setServices ] = React.useState(null);
 

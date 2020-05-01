@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
-import BalanceInput from '../UI/BalanceInput';
-import TextField       from '@material-ui/core/TextField';
-import InputAdornment  from '@material-ui/core/InputAdornment';
+import BalanceInput    from '../UI/BalanceInput';
 
 import { ethers }        from 'ethers';
 import * as utils        from '../../libs/utils'
@@ -13,44 +11,44 @@ import UniswapV2Router01 from '../../abi/UniswapV2Router01.json';
 
 const WalletUniswapV2 = (props) =>
 {
-	const router = new ethers.Contract(UniswapV2Router01.networks[props.services.network.chainId].address, UniswapV2Router01.abi, props.services.provider.getSigner());
+	const [ router                  ] = React.useState(new ethers.Contract(UniswapV2Router01.networks[props.services.network.chainId].address, UniswapV2Router01.abi, props.services.provider.getSigner()));
+	const [ swappable               ] = React.useState(Object.values(props.details.tokens).filter(({UniswapV2}) => UniswapV2));
 
 	const [ base,      setBase      ] = React.useState('ETH');
-	const [ quote,     setQuote     ] = React.useState('DAI');
+	const [ quote,     setQuote     ] = React.useState(swappable.find(({symbol}) => symbol !== 'ETH').symbol);
 	const [ amount,    setAmount    ] = React.useState('');
+	const [ estimated, setEstimated ] = React.useState(ethers.constants.Zero);
 	const [ uniparams, setUniparams ] = React.useState({});
-	const [ estimated, setEstimated ] = React.useState(0);
 	const [ enough,    setEnough    ] = React.useState(true);
 
 	React.useEffect(() => {
 		if (base === quote)
 		{
-			setQuote(
-				Object.values(props.balances)
-				.find(({symbol, UniswapV2}) => symbol !== base && UniswapV2)
-				.symbol
-			);
+			setQuote(swappable.find(({symbol}) => symbol !== base).symbol);
 		}
 	}, [base])
 
 	// Uniswap params hook - on base, quote, value change
 	React.useEffect(() => {
-		try
+		if (base !== quote)
 		{
-			const from   = props.balances[base];
-			const to     = props.balances[quote];
-			const method = from.isEth ? 'swapExactETHForTokens' : to.isEth ? 'swapExactTokensForETH' : 'swapExactTokensForTokens';
-			const path   = [
-				from.address,
-				!from.isEth && !to.isEth ? props.balances['ETH'].address : undefined, // weth
-				to.address,
-			].filter(Boolean);
+			try
+			{
+				const from   = props.details.tokens[base];
+				const to     = props.details.tokens[quote];
+				const method = from.isEth ? 'swapExactETHForTokens' : to.isEth ? 'swapExactTokensForETH' : 'swapExactTokensForTokens';
+				const path   = [
+					from.address,
+					!from.isEth && !to.isEth ? props.details.tokens['ETH'].address : undefined, // weth
+					to.address,
+				].filter(Boolean);
 
-			setUniparams({ from, to, method, path });
-		}
-		catch
-		{
-			setUniparams({});
+				setUniparams({ from, to, method, path });
+			}
+			catch (err)
+			{
+				setUniparams({});
+			}
 		}
 	}, [props, base, quote]);
 
@@ -59,14 +57,14 @@ const WalletUniswapV2 = (props) =>
 		try
 		{
 			router.getAmountsOut(amount.value, uniparams.path)
-			.then(values => setEstimated(Number(values[values.length-1]) / 10 ** uniparams.to.decimals))
-			.catch(() => setEstimated(0))
+			.then(values => setEstimated(values[values.length-1]))
+			.catch(err => setEstimated(ethers.constants.Zero))
 		}
 		catch
 		{
-			setEstimated(0);
+			setEstimated(ethers.constants.Zero);
 		}
-	}, [router, uniparams, base, quote, amount]);
+	}, [uniparams, base, quote, amount]);
 
 	// Execute hook
 	const handleSubmit = (ev) =>
@@ -103,31 +101,26 @@ const WalletUniswapV2 = (props) =>
 	return (
 		<form onSubmit={handleSubmit} className={`d-flex flex-column align-items-stretch ${props.className}`}>
 			<BalanceInput
-				balances   = { props.balances }
-				filter     = { ({UniswapV2, isEth, balance}) => UniswapV2 && (isEth || balance > 0) }
-				callbacks  = {{ setToken: setBase, setAmount, setEnough }}
+				label         = 'Send'
+				className     = 'my-1'
+				token         = { base }
+				tokenSelector = { swappable.filter(({isEth, balance}) => isEth || balance.gt(0)) }
+				tokenDecimals = { props.details.tokens[base].decimals }
+				tokenBalance  = { props.details.tokens[base].balance }
+				callbacks     = {{ setToken: setBase, setAmount, setEnough }}
 			/>
-			<TextField
+			<BalanceInput
+				label         = 'Receive'
+				className     = 'my-1'
+				value         = { estimated }
+				token         = { quote }
+				tokenSelector = { swappable.filter(({symbol}) => symbol !== base) }
+				tokenDecimals = { props.details.tokens[quote].decimals }
+				callbacks     = {{ setToken: setQuote }}
 				disabled
-				label      = 'Receive'
-				value      = {estimated}
-				variant    = 'outlined'
-				className  = 'my-1'
-				InputProps = {{
-					startAdornment:
-						<InputAdornment position='start'>
-							<select value={quote} onChange={(e) => setQuote(e.target.value)} style={{ 'width':'100px' }}>
-								{
-									Object.values(props.balances)
-										.filter(({symbol, UniswapV2}) => symbol !== base && UniswapV2)
-										.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>)
-								}
-							</select>
-						</InputAdornment>,
-				}}
 			/>
 			<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
-				Exchange { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}
+				Exchange {base} → {quote} { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}
 			</MDBBtn>
 		</form>
 	);

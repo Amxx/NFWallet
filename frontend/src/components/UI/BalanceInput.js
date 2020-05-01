@@ -3,53 +3,82 @@ import TextField       from '@material-ui/core/TextField';
 import InputAdornment  from '@material-ui/core/InputAdornment';
 import Switch          from '@material-ui/core/Switch';
 
+import { ethers } from 'ethers';
+
+
 // props: {
-// 	balances   (required)
-// 	token      (optional) → default use ETH
-// 	filter     (optional) → default no selector
-// 	label      (optional) → default amount
-// 	switchAAVE (optional) → switch token - aToken
+// 	label
+// 	placeholder
+// 	variant
+// 	className
+// 	token
+// 	tokenSelector
+// 	tokenDecimals
+// 	tokenBalance
+// 	callbacks
 // }
 const BalanceInput = (props) =>
 {
-	const [ value,   setValue   ] = React.useState('');
-	const [ balance, setBalance ] = React.useState('');
-	const [ max,     setMax     ] = React.useState(false);
 	const [ token,   setToken   ] = React.useState(props.token || 'ETH');
+	const [ value,   setValue   ] = React.useState(ethers.constants.Zero);
+	const [ view,    setView    ] = React.useState('');
+	const [ max,     setMax     ] = React.useState(false);
 	const [ enough,  setEnough  ] = React.useState(true);
 
 	const handleChange = (e) =>
 	{
-		setValue(e.target.value);
+		updateView(e.target.value);
 		setMax(false);
 	}
 
-	const toogleMax = (e) => {
-		setMax(e.target.checked);
+	const updateView = (v) =>
+	{
+		if (v === '' || isNaN(v))
+		{
+			setValue(ethers.constants.Zero);
+			setView(v);
+		}
+		else
+		{
+			try
+			{
+				setValue(ethers.utils.parseUnits(v, props.tokenDecimals || 18));
+				setView(v);
+			} catch {}
+		}
 	}
 
-	// listen to token prop
-	React.useEffect(() => {
-		if (props.token)
+	const updateValue = (v) =>
+	{
+		try
 		{
-			setToken(props.token);
-		}
-	}, [props.token])
+			setView(ethers.utils.formatUnits(v, props.tokenDecimals || 18));
+			setValue(v);
+		} catch {}
+	}
 
-	// keep track of balance for current token
+	// asserving
 	React.useEffect(() => {
-		setBalance(props.switchAAVE ? props.balances[token].reserveData.aTokenBalance : props.balances[token].balance);
-	}, [props.maxbalance, props.balances, props.switchAAVE, token])
+		props.token && setToken(props.token)
+	}, [props.token]);
+
+	React.useEffect(() => {
+		props.value && updateValue(props.value)
+	}, [props.value]);
+
+	React.useEffect(() => {
+		props.value && updateValue(props.value)
+	}, [props.value]);
 
 	// write maxbalance
 	React.useEffect(() => {
-		max && setValue(props.maxvalue ? Math.min(balance, props.maxvalue) : balance);
-	}, [max, balance])
+		max && updateValue(props.tokenBalance);
+	}, [props.tokenBalance, max]);
 
 	// check balance
 	React.useEffect(() => {
-		setEnough(props.unlimited || max || value <= balance);
-	}, [max, balance, value])
+		setEnough(!props.tokenBalance || max || value.lte(props.tokenBalance));
+	}, [props.tokenBalance, max, value]);
 
 	// callbacks
 	React.useEffect(() => {
@@ -67,35 +96,36 @@ const BalanceInput = (props) =>
 	React.useEffect(() => {
 		props.callbacks &&
 		props.callbacks.setAmount &&
-		props.callbacks.setAmount({ value: String(value * 10 ** props.balances[token].decimals), max });
+		props.callbacks.setAmount({value, max});
 	}, [token, value, max]);
 
 	return (
 		<TextField
+			disabled    = { props.disabled                  }
 			error       = { !enough                         }
 			label       = { props.label       || 'amount'   }
 			placeholder = { props.placeholder || '0.1'      }
-			value       = { value                           }
+			value       = { view                            }
 			variant     = { props.variant     || 'outlined' }
-			className   = { 'my-1 ' + props.className       }
+			className   = { props.className                 }
 			onChange    = { handleChange                    }
 			InputProps  = {{
 					startAdornment:
 						<InputAdornment position='start'>
 							{
-								props.filter
+								props.tokenSelector
 								?
 									<select value={token} onChange={(e) => setToken(e.target.value)} style={{ 'width':'100px' }}>
-										{ Object.values(props.balances).filter(props.filter).map(({ symbol }, i) => <option key={i} value={symbol}>{props.switchAAVE&&'a'}{symbol}</option>) }
+										{ props.tokenSelector.map(({ symbol }, i) => <option key={i} value={symbol}>{symbol}</option>) }
 									</select>
 								:
 									token
 							}
 						</InputAdornment>,
 					endAdornment:
-						!props.unlimited &&
+						props.tokenBalance &&
 						<InputAdornment position='end'>
-							<Switch color='primary' checked={max} onChange={toogleMax}/><span className='text-muted'>max</span>
+							<Switch color='primary' checked={max} onChange={(ev) => setMax(ev.target.checked)}/><span className='text-muted'>max</span>
 						</InputAdornment>,
 			}}
 		/>

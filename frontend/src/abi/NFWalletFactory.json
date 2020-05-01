@@ -564,16 +564,16 @@
   ],
   "networks": {
     "3": {
-      "address": "0x191eb6573138b2289dbf6a7c963401d8Da791990"
+      "address": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db"
     },
     "4": {
-      "address": "0x191eb6573138b2289dbf6a7c963401d8Da791990"
+      "address": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db"
     },
     "5": {
-      "address": "0x191eb6573138b2289dbf6a7c963401d8Da791990"
+      "address": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db"
     },
-    "42": { 
-      "address": "0x191eb6573138b2289dbf6a7c963401d8Da791990"
+    "42": {
+      "address": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db"
     }
   }
 }

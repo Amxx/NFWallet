@@ -11,6 +11,8 @@ import ERC20      from '../../abi/ERC20.json';
 
 const WalletSend = (props) =>
 {
+	const [ sendable            ] = React.useState(Object.values(props.details.tokens).filter(({isEth, balance}) => isEth || balance.gt(0)));
+
 	const [ token,   setToken   ] = React.useState('ETH');
 	const [ addr,    setAddr    ] = React.useState('');
 	const [ amount,  setAmount  ] = React.useState('');
@@ -20,7 +22,7 @@ const WalletSend = (props) =>
 	{
 		ev.preventDefault();
 
-		const asset = props.balances[token];
+		const asset = props.details.tokens[token];
 
 		utils.executeTransactions(
 			props.data.wallet.id,
@@ -35,6 +37,7 @@ const WalletSend = (props) =>
 
 	return (
 		<form onSubmit={handleSubmit} className={`d-flex flex-column ${props.className}`}>
+
 			<AddressInputENS
 				color       = 'light'
 				label       = 'destination'
@@ -42,14 +45,20 @@ const WalletSend = (props) =>
 				onChange    = {setAddr}
 				provider    = {props.services.provider}
 			/>
+
 			<BalanceInput
-				balances   = { props.balances }
-				filter     = { ({isEth, balance}) => isEth || balance > 0 }
-				callbacks  = {{ setToken, setAmount, setEnough }}
+				className     = 'my-1'
+				token         = { token }
+				tokenSelector = { sendable }
+				tokenDecimals = { props.details.tokens[token].decimals }
+				tokenBalance  = { props.details.tokens[token].balance }
+				callbacks     = {{ setToken, setAmount, setEnough }}
 			/>
+
 			<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
-				Send { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}
+				Send {token} { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}
 			</MDBBtn>
+
 		</form>
 	);
 }
