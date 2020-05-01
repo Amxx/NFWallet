@@ -41,22 +41,6 @@
 						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
 						"address":   "0xf80A32A835F79D7787E8a8ee5721D0fEaFd78108",
 						"UniswapV2": true
-					},
-					"aETH":
-					{
-						"symbol":    "aETH",
-						"name":      "AAVE Ether",
-						"decimals":  18,
-						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
-						"address":   "0x2433A1b6FcF156956599280C3Eb1863247CFE675"
-					},
-					"aDAI":
-					{
-						"symbol":    "aDAI",
-						"name":      "AAVE Dai",
-						"decimals":  18,
-						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
-						"address":   "0xcB1Fe6F440c49E9290c3eb7f158534c2dC374201"
 					}
 				}
 			}
@@ -184,22 +168,6 @@
 						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
 						"address":   "0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD",
 						"UniswapV2": true
-					},
-					"aETH":
-					{
-						"symbol":    "aETH",
-						"name":      "AAVE Ether",
-						"decimals":  18,
-						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
-						"address":   "0xD483B49F2d55D2c53D32bE6efF735cB001880F79"
-					},
-					"aDAI":
-					{
-						"symbol":    "aDAI",
-						"name":      "AAVE Dai",
-						"decimals":  18,
-						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
-						"address":   "0x58AD4cB396411B691A9AAb6F74545b2C5217FE6a"
 					}
 				}
 			}

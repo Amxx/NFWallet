@@ -20,7 +20,7 @@ const WalletView = (props) =>
 		<MDBRow>
 		<MDBCol size='12' className='p-0'>
 
-			<div className='py-3'>
+			<div className='py-4'>
 				<MDBCard className='z-depth-3'>
 					<TabSlider
 						entries={[
@@ -30,7 +30,7 @@ const WalletView = (props) =>
 				</MDBCard>
 			</div>
 
-			<div className='py-3'>
+			<div className='py-4'>
 				<MDBCard className='z-depth-3'>
 					<TabSlider
 						entries={[
@@ -42,7 +42,7 @@ const WalletView = (props) =>
 				</MDBCard>
 			</div>
 
-			<div className='py-3'>
+			<div className='py-4'>
 				<MDBCard className='z-depth-3'>
 					{
 						props.details.account.withAAVE
@@ -61,7 +61,7 @@ const WalletView = (props) =>
 				</MDBCard>
 			</div>
 
-			<div className='py-3'>
+			<div className='py-4'>
 				<MDBCard className='z-depth-3'>
 					<TabSlider
 						entries={[
