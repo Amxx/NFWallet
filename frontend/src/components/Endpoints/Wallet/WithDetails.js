@@ -6,7 +6,6 @@ import ERC20              from '../../../abi/ERC20.json';
 import LendingPool        from '../../../abi/LendingPool.json';
 import IPriceOracleGetter from '../../../abi/IPriceOracleGetter.json';
 
-
 const WithDetails = (props) =>
 {
 	const [ pool                ] = React.useState(LendingPool.networks[props.services.network.chainId]        && new ethers.Contract(       LendingPool.networks[props.services.network.chainId].address,        LendingPool.abi, props.services.provider.getSigner()));
@@ -21,7 +20,7 @@ const WithDetails = (props) =>
 	React.useEffect(() => {
 		const fetchBalances = () =>
 		{
-			// user account data
+			// AAVE user account data
 			if (pool)
 			{
 				pool.getUserAccountData(props.data.wallet.id)
@@ -48,11 +47,12 @@ const WithDetails = (props) =>
 			Promise.all(
 				Object.values(props.services.config.exchange.tokens)
 				.map(async (token) => {
-					let reserveData;
+					let extraData = {};
+
+					// AAVE reserve data
 					try
 					{
 						const reserve = token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address;
-
 						const [
 							reservedata,
 							userreservedata,
@@ -63,7 +63,7 @@ const WithDetails = (props) =>
 							priceoracle.getAssetPrice(reserve),
 						]);
 
-						reserveData = {
+						extraData.reserveData = {
 							assetPrice,
 							reserveAddress:           reserve,
 							totalLiquidity:           reservedata.totalLiquidity,
@@ -89,22 +89,18 @@ const WithDetails = (props) =>
 							usageAsCollateralEnabled: userreservedata.usageAsCollateralEnabled,
 						};
 					}
-					catch
+					catch {}
+
+
+					if (token.isEth)
 					{
-						reserveData = null
+						return { ...token, ...extraData, balance: ethers.utils.bigNumberify(props.data.wallet.balance) };
 					}
-					finally
+					else
 					{
-						if (token.isEth)
-						{
-							return { ...token, reserveData, balance: ethers.utils.bigNumberify(props.data.wallet.balance) };
-						}
-						else
-						{
-							const contract = new ethers.Contract(token.address, ERC20.abi, props.services.provider.getSigner());
-							const balance  = await contract.balanceOf(props.data.wallet.id);
-							return { ...token, reserveData, balance };
-						}
+						const contract = new ethers.Contract(token.address, ERC20.abi, props.services.provider.getSigner());
+						const balance  = await contract.balanceOf(props.data.wallet.id);
+						return { ...token, ...extraData, balance };
 					}
 				})
 			).then(tokens => setTokens(
