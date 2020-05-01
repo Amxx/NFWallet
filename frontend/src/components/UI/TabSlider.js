@@ -25,7 +25,7 @@ const TabSlider = (props) =>
 			<SwipeableViews axis='x' index={value} onChangeIndex={setValue}>
 				{
 					props.entries.map(({render}, i) =>
-						<div key={i} hidden={value !== i} className='p-4'>
+						<div key={i} hidden={value !== i} className={ !props.nopadding && 'p-4' }>
 							{value === i && render}
 						</div>
 					)

@@ -49,42 +49,45 @@ const WalletView = (props) =>
 
 			<div className='pt-5'>
 				<MDBCard className='z-depth-3'>
-					{
-						Object.values(props.details.tokens).find(({reserveData}) => reserveData)
-						?
-							<TabSlider
-								scrollable
-								entries={[
-									{ label: 'AAVE overview',        render: <WalletAAVEDetails                {...props} /> },
-									{ label: 'Deposit',              render: <WalletAAVELending fixed          {...props} /> },
-									{ label: 'Withdraw',             render: <WalletAAVELending fixed withdraw {...props} /> },
-									{ label: 'Borrow',               render: <WalletAAVEBorrowing              {...props} /> },
-									{ label: 'Repay',                render: <WalletAAVERepaying               {...props} /> },
-								]}
-							/>
-						:
-							<div className='text-center text-muted p-4'>AAVE is not available on this network</div>
-					}
-				</MDBCard>
-			</div>
-
-			<div className='pt-5'>
-				<MDBCard className='z-depth-3'>
-					{
-						Object.values(props.details.tokens).find(({compound}) => compound)
-						?
-							<TabSlider
-								entries={[
-									{ label: 'Compound overview',    render: <WalletCompoundDetails                {...props} /> },
-									{ label: 'Deposit',              render: <WalletCompoundLending fixed          {...props} /> },
-									{ label: 'Withdraw',             render: <WalletCompoundLending fixed withdraw {...props} /> },
-									// { label: 'Borrow',               render: <WalletCompoundBorrowing              {...props} /> },
-									// { label: 'Repay',                render: <WalletCompoundRepaying               {...props} /> },
-								]}
-							/>
-						:
-							<div className='text-center text-muted p-4'>AAVE is not available on this network</div>
-					}
+					<TabSlider
+						nopadding
+						entries={[
+							{
+								label: 'AAVE',
+								render:
+									Object.values(props.details.tokens).find(({reserveData}) => reserveData)
+									?
+										<TabSlider
+											entries={[
+												{ label: 'Overview',             render: <WalletAAVEDetails                {...props} /> },
+												{ label: 'Deposit',              render: <WalletAAVELending fixed          {...props} /> },
+												{ label: 'Withdraw',             render: <WalletAAVELending fixed withdraw {...props} /> },
+												{ label: 'Borrow',               render: <WalletAAVEBorrowing              {...props} /> },
+												{ label: 'Repay',                render: <WalletAAVERepaying               {...props} /> },
+											]}
+										/>
+									:
+										<div className='text-center text-muted p-4'>AAVE is not available on this network</div>
+							},
+							{
+								label: 'Compound',
+								render:
+									Object.values(props.details.tokens).find(({compound}) => compound)
+									?
+										<TabSlider
+											entries={[
+												{ label: 'Overview',             render: <WalletCompoundDetails                {...props} /> },
+												{ label: 'Deposit',              render: <WalletCompoundLending fixed          {...props} /> },
+												{ label: 'Withdraw',             render: <WalletCompoundLending fixed withdraw {...props} /> },
+												// { label: 'Borrow',               render: <WalletCompoundBorrowing              {...props} /> },
+												// { label: 'Repay',                render: <WalletCompoundRepaying               {...props} /> },
+											]}
+										/>
+									:
+										<div className='text-center text-muted p-4'>AAVE is not available on this network</div>
+							},
+						]}
+					/>
 				</MDBCard>
 			</div>
 
