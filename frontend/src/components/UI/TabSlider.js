@@ -11,11 +11,11 @@ const TabSlider = (props) =>
 		<>
 			<AppBar position='static' color='default'>
 				<Tabs
-					value          = {value}
-					onChange       = {(_, v) => setValue(v)}
+					value          = { value }
+					onChange       = { (_, v) => setValue(v) }
 					indicatorColor = 'primary'
 					textColor      = 'primary'
-					variant        = 'fullWidth'
+					variant        = { props.scrollable ? 'scrollable' : 'fullWidth' }
 				>
 					{
 						props.entries.map(({label, icon, render}, i) => <Tab key={i} label={label} icon={icon} disabled={!render}/>)

@@ -48,11 +48,13 @@ const WalletView = (props) =>
 						props.details.account.withAAVE
 						?
 							<TabSlider
+								scrollable
 								entries={[
-									{ label: 'AAVE overview',        render: <WalletAAVEDetails     {...props} /> },
-									{ label: 'Lend',                 render: <WalletAAVELending     {...props} /> },
-									{ label: 'Borrow',               render: <WalletAAVEBorrowing   {...props} /> },
-									{ label: 'Repay',                render: <WalletAAVERepaying    {...props} /> },
+									{ label: 'AAVE overview',        render: <WalletAAVEDetails                {...props} /> },
+									{ label: 'Deposit',              render: <WalletAAVELending fixed          {...props} /> },
+									{ label: 'Withdraw',             render: <WalletAAVELending fixed withdraw {...props} /> },
+									{ label: 'Borrow',               render: <WalletAAVEBorrowing              {...props} /> },
+									{ label: 'Repay',                render: <WalletAAVERepaying               {...props} /> },
 								]}
 							/>
 						:

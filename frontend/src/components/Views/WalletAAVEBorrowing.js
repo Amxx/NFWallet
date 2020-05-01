@@ -69,7 +69,8 @@ const WalletAAVEBorrowing = (props) =>
 				}
 			</div>
 
-			<form onSubmit={handleSubmit} className={`flex-grow-1 d-flex flex-column ${props.className}`}>
+			<form onSubmit={handleSubmit} className={`flex-grow-1 d-flex flex-column justify-content-center ${props.className}`}>
+
 				<BalanceInput
 					className     = 'my-1'
 					token         = { token }
@@ -79,14 +80,15 @@ const WalletAAVEBorrowing = (props) =>
 				/>
 
 				<div className='d-flex justify-content-center align-items-center'>
-					<span className='text-muted'>variable rate</span>
-						<Switch color='primary' checked={stableRate} onChange={toggleRate} disabled/>
-					<span className='text-muted'>fixed rate</span>
+					<small className='text-muted'>variable rate</small>
+						<Switch size='small' color='primary' checked={stableRate} onChange={toggleRate} disabled/>
+					<small className='text-muted'>fixed rate</small>
 				</div>
 
 				<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
 					Borrow {token} { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) && '(disabled for non owners)' }
 				</MDBBtn>
+
 			</form>
 		</div>
 	);

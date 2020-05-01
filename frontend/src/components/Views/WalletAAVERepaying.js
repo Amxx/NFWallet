@@ -81,7 +81,7 @@ const WalletAAVERepaying = (props) =>
 				}
 			</div>
 
-			<form onSubmit={handleSubmit} className={`flex-grow-1 d-flex flex-column ${props.className}`}>
+			<form onSubmit={handleSubmit} className={`flex-grow-1 d-flex flex-column justify-content-center ${props.className}`}>
 				<BalanceInput
 					className     = 'my-1'
 					token         = { token }

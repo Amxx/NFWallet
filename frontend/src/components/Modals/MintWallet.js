@@ -58,8 +58,8 @@ const MintWallet = (props) =>
 						{ full && <TextField className='my-1' label='seed' defaultValue={seed} onChange={e => setSeed(e.target.value)} variant='outlined'/> }
 
 						<div className='d-flex justify-content-center align-items-center'>
-							<Switch color='primary' checked={full} onChange={toggleFull}/>
-							<span className='text-muted'>advanced mode</span>
+							<Switch size='small' color='primary' checked={full} onChange={toggleFull}/>
+							<small className='text-muted'>advanced mode</small>
 						</div>
 
 						<MDBBtn color='indigo' type='sumbit' className='mx-0'>Mint</MDBBtn>

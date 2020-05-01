@@ -18,7 +18,7 @@ const WalletAAVELending = (props) =>
 	const [ poolcore            ] = React.useState(new ethers.Contract(LendingPoolCore.networks[props.services.network.chainId].address, LendingPoolCore.abi, props.services.provider.getSigner()));
 	const [ lendable            ] = React.useState(Object.values(props.details.tokens).filter(({reserveData, isEth, balance}) => reserveData && (isEth || balance.gt(0))));
 
-	const [ deposit, setDeposit ] = React.useState(true);
+	const [ deposit, setDeposit ] = React.useState(!props.withdraw);
 	const [ token,   setToken   ] = React.useState('ETH');
 	const [ amount,  setAmount  ] = React.useState({});
 	const [ enough,  setEnough  ] = React.useState(true);
@@ -76,7 +76,7 @@ const WalletAAVELending = (props) =>
 					)
 				}
 			</div>
-			<form onSubmit={handleSubmit} className={`flex-grow-1 d-flex flex-column ${props.className}`}>
+			<form onSubmit={handleSubmit} className={`flex-grow-1 d-flex flex-column justify-content-center ${props.className}`}>
 				<BalanceInput
 					className     = 'my-1'
 					token         = { `${deposit?'':'a'}${token}` }
@@ -85,11 +85,14 @@ const WalletAAVELending = (props) =>
 					callbacks     = {{ setAmount, setEnough }}
 				/>
 
-				<div className='d-flex justify-content-center align-items-center'>
-					<span className='text-muted'>deposit</span>
-						<Switch color='primary' checked={!deposit} onChange={toggle}/>
-					<span className='text-muted'>withdraw</span>
-				</div>
+				{
+					!props.fixed &&
+					<div className='d-flex justify-content-center align-items-center'>
+						<span className='text-muted'>deposit</span>
+							<Switch color='primary' checked={!deposit} onChange={toggle}/>
+						<span className='text-muted'>withdraw</span>
+					</div>
+				}
 
 				<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
 					{deposit?'Deposit':'Withdraw'} {token} { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) && '(disabled for non owners)' }
