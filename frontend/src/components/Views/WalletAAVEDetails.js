@@ -15,6 +15,7 @@ const WalletAAVEDetails = (props) =>
 						<th className='text-center'>Balance</th>
 						<th className='text-center' colSpan='2'>Deposited</th>
 						<th className='text-center' colSpan='2'>Borrowed</th>
+						<th className='text-center'>Available liquidity</th>
 					</tr>
 				</MDBTableHead>
 				<MDBTableBody>
@@ -25,19 +26,22 @@ const WalletAAVEDetails = (props) =>
 									<img src={token.img} height={32} alt={token.symbol}/>
 								</td>
 								<td className='p-1 text-center'>
-									{ Number(ethers.utils.formatUnits(token.balance, token.decimals)).toFixed(6) }
+									{ Number(ethers.utils.formatUnits(token.balance, token.decimals)).toFixed(3) }
 								</td>
 								<td className='p-1 text-right'>
-									{ Number(ethers.utils.formatUnits(token.reserveData.aTokenBalance, token.decimals)).toFixed(6) }
+									{ Number(ethers.utils.formatUnits(token.reserveData.aTokenBalance, token.decimals)).toFixed(3) }
 								</td>
 								<td className='p-1 text-left text-muted' style={{fontSize: '.6em'}}>
 									{ Number(ethers.utils.formatUnits(token.reserveData.liquidityRate, 25)).toFixed(2) }% APY
 								</td>
 								<td className='p-1 text-right'>
-									{ Number(ethers.utils.formatUnits(token.reserveData.borrowBalance, token.decimals)).toFixed(6) }
+									{ Number(ethers.utils.formatUnits(token.reserveData.borrowBalance, token.decimals)).toFixed(3) }
 								</td>
 								<td className='p-1 text-left text-muted' style={{fontSize: '.6em'}}>
 									{ Number(ethers.utils.formatUnits(token.reserveData.borrowRate, 25)).toFixed(2) }% APY
+								</td>
+								<td className='p-1 text-center'>
+									{ Number(ethers.utils.formatUnits(token.reserveData.availableLiquidity, token.decimals)).toFixed(3) }
 								</td>
 							</tr>
 						)

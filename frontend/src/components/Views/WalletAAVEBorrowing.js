@@ -9,6 +9,10 @@ import * as utils      from '../../libs/utils'
 import LendingPool     from '../../abi/LendingPool.json';
 
 
+const BNmin = (x,y) => x.lte(y) ? x : y;
+const BNmax = (x,y) => x.gte(y) ? x : y;
+
+
 const WalletAAVEBorrowing = (props) =>
 {
 	const [ pool                      ] = React.useState(new ethers.Contract(LendingPool.networks[props.services.network.chainId].address, LendingPool.abi, props.services.provider.getSigner()));
@@ -16,9 +20,19 @@ const WalletAAVEBorrowing = (props) =>
 
 	const [ stableRate, setStableRate ] = React.useState(false);
 	const [ token,      setToken      ] = React.useState('ETH');
-	const [ amount,     setAmount     ] = React.useState('');
+	const [ amount,     setAmount     ] = React.useState({});
+	const [ limit,      setLimit      ] = React.useState(ethers.constants.Zero);
 	const [ enough,     setEnough     ] = React.useState(true);
 	const toggleRate = () => setStableRate(!stableRate);
+
+	React.useEffect(() => {
+		setLimit(BNmin(
+			props.details.tokens[token].reserveData.availableLiquidity, // liquidity
+			props.details.account.availableBorrowsETH
+			.mul(ethers.constants.WeiPerEther)
+			.div(props.details.tokens[token].reserveData.assetPrice) // can be borrowed
+		))
+	}, [props, token])
 
 	const handleSubmit = (ev) =>
 	{
@@ -40,11 +54,7 @@ const WalletAAVEBorrowing = (props) =>
 						0 // referal code
 					])
 				]
-			],
-			props.services,
-			{
-				sigerror: () => props.services.emitter.emit('Notify', 'info', 'Operation impossible: Not enough collateral of unsupported rate')
-			}
+			]
 		);
 	}
 
@@ -68,12 +78,13 @@ const WalletAAVEBorrowing = (props) =>
 					className     = 'my-1'
 					token         = { token }
 					tokenDecimals = { props.details.tokens[token].decimals }
+					tokenBalance  = { limit }
 					callbacks     = {{ setAmount, setEnough }}
 				/>
 
 				<div className='d-flex justify-content-center align-items-center'>
 					<span className='text-muted'>variable rate</span>
-						<Switch color='primary' checked={stableRate} onChange={toggleRate}/>
+						<Switch color='primary' checked={stableRate} onChange={toggleRate} disabled/>
 					<span className='text-muted'>fixed rate</span>
 				</div>
 

@@ -15,7 +15,7 @@ const WalletSend = (props) =>
 
 	const [ token,   setToken   ] = React.useState('ETH');
 	const [ addr,    setAddr    ] = React.useState('');
-	const [ amount,  setAmount  ] = React.useState('');
+	const [ amount,  setAmount  ] = React.useState({});
 	const [ enough,  setEnough  ] = React.useState(true);
 
 	const handleSubmit = (ev) =>

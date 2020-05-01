@@ -2,15 +2,16 @@ import * as React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { ethers } from 'ethers';
 
-import ERC20           from '../../../abi/ERC20.json';
-import LendingPool     from '../../../abi/LendingPool.json';
-import LendingPoolCore from '../../../abi/LendingPoolCore.json';
+import ERC20              from '../../../abi/ERC20.json';
+import LendingPool        from '../../../abi/LendingPool.json';
+import LendingPoolCore    from '../../../abi/LendingPoolCore.json';
+import IPriceOracleGetter from '../../../abi/IPriceOracleGetter.json';
 
 
 const WithDetails = (props) =>
 {
-	const pool     =     LendingPool.networks[props.services.network.chainId] && new ethers.Contract(    LendingPool.networks[props.services.network.chainId].address,     LendingPool.abi, props.services.provider.getSigner());
-	const poolcore = LendingPoolCore.networks[props.services.network.chainId] && new ethers.Contract(LendingPoolCore.networks[props.services.network.chainId].address, LendingPoolCore.abi, props.services.provider.getSigner());
+	const [ pool                ] = React.useState(LendingPool.networks[props.services.network.chainId]        && new ethers.Contract(       LendingPool.networks[props.services.network.chainId].address,        LendingPool.abi, props.services.provider.getSigner()));
+	const [ priceoracle         ] = React.useState(IPriceOracleGetter.networks[props.services.network.chainId] && new ethers.Contract(IPriceOracleGetter.networks[props.services.network.chainId].address, IPriceOracleGetter.abi, props.services.provider.getSigner()));
 
 	const [ account, setAccount ] = React.useState(null);
 	const [ tokens,  setTokens  ] = React.useState(null);
@@ -51,23 +52,44 @@ const WithDetails = (props) =>
 					let reserveData;
 					try
 					{
-						const reserve  = token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address;
-						const address  = await poolcore.getReserveATokenAddress(reserve);
-						const data     = await pool.getUserReserveData(reserve, props.data.wallet.id);
+						const reserve = token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address;
+						
+						const [
+							reservedata,
+							userreservedata,
+							assetPrice
+						] = await Promise.all([
+							pool.getReserveData(reserve),
+							pool.getUserReserveData(reserve, props.data.wallet.id),
+							priceoracle.getAssetPrice(reserve),
+						]);
 
 						reserveData = {
+							assetPrice,
 							reserveAddress:           reserve,
-							aTokenAddress:            address,
-							aTokenBalance:            data.currentATokenBalance,
-							borrowBalance:            data.currentBorrowBalance,
-							principalBorrowBalance:   data.principalBorrowBalance,
-							borrowRateMode:           data.borrowRateMode,
-							borrowRate:               data.borrowRate,
-							liquidityRate:            data.liquidityRate,
-							originationFee:           data.originationFee,
-							variableBorrowIndex:      data.variableBorrowIndex,
-							lastUpdateTimestamp:      data.lastUpdateTimestamp,
-							usageAsCollateralEnabled: data.usageAsCollateralEnabled,
+							totalLiquidity:           reservedata.totalLiquidity,
+							availableLiquidity:       reservedata.availableLiquidity,
+							totalBorrowsFixed:        reservedata.totalBorrowsFixed,
+							totalBorrowsVariable:     reservedata.totalBorrowsVariable,
+							liquidityRate:            reservedata.liquidityRate,
+							variableBorrowRate:       reservedata.variableBorrowRate,
+							fixedBorrowRate:          reservedata.fixedBorrowRate,
+							averageFixedBorrowRate:   reservedata.averageFixedBorrowRate,
+							utilizationRate:          reservedata.utilizationRate,
+							liquidityIndexRate:       reservedata.liquidityIndexRate,
+							variableBorrowIndex:      reservedata.variableBorrowIndex,
+							aTokenAddress:            reservedata.aTokenAddress,
+							lastUpdateTimestamp:      reservedata.lastUpdateTimestamp,
+							aTokenBalance:            userreservedata.currentATokenBalance,
+							borrowBalance:            userreservedata.currentBorrowBalance,
+							principalBorrowBalance:   userreservedata.principalBorrowBalance,
+							borrowRateMode:           userreservedata.borrowRateMode,
+							borrowRate:               userreservedata.borrowRate,
+							liquidityRate:            userreservedata.liquidityRate,
+							originationFee:           userreservedata.originationFee,
+							variableBorrowIndex:      userreservedata.variableBorrowIndex,
+							lastUpdateTimestamp:      userreservedata.lastUpdateTimestamp,
+							usageAsCollateralEnabled: userreservedata.usageAsCollateralEnabled,
 						};
 					}
 					catch

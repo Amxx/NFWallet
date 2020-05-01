@@ -26,7 +26,7 @@ const WalletAAVERepaying = (props) =>
 	const [ repayable         ] = React.useState(Object.values(props.details.tokens).filter(({reserveData}) => reserveData && reserveData.borrowBalance.gt(0)));
 
 	const [ token,  setToken  ] = React.useState(repayable[0].symbol);
-	const [ amount, setAmount ] = React.useState('');
+	const [ amount, setAmount ] = React.useState({});
 	const [ enough, setEnough ] = React.useState(true);
 
 	const handleSubmit = (ev) =>

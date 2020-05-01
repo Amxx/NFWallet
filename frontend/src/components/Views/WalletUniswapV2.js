@@ -16,7 +16,7 @@ const WalletUniswapV2 = (props) =>
 
 	const [ base,      setBase      ] = React.useState('ETH');
 	const [ quote,     setQuote     ] = React.useState(swappable.find(({symbol}) => symbol !== 'ETH').symbol);
-	const [ amount,    setAmount    ] = React.useState('');
+	const [ amount,    setAmount    ] = React.useState({});
 	const [ estimated, setEstimated ] = React.useState(ethers.constants.Zero);
 	const [ uniparams, setUniparams ] = React.useState({});
 	const [ enough,    setEnough    ] = React.useState(true);

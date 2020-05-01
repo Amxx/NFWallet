@@ -20,7 +20,7 @@ const WalletAAVELending = (props) =>
 
 	const [ deposit, setDeposit ] = React.useState(true);
 	const [ token,   setToken   ] = React.useState('ETH');
-	const [ amount,  setAmount  ] = React.useState('');
+	const [ amount,  setAmount  ] = React.useState({});
 	const [ enough,  setEnough  ] = React.useState(true);
 	const toggle = () => setDeposit(!deposit);
 
