@@ -43,3 +43,15 @@ code
 	box-shadow:       0 .125rem .25rem rgba(0,0,0,.075) !important;
 	z-index:          10000;
 }
+
+
+
+.MuiLinearProgress-dashedColorPrimary
+{
+	background-image: unset !important;
+	background-color: rgba(233, 235, 246);
+}
+.MuiLinearProgress-dashed
+{
+	animation: unset !important;
+}
