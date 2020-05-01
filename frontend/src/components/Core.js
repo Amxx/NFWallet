@@ -64,10 +64,11 @@ const Core = () =>
 	}
 
 	const connect = (web3) => {
+		web3.autoRefreshOnNetworkChange = false;
+		
 		emitter.emit('Notify', 'success', 'You are connected');
 		web3.on('accountsChanged', (accounts) => (accounts.length === 0) ? setProvider(null) : configure(web3)); // should not be needed, but prevents crash
 		web3.on('networkChanged',  (network ) =>                                               configure(web3));
-		web3.autoRefreshOnNetworkChange = false;
 		configure(web3);
 	}
 

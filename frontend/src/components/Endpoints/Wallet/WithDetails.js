@@ -4,7 +4,6 @@ import { ethers } from 'ethers';
 
 import ERC20              from '../../../abi/ERC20.json';
 import LendingPool        from '../../../abi/LendingPool.json';
-import LendingPoolCore    from '../../../abi/LendingPoolCore.json';
 import IPriceOracleGetter from '../../../abi/IPriceOracleGetter.json';
 
 
@@ -53,7 +52,7 @@ const WithDetails = (props) =>
 					try
 					{
 						const reserve = token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address;
-						
+
 						const [
 							reservedata,
 							userreservedata,
@@ -79,16 +78,14 @@ const WithDetails = (props) =>
 							liquidityIndexRate:       reservedata.liquidityIndexRate,
 							variableBorrowIndex:      reservedata.variableBorrowIndex,
 							aTokenAddress:            reservedata.aTokenAddress,
-							lastUpdateTimestamp:      reservedata.lastUpdateTimestamp,
 							aTokenBalance:            userreservedata.currentATokenBalance,
 							borrowBalance:            userreservedata.currentBorrowBalance,
 							principalBorrowBalance:   userreservedata.principalBorrowBalance,
 							borrowRateMode:           userreservedata.borrowRateMode,
 							borrowRate:               userreservedata.borrowRate,
-							liquidityRate:            userreservedata.liquidityRate,
+							// liquidityRate:            userreservedata.liquidityRate,
 							originationFee:           userreservedata.originationFee,
-							variableBorrowIndex:      userreservedata.variableBorrowIndex,
-							lastUpdateTimestamp:      userreservedata.lastUpdateTimestamp,
+							// variableBorrowIndex:      userreservedata.variableBorrowIndex,
 							usageAsCollateralEnabled: userreservedata.usageAsCollateralEnabled,
 						};
 					}
@@ -120,7 +117,7 @@ const WithDetails = (props) =>
 		fetchBalances()
 		const subscription = props.services.emitter.addListener('tx', fetchBalances);
 		return () => subscription.remove();
-	}, [props]);
+	}, [props, pool, priceoracle]);
 
 	return <>
 		{

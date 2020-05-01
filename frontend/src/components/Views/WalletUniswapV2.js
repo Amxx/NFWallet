@@ -26,7 +26,7 @@ const WalletUniswapV2 = (props) =>
 		{
 			setQuote(swappable.find(({symbol}) => symbol !== base).symbol);
 		}
-	}, [base])
+	}, [swappable, base, quote])
 
 	// Uniswap params hook - on base, quote, value change
 	React.useEffect(() => {
@@ -64,7 +64,7 @@ const WalletUniswapV2 = (props) =>
 		{
 			setEstimated(ethers.constants.Zero);
 		}
-	}, [uniparams, base, quote, amount]);
+	}, [router, uniparams, base, quote, amount]);
 
 	// Execute hook
 	const handleSubmit = (ev) =>

@@ -1,6 +1,10 @@
 import { ethers } from 'ethers';
 import NFWallet   from '../abi/NFWallet.json';
 
+
+const BNmin = (x,y) => x.lte(y) ? x : y;
+const BNmax = (x,y) => x.gte(y) ? x : y;
+
 const toShortAddress = (entry) => `${entry.substr(0,6)}...${entry.substr(-4)}`;
 
 const executeTransactions = (
@@ -40,6 +44,8 @@ const executeTransactions = (
 })
 
 export {
+	BNmin,
+	BNmax,
 	toShortAddress,
 	executeTransactions,
 };

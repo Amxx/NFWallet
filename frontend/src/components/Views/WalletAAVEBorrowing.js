@@ -9,10 +9,6 @@ import * as utils      from '../../libs/utils'
 import LendingPool     from '../../abi/LendingPool.json';
 
 
-const BNmin = (x,y) => x.lte(y) ? x : y;
-const BNmax = (x,y) => x.gte(y) ? x : y;
-
-
 const WalletAAVEBorrowing = (props) =>
 {
 	const [ pool                      ] = React.useState(new ethers.Contract(LendingPool.networks[props.services.network.chainId].address, LendingPool.abi, props.services.provider.getSigner()));
@@ -26,7 +22,7 @@ const WalletAAVEBorrowing = (props) =>
 	const toggleRate = () => setStableRate(!stableRate);
 
 	React.useEffect(() => {
-		setLimit(BNmin(
+		setLimit(utils.BNmin(
 			props.details.tokens[token].reserveData.availableLiquidity, // liquidity
 			props.details.account.availableBorrowsETH
 			.mul(ethers.constants.WeiPerEther)

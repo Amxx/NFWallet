@@ -10,10 +10,6 @@ import LendingPool     from '../../abi/LendingPool.json';
 import LendingPoolCore from '../../abi/LendingPoolCore.json';
 
 
-const BNmin = (x,y) => x.lte(y) ? x : y;
-const BNmax = (x,y) => x.gte(y) ? x : y;
-
-
 const WalletAAVERepayingWrapper = (props) =>
 	Object.values(props.details.tokens).find(({reserveData}) => reserveData && reserveData.borrowBalance.gt(0))
 	? <WalletAAVERepaying {...props}/>
@@ -36,7 +32,7 @@ const WalletAAVERepaying = (props) =>
 		const asset      = props.details.tokens[token];
 		const everything = amount.max && amount.value === asset.reserveData.borrowBalance;
 		const value      = !everything ? amount.value : ethers.constants.MaxUint256;
-		const approve    = !everything ? amount.value : BNmin((amount.value.add(amount.value.div(20))), asset.balance);
+		const approve    = !everything ? amount.value : utils.BNmin((amount.value.add(amount.value.div(20))), asset.balance);
 
 		utils.executeTransactions(
 			props.data.wallet.id,
@@ -90,7 +86,7 @@ const WalletAAVERepaying = (props) =>
 					className     = 'my-1'
 					token         = { token }
 					tokenDecimals = { props.details.tokens[token].decimals }
-					tokenBalance  = { BNmin(props.details.tokens[token].reserveData.borrowBalance, props.details.tokens[token].balance) }
+					tokenBalance  = { utils.BNmin(props.details.tokens[token].reserveData.borrowBalance, props.details.tokens[token].balance) }
 					callbacks     = {{ setAmount, setEnough }}
 				/>
 
