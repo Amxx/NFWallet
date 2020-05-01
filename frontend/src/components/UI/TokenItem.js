@@ -21,7 +21,7 @@ export default AccountItem;
 
 const StyledWrapper = styled.div`
 	display: flex;
-	width: 280px;
+	width: 300px;
 	margin-bottom: 12px;
 `
 

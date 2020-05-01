@@ -1,0 +1,17 @@
+{
+  "abi": [{"constant":true,"inputs":[{"internalType":"address","name":"cToken","type":"address"}],"name":"getUnderlyingPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"isPriceOracle","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"}],
+  "networks": {
+    "3": {
+      "address": "0x6600a2079f724f9da3ece619ae400e1ef16fc284"
+    },
+    "4": {
+      "address": "0x5722a3f60fa4f0ec5120dcd6c386289a4758d1b2"
+    },
+    "5": {
+      "address": "0xd0c84453b3945cd7e84bf7fc53bffd6718913b71"
+    },
+    "42": {
+      "address": "0x6998ed7daf969ea0950e01071aceeee54cccbab5"
+    }
+  }
+}

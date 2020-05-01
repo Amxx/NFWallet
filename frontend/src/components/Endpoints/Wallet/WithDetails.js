@@ -3,13 +3,20 @@ import { Spinner } from 'react-bootstrap';
 import { ethers } from 'ethers';
 
 import ERC20              from '../../../abi/ERC20.json';
+// AAVE
 import LendingPool        from '../../../abi/LendingPool.json';
 import IPriceOracleGetter from '../../../abi/IPriceOracleGetter.json';
+// Compound
+import CEther             from '../../../abi/CEther.json';
+import CToken             from '../../../abi/CToken.json';
+import PriceOracle        from '../../../abi/PriceOracle.json';
+
 
 const WithDetails = (props) =>
 {
-	const [ pool                ] = React.useState(LendingPool.networks[props.services.network.chainId]        && new ethers.Contract(       LendingPool.networks[props.services.network.chainId].address,        LendingPool.abi, props.services.provider.getSigner()));
-	const [ priceoracle         ] = React.useState(IPriceOracleGetter.networks[props.services.network.chainId] && new ethers.Contract(IPriceOracleGetter.networks[props.services.network.chainId].address, IPriceOracleGetter.abi, props.services.provider.getSigner()));
+	const [ AAVEpool            ] = React.useState(       LendingPool.networks[props.services.network.chainId] && new ethers.Contract(       LendingPool.networks[props.services.network.chainId].address,        LendingPool.abi, props.services.provider.getSigner()));
+	const [ AAVEpriceoracle     ] = React.useState(IPriceOracleGetter.networks[props.services.network.chainId] && new ethers.Contract(IPriceOracleGetter.networks[props.services.network.chainId].address, IPriceOracleGetter.abi, props.services.provider.getSigner()));
+	const [ Cpriceoracle        ] = React.useState(       PriceOracle.networks[props.services.network.chainId] && new ethers.Contract(       PriceOracle.networks[props.services.network.chainId].address,        PriceOracle.abi, props.services.provider.getSigner()));
 
 	const [ account, setAccount ] = React.useState(null);
 	const [ tokens,  setTokens  ] = React.useState(null);
@@ -21,12 +28,14 @@ const WithDetails = (props) =>
 		const fetchBalances = () =>
 		{
 			// AAVE user account data
-			if (pool)
+			if (AAVEpool)
 			{
-				pool.getUserAccountData(props.data.wallet.id)
-				.then(data => setAccount({
+				Promise.all([
+					AAVEpool.getUserAccountData(props.data.wallet.id)
+				]).then(([
+					data
+				]) => setAccount({
 					address:                     props.data.wallet.id,
-					withAAVE:                    true,
 					totalLiquidityETH:           data.totalLiquidityETH,
 					totalCollateralETH:          data.totalCollateralETH,
 					totalBorrowsETH:             data.totalBorrowsETH,
@@ -58,9 +67,9 @@ const WithDetails = (props) =>
 							userreservedata,
 							assetPrice
 						] = await Promise.all([
-							pool.getReserveData(reserve),
-							pool.getUserReserveData(reserve, props.data.wallet.id),
-							priceoracle.getAssetPrice(reserve),
+							AAVEpool.getReserveData(reserve),
+							AAVEpool.getUserReserveData(reserve, props.data.wallet.id),
+							AAVEpriceoracle.getAssetPrice(reserve),
 						]);
 
 						extraData.reserveData = {
@@ -89,8 +98,35 @@ const WithDetails = (props) =>
 							usageAsCollateralEnabled: userreservedata.usageAsCollateralEnabled,
 						};
 					}
-					catch {}
+					catch {};
 
+					// Compound
+					try
+					{
+						const contract = new ethers.Contract(token.ctoken, (token.isEth ? CEther : CToken).abi, props.services.provider.getSigner());
+						const [
+							underlying,
+							decimals,
+							balance,
+							exchangeRate,
+							assetPrice,
+						] = await Promise.all([
+							!token.isEth && contract.underlying(),
+							contract.decimals(),
+							contract.balanceOf(props.data.wallet.id),
+							contract.exchangeRateStored(),
+							Cpriceoracle.getUnderlyingPrice(token.ctoken),
+						]);
+
+						extraData.compound = (token.isEth || (token.address === underlying)) &&
+						{
+							decimals,
+							balance,
+							exchangeRate,
+							assetPrice,
+						};
+					}
+					catch{};
 
 					if (token.isEth)
 					{
@@ -113,7 +149,7 @@ const WithDetails = (props) =>
 		fetchBalances()
 		const subscription = props.services.emitter.addListener('tx', fetchBalances);
 		return () => subscription.remove();
-	}, [props, pool, priceoracle]);
+	}, [props, props.data.wallet.events, AAVEpool, AAVEpriceoracle]);
 
 	return <>
 		{

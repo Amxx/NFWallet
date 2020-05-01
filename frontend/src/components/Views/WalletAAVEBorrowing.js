@@ -50,7 +50,8 @@ const WalletAAVEBorrowing = (props) =>
 						0 // referal code
 					])
 				]
-			]
+			],
+			props.services
 		);
 	}
 

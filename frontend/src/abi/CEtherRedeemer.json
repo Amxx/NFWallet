@@ -1,0 +1,17 @@
+{
+  "abi": [{"inputs":[{"internalType":"address","name":"_cether","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"cether","outputs":[{"internalType":"contract ICEther","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"redeemTokens","type":"uint256"}],"name":"redeem","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"redeemAmount","type":"uint256"}],"name":"redeemUnderlying","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}],
+  "networks": {
+    "3": {
+      "address": "0x69d16B2c6bA637B5bBe4B38887eEc77EDB452eDa"
+    },
+    "4": {
+      "address": "0x155D0bCB00Ae9044c31aE5494314cE7A280ECda2"
+    },
+    "5": {
+      "address": "0x7f1a4b25C60a61A891D8E4767c7b4ECB6aB4535E"
+    },
+    "42": {
+      "address": "0xE949A5D59bbe0B0bFD147bf3F0c52bf8E5980220"
+    }
+  }
+}

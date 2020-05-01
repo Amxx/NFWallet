@@ -17,7 +17,7 @@ const WalletAAVERepayingWrapper = (props) =>
 
 const WalletAAVERepaying = (props) =>
 {
-	const [ pool              ] = React.useState(new ethers.Contract(LendingPool.networks[props.services.network.chainId].address, LendingPool.abi, props.services.provider.getSigner()));
+	const [ pool              ] = React.useState(new ethers.Contract(    LendingPool.networks[props.services.network.chainId].address,     LendingPool.abi, props.services.provider.getSigner()));
 	const [ poolcore          ] = React.useState(new ethers.Contract(LendingPoolCore.networks[props.services.network.chainId].address, LendingPoolCore.abi, props.services.provider.getSigner()));
 	const [ repayable         ] = React.useState(Object.values(props.details.tokens).filter(({reserveData}) => reserveData && reserveData.borrowBalance.gt(0)));
 
@@ -53,10 +53,7 @@ const WalletAAVERepaying = (props) =>
 					])
 				]
 			],
-			props.services,
-			{
-				sigerror: console.log
-			}
+			props.services
 		);
 	}
 

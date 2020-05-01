@@ -31,16 +31,26 @@
 						"decimals":  18,
 						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
 						"address":   "0xc778417E063141139Fce010982780140Aa0cD5Ab",
+						"ctoken":    "0x1d70b01a2c3e3b2e56fcdcefe50d5c5d70109a5d",
 						"UniswapV2": true
 					},
-					"DAI":
+					"DAI-A":
 					{
-						"symbol":    "DAI",
-						"name":      "Dai Stablecoin",
+						"symbol":    "DAI-A",
+						"name":      "Dai Stablecoin (AAVE)",
 						"decimals":  18,
 						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
 						"address":   "0xf80A32A835F79D7787E8a8ee5721D0fEaFd78108",
 						"UniswapV2": true
+					},
+					"DAI-C":
+					{
+						"symbol":    "DAI-C",
+						"name":      "Dai Stablecoin (Compound)",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+						"address":   "0xB5E5D0F8C0cbA267CD3D7035d6AdC8eBA7Df7Cdd",
+						"ctoken":    "0x6CE27497A64fFFb5517AA4aeE908b1E7EB63B9fF"
 					}
 				}
 			}
@@ -62,6 +72,7 @@
 						"decimals":  18,
 						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
 						"address":   "0xc778417E063141139Fce010982780140Aa0cD5Ab",
+						"ctoken":    "0xd6801a1dffcd0a410336ef88def4320d6df1883e",
 						"UniswapV2": true
 					},
 					"DAI":
@@ -84,19 +95,21 @@
 					},
 					"USDT":
 					{
-						"symbol":        "USDT",
-						"name":          "Tether USD",
-						"decimals":      6,
-						"img":           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
-						"address":       "0xa462C891d53A821D12705389233450D5fEDaeD08"
+						"symbol":    "USDT",
+						"name":      "Tether USD",
+						"decimals":  6,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+						"address":   "0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02",
+						"ctoken":    "0x2fb298bdbef468638ad6653ff8376575ea41e768"
 					},
 					"WBTC":
 					{
-						"symbol":        "WBTC",
-						"name":          "Wrapped BTC",
-						"decimals":      8,
-						"img":           "https://s2.coinmarketcap.com/static/img/coins/64x64/3717.png",
-						"address":       "0xF03883cae819C387b47b51bBF94841ABB0E1332b"
+						"symbol":    "WBTC",
+						"name":      "Wrapped BTC",
+						"decimals":  8,
+						"img":       "https://s2.coinmarketcap.com/static/img/coins/64x64/3717.png",
+						"address":   "0x577D296678535e4903D59A4C929B718e1D575e0A",
+						"ctoken":    "0x0014f450b8ae7708593f4a46f8fa6e5d50620f96"
 					}
 				}
 			}
@@ -118,6 +131,7 @@
 						"decimals":  18,
 						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
 						"address":   "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
+						"ctoken":    "0x20572e4c090f15667cf7378e16fad2ea0e2f3eff",
 						"UniswapV2": true
 					},
 					"USDT":
@@ -158,6 +172,7 @@
 						"decimals":  18,
 						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
 						"address":   "0xd0A1E359811322d97991E03f863a0C30C2cF029C",
+						"ctoken":    "0xf92fbe0d3c0dcdae407923b2ac17ec223b1084e4",
 						"UniswapV2": true
 					},
 					"DAI":
