@@ -9,7 +9,7 @@ import * as utils      from '../../libs/utils'
 import LendingPool     from '../../abi/LendingPool.json';
 
 const WalletBorrowingWrapper = (props) =>
-	LendingPool.networks[props.services.network.chainId]
+	props.details.account.withAAVE
 	? <WalletBorrowing {...props}/>
 	: <div className='text-center text-muted'>AAVE is not available on this network</div>
 

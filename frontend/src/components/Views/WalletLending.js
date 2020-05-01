@@ -13,7 +13,7 @@ import AToken          from '../../abi/AToken.json';
 
 
 const WalletLendingWrapper = (props) =>
-	LendingPool.networks[props.services.network.chainId] && LendingPoolCore.networks[props.services.network.chainId].address
+	props.details.account.withAAVE
 	? <WalletLending {...props}/>
 	: <div className='text-center text-muted'>AAVE is not available on this network</div>
 

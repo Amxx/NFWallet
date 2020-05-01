@@ -27,6 +27,7 @@ const WithDetails = (props) =>
 				pool.getUserAccountData(props.data.wallet.id)
 				.then(data => setAccount({
 					address:                     props.data.wallet.id,
+					withAAVE:                    true,
 					totalLiquidityETH:           data.totalLiquidityETH,
 					totalCollateralETH:          data.totalCollateralETH,
 					totalBorrowsETH:             data.totalBorrowsETH,

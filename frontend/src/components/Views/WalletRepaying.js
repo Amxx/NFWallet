@@ -15,7 +15,7 @@ const BNmax = (x,y) => x.gte(y) ? x : y;
 
 
 const WalletRepayingWrapper = (props) =>
-	LendingPool.networks[props.services.network.chainId]
+	props.details.account.withAAVE
 	? Object.values(props.details.tokens).find(({reserveData}) => reserveData && reserveData.borrowBalance.gt(0))
 	? <WalletRepaying {...props}/>
 	: <div className='text-center text-muted'>This wallet doesn't have any loans to repay</div>

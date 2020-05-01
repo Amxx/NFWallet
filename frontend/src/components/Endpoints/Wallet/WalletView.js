@@ -3,6 +3,7 @@ import { MDBCard, MDBCol, MDBRow } from 'mdbreact';
 
 import TabSlider             from '../../UI/TabSlider';
 import WalletActivity        from '../../Views/WalletActivity';
+import WalletAAVEDetails     from '../../Views/WalletAAVEDetails';
 import WalletBalances        from '../../Views/WalletBalances';
 import WalletBalanceChart    from '../../Views/WalletBalanceChart';
 import WalletBorrowing       from '../../Views/WalletBorrowing';
@@ -45,6 +46,7 @@ const WalletView = (props) =>
 				<MDBCard className='z-depth-3'>
 					<TabSlider
 						entries={[
+							{ label: 'DeFi overview',        render: <WalletAAVEDetails     {...props} /> },
 							{ label: 'Lend',                 render: <WalletLending         {...props} /> },
 							{ label: 'Borrow',               render: <WalletBorrowing       {...props} /> },
 							{ label: 'Repay',                render: <WalletRepaying        {...props} /> },
