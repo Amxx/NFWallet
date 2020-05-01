@@ -5,12 +5,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { ethers } from 'ethers';
 
 
-const WalletAAVEDetailsWrapper = (props) =>
-	props.details.account.withAAVE
-	? <WalletAAVEDetails {...props}/>
-	: <div className='text-center text-muted'>AAVE is not available on this network</div>
-
-
 const WalletAAVEDetails = (props) =>
 	<>
 		<div className='mb-2'>
@@ -19,8 +13,8 @@ const WalletAAVEDetails = (props) =>
 					<tr>
 						<th className='text-center'>Asset</th>
 						<th className='text-center'>Balance</th>
-						<th className='text-center' colspan='2'>Deposited</th>
-						<th className='text-center' colspan='2'>Borrowed</th>
+						<th className='text-center' colSpan='2'>Deposited</th>
+						<th className='text-center' colSpan='2'>Borrowed</th>
 					</tr>
 				</MDBTableHead>
 				<MDBTableBody>
@@ -55,12 +49,12 @@ const WalletAAVEDetails = (props) =>
 			<MDBTable responsive borderless small>
 				<MDBTableHead color='indigo' textWhite>
 					<tr>
-						<th className='text-center' colspan='2'>Position</th>
+						<th className='text-center' colSpan='2'>Position</th>
 					</tr>
 				</MDBTableHead>
 				<MDBTableBody>
 					<tr>
-						<td className='pt-4 pb-2' colspan='2'>
+						<td className='pt-4 pb-2' colSpan='2'>
 							<LinearProgress
 								variant     = 'buffer'
 								value       = {Number(props.details.account.totalBorrowsETH.mul(100).div(props.details.account.totalCollateralETH))}
@@ -98,4 +92,4 @@ const WalletAAVEDetails = (props) =>
 		</div>
 	</>
 
-export default WalletAAVEDetailsWrapper;
+export default WalletAAVEDetails;

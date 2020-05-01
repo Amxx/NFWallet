@@ -4,13 +4,13 @@ import { MDBCard, MDBCol, MDBRow } from 'mdbreact';
 import TabSlider             from '../../UI/TabSlider';
 import WalletActivity        from '../../Views/WalletActivity';
 import WalletAAVEDetails     from '../../Views/WalletAAVEDetails';
+import WalletAAVELending     from '../../Views/WalletAAVELending';
+import WalletAAVEBorrowing   from '../../Views/WalletAAVEBorrowing';
+import WalletAAVERepaying    from '../../Views/WalletAAVERepaying';
 import WalletBalances        from '../../Views/WalletBalances';
 import WalletBalanceChart    from '../../Views/WalletBalanceChart';
-import WalletBorrowing       from '../../Views/WalletBorrowing';
 import WalletDetailsExpanded from '../../Views/WalletDetailsExpanded';
-import WalletLending         from '../../Views/WalletLending';
 import WalletOwnership       from '../../Views/WalletOwnership';
-import WalletRepaying        from '../../Views/WalletRepaying';
 import WalletSend            from '../../Views/WalletSend';
 import WalletUniswapV2       from '../../Views/WalletUniswapV2';
 
@@ -44,14 +44,20 @@ const WalletView = (props) =>
 
 			<div className='py-3'>
 				<MDBCard className='z-depth-3'>
-					<TabSlider
-						entries={[
-							{ label: 'DeFi overview',        render: <WalletAAVEDetails     {...props} /> },
-							{ label: 'Lend',                 render: <WalletLending         {...props} /> },
-							{ label: 'Borrow',               render: <WalletBorrowing       {...props} /> },
-							{ label: 'Repay',                render: <WalletRepaying        {...props} /> },
-						]}
-					/>
+					{
+						props.details.account.withAAVE
+						?
+							<TabSlider
+								entries={[
+									{ label: 'AAVE overview',        render: <WalletAAVEDetails     {...props} /> },
+									{ label: 'Lend',                 render: <WalletAAVELending     {...props} /> },
+									{ label: 'Borrow',               render: <WalletAAVEBorrowing   {...props} /> },
+									{ label: 'Repay',                render: <WalletAAVERepaying    {...props} /> },
+								]}
+							/>
+						:
+							<div className='text-center text-muted p-4'>AAVE is not available on this network</div>
+					}
 				</MDBCard>
 			</div>
 
