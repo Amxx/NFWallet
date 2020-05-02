@@ -14,8 +14,8 @@ const WalletUniswapV2 = (props) =>
 	const [ router                  ] = React.useState(new ethers.Contract(UniswapV2Router01.networks[props.services.network.chainId].address, UniswapV2Router01.abi, props.services.provider.getSigner()));
 	const [ swappable               ] = React.useState(Object.values(props.details.tokens).filter(({UniswapV2}) => UniswapV2));
 
-	const [ base,      setBase      ] = React.useState('ETH');
-	const [ quote,     setQuote     ] = React.useState(swappable.find(({symbol}) => symbol !== 'ETH').symbol);
+	const [ base,      setBase      ] = React.useState(props.details.tokens['ETH']);
+	const [ quote,     setQuote     ] = React.useState(swappable.find(({symbol}) => symbol !== 'ETH'));
 	const [ amount,    setAmount    ] = React.useState({});
 	const [ estimated, setEstimated ] = React.useState(ethers.constants.Zero);
 	const [ uniparams, setUniparams ] = React.useState({});
@@ -24,7 +24,7 @@ const WalletUniswapV2 = (props) =>
 	React.useEffect(() => {
 		if (base === quote)
 		{
-			setQuote(swappable.find(({symbol}) => symbol !== base).symbol);
+			setQuote(swappable.find(token => token !== base));
 		}
 	}, [swappable, base, quote])
 
@@ -34,16 +34,14 @@ const WalletUniswapV2 = (props) =>
 		{
 			try
 			{
-				const from   = props.details.tokens[base];
-				const to     = props.details.tokens[quote];
-				const method = from.isEth ? 'swapExactETHForTokens' : to.isEth ? 'swapExactTokensForETH' : 'swapExactTokensForTokens';
+				const method = base.isEth ? 'swapExactETHForTokens' : quote.isEth ? 'swapExactTokensForETH' : 'swapExactTokensForTokens';
 				const path   = [
-					from.address,
-					!from.isEth && !to.isEth ? props.details.tokens['ETH'].address : undefined, // weth
-					to.address,
+					base.address,
+					!base.isEth && !quote.isEth && props.details.tokens['ETH'].address, // weth
+					quote.address,
 				].filter(Boolean);
 
-				setUniparams({ from, to, method, path });
+				setUniparams({ method, path });
 			}
 			catch (err)
 			{
@@ -75,18 +73,18 @@ const WalletUniswapV2 = (props) =>
 			props.data.wallet.id,
 			[
 				// approve if source is an erc20
-				!uniparams.from.isEth &&
+				!base.isEth &&
 				[
-					uniparams.from.address,
+					base.address,
 					'0',
 					(new ethers.utils.Interface(ERC20.abi)).functions['approve'].encode([ router.address, amount.value ])
 				],
 				// call UniswapV2Router
 				[
 					router.address,
-					uniparams.from.isEth ? amount.value : 0,
+					base.isEth ? amount.value : 0,
 					router.interface.functions[uniparams.method].encode([
-						!uniparams.from.isEth ? amount.value : undefined,
+						!base.isEth ? amount.value : undefined,
 						'0',
 						uniparams.path,
 						props.data.wallet.id,
@@ -103,24 +101,24 @@ const WalletUniswapV2 = (props) =>
 			<BalanceInput
 				label         = 'Send'
 				className     = 'my-1'
-				token         = { base }
+				token         = { base.symbol }
 				tokenSelector = { swappable.filter(({isEth, balance}) => isEth || balance.gt(0)) }
-				tokenDecimals = { props.details.tokens[base].decimals }
-				tokenBalance  = { props.details.tokens[base].balance }
-				callbacks     = {{ setToken: setBase, setAmount, setEnough }}
+				tokenDecimals = { base.decimals }
+				tokenBalance  = { base.balance }
+				callbacks     = {{ setToken: (symbol) => setBase(props.details.tokens[symbol]), setAmount, setEnough }}
 			/>
 			<BalanceInput
 				label         = 'Receive'
 				className     = 'my-1'
 				value         = { estimated }
-				token         = { quote }
+				token         = { quote.symbol }
 				tokenSelector = { swappable.filter(({symbol}) => symbol !== base) }
-				tokenDecimals = { props.details.tokens[quote].decimals }
-				callbacks     = {{ setToken: setQuote }}
+				tokenDecimals = { quote.decimals }
+				callbacks     = {{ setToken: (symbol) => setQuote(props.details.tokens[symbol]) }}
 				disabled
 			/>
-			<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
-				Exchange {base} → {quote} { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}
+			<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || !props.details.account.isOwner}>
+				Exchange {base.symbol} → {quote.symbol} { !props.details.account.isOwner && '(disabled for non owners)' }
 			</MDBBtn>
 		</form>
 	);

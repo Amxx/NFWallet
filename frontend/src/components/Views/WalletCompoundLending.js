@@ -17,7 +17,7 @@ const WalletCompoundLending = (props) =>
 	const [ lendable            ] = React.useState(Object.values(props.details.tokens).filter(({compound, isEth, balance}) => compound && (isEth || balance.gt(0))));
 
 	const [ deposit, setDeposit ] = React.useState(!props.withdraw);
-	const [ token,   setToken   ] = React.useState('ETH');
+	const [ token,   setToken   ] = React.useState(props.details.tokens['ETH']);
 	const [ amount,  setAmount  ] = React.useState({});
 	const [ limit,   setLimit   ] = React.useState(ethers.constants.Zero);
 	const [ enough,  setEnough  ] = React.useState(true);
@@ -25,8 +25,8 @@ const WalletCompoundLending = (props) =>
 
 	React.useEffect(() => {
 		setLimit(
-			props.details.tokens[token].compound.balance
-				.mul(props.details.tokens[token].compound.exchangeRate)
+			token.compound.cTokenBalance
+				.mul(token.compound.exchangeRate)
 				.div(ethers.constants.WeiPerEther)
 		)
 	}, [props, token])
@@ -35,36 +35,34 @@ const WalletCompoundLending = (props) =>
 	{
 		ev.preventDefault();
 
-		const asset = props.details.tokens[token];
-
 		utils.executeTransactions(
 			props.data.wallet.id,
 			[
-				deposit && !asset.isEth &&
+				deposit && !token.isEth &&
 				[
-					asset.address,
+					token.address,
 					ethers.constants.Zero,
-					(new ethers.utils.Interface(ERC20.abi)).functions.approve.encode([asset.ctoken, amount.value])
+					(new ethers.utils.Interface(ERC20.abi)).functions.approve.encode([token.ctoken, amount.value])
 				],
 				deposit && [
-					asset.ctoken,
-					asset.isEth ? amount.value : ethers.constants.Zero,
-					(new ethers.utils.Interface((asset.isEth ? CEther : CToken).abi)).functions.mint.encode(asset.isEth ? [] : [amount.value]),
+					token.ctoken,
+					token.isEth ? amount.value : ethers.constants.Zero,
+					(new ethers.utils.Interface((token.isEth ? CEther : CToken).abi)).functions.mint.encode(token.isEth ? [] : [amount.value]),
 				],
-				!deposit && asset.isEth && [
-					asset.ctoken,
+				!deposit && token.isEth && [
+					token.ctoken,
 					ethers.constants.Zero,
-					(new ethers.utils.Interface(ERC20.abi)).functions.transfer.encode([redeemer.address, asset.compound.balance]),
+					(new ethers.utils.Interface(ERC20.abi)).functions.transfer.encode([redeemer.address, token.compound.cTokenBalance]),
 				],
 				!deposit && !amount.max && [
-					asset.isEth ? redeemer.address : asset.ctoken,
+					token.isEth ? redeemer.address : token.ctoken,
 					ethers.constants.Zero,
 					redeemer.interface.functions.redeemUnderlying.encode([amount.value]),
 				],
 				!deposit && amount.max && [
-					asset.isEth ? redeemer.address : asset.ctoken,
+					token.isEth ? redeemer.address : token.ctoken,
 					ethers.constants.Zero,
-					redeemer.interface.functions.redeem.encode([asset.compound.balance]),
+					redeemer.interface.functions.redeem.encode([token.compound.cTokenBalance]),
 				]
 			],
 			props.services,
@@ -79,7 +77,7 @@ const WalletCompoundLending = (props) =>
 			<div className='d-flex flex-column justify-content-center border-right border-light pr-4 mr-4'>
 				{
 					lendable.map((token, i) =>
-						<a href='#!' key={i} onClick={() => setToken(token.symbol)} className='text-center m-2'>
+						<a href='#!' key={i} onClick={() => setToken(token)} className='text-center m-2'>
 							<img src={token.img} alt={token.symbol} height={32}/>
 							<div className='text-muted' style={{fontSize: '.8em'}}>
 								{ token.symbol }
@@ -91,9 +89,9 @@ const WalletCompoundLending = (props) =>
 			<form onSubmit={handleSubmit} className={`flex-grow-1 d-flex flex-column justify-content-center ${props.className}`}>
 				<BalanceInput
 					className     = 'my-1'
-					token         = { `${deposit?'':'c'}${token}` }
-					tokenDecimals = { props.details.tokens[token].decimals }
-					tokenBalance  = { deposit ? props.details.tokens[token].balance : limit }
+					token         = { token.symbol }
+					tokenDecimals = { token.decimals }
+					tokenBalance  = { deposit ? token.balance : limit }
 					callbacks     = {{ setAmount, setEnough }}
 				/>
 
@@ -106,8 +104,8 @@ const WalletCompoundLending = (props) =>
 					</div>
 				}
 
-				<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
-					{deposit?'Deposit':'Withdraw'} {token} { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) && '(disabled for non owners)' }
+				<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || !props.details.account.isOwner }>
+					{deposit?'Deposit':'Withdraw'} {token.symbol} { !props.details.account.isOwner && '(disabled for non owners)' }
 				</MDBBtn>
 			</form>
 		</div>

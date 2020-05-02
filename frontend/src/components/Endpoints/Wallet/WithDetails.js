@@ -9,6 +9,7 @@ import IPriceOracleGetter from '../../../abi/IPriceOracleGetter.json';
 // Compound
 import CEther             from '../../../abi/CEther.json';
 import CToken             from '../../../abi/CToken.json';
+import Comptroller        from '../../../abi/Comptroller.json';
 import PriceOracle        from '../../../abi/PriceOracle.json';
 
 
@@ -17,6 +18,7 @@ const WithDetails = (props) =>
 	const [ AAVEpool            ] = React.useState(       LendingPool.networks[props.services.network.chainId] && new ethers.Contract(       LendingPool.networks[props.services.network.chainId].address,        LendingPool.abi, props.services.provider.getSigner()));
 	const [ AAVEpriceoracle     ] = React.useState(IPriceOracleGetter.networks[props.services.network.chainId] && new ethers.Contract(IPriceOracleGetter.networks[props.services.network.chainId].address, IPriceOracleGetter.abi, props.services.provider.getSigner()));
 	const [ Cpriceoracle        ] = React.useState(       PriceOracle.networks[props.services.network.chainId] && new ethers.Contract(       PriceOracle.networks[props.services.network.chainId].address,        PriceOracle.abi, props.services.provider.getSigner()));
+	const [ Ccomptroller        ] = React.useState(       Comptroller.networks[props.services.network.chainId] && new ethers.Contract(       Comptroller.networks[props.services.network.chainId].address,        Comptroller.abi, props.services.provider.getSigner()));
 
 	const [ account, setAccount ] = React.useState(null);
 	const [ tokens,  setTokens  ] = React.useState(null);
@@ -27,30 +29,44 @@ const WithDetails = (props) =>
 	React.useEffect(() => {
 		const fetchBalances = () =>
 		{
-			// AAVE user account data
-			if (AAVEpool)
-			{
-				Promise.all([
-					AAVEpool.getUserAccountData(props.data.wallet.id)
-				]).then(([
-					data
-				]) => setAccount({
-					address:                     props.data.wallet.id,
-					totalLiquidityETH:           data.totalLiquidityETH,
-					totalCollateralETH:          data.totalCollateralETH,
-					totalBorrowsETH:             data.totalBorrowsETH,
-					totalFeesETH:                data.totalFeesETH,
-					availableBorrowsETH:         data.availableBorrowsETH,
-					currentLiquidationThreshold: data.currentLiquidationThreshold,
-					ltv:                         data.ltv,
-					healthFactor:                data.healthFactor,
-				}))
-				.catch(() => setAccount({ address: props.data.wallet.id }));
-			}
-			else
-			{
-				setAccount({ address: props.data.wallet.id });
-			}
+			(new Promise(async (resolve, reject) => {
+				let extraData = {};
+
+				// AAVE account details
+				try
+				{
+					const data = await AAVEpool.getUserAccountData(props.data.wallet.id);
+					extraData.aave = {
+						totalLiquidityETH:           data.totalLiquidityETH,
+						totalCollateralETH:          data.totalCollateralETH,
+						totalBorrowsETH:             data.totalBorrowsETH,
+						totalFeesETH:                data.totalFeesETH,
+						availableBorrowsETH:         data.availableBorrowsETH,
+						currentLiquidationThreshold: data.currentLiquidationThreshold,
+						ltv:                         data.ltv,
+						healthFactor:                data.healthFactor,
+					}
+				}
+				catch {};
+
+				// Compound account details
+				try
+				{
+					const accountLiquidity = await Ccomptroller.getAccountLiquidity(props.data.wallet.id)
+					extraData.compound = {
+						accountLiquidity,
+					}
+				}
+				catch {};
+
+				resolve({
+					...extraData,
+					address: props.data.wallet.id,
+					owner:   props.data.wallet.owner.id,
+					isOwner: props.data.wallet.owner.id === props.services.accounts[0].toLowerCase(),
+				});
+			}))
+			.then(setAccount);
 
 			// tokens data
 			Promise.all(
@@ -58,7 +74,7 @@ const WithDetails = (props) =>
 				.map(async (token) => {
 					let extraData = {};
 
-					// AAVE reserve data
+					// AAVE token data
 					try
 					{
 						const reserve = token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address;
@@ -72,7 +88,7 @@ const WithDetails = (props) =>
 							AAVEpriceoracle.getAssetPrice(reserve),
 						]);
 
-						extraData.reserveData = {
+						extraData.aave = {
 							assetPrice,
 							reserveAddress:           reserve,
 							totalLiquidity:           reservedata.totalLiquidity,
@@ -100,28 +116,29 @@ const WithDetails = (props) =>
 					}
 					catch {};
 
-					// Compound
+					// Compound token data
 					try
 					{
 						const contract = new ethers.Contract(token.ctoken, (token.isEth ? CEther : CToken).abi, props.services.provider.getSigner());
 						const [
 							underlying,
-							decimals,
-							balance,
+							cTokenBalance,
+							cTokenDecimals,
 							exchangeRate,
 							assetPrice,
 						] = await Promise.all([
 							!token.isEth && contract.underlying(),
-							contract.decimals(),
 							contract.balanceOf(props.data.wallet.id),
+							contract.decimals(),
 							contract.exchangeRateStored(),
 							Cpriceoracle.getUnderlyingPrice(token.ctoken),
 						]);
 
 						extraData.compound = (token.isEth || (token.address === underlying)) &&
 						{
-							decimals,
-							balance,
+							cTokenAddress: token.ctoken,
+							cTokenBalance,
+							cTokenDecimals,
 							exchangeRate,
 							assetPrice,
 						};
@@ -143,13 +160,21 @@ const WithDetails = (props) =>
 				tokens
 					.sort((t1, t2) => !t1.isEth && (t2.isEth || t1.balance < t2.balance)) // with ether, then by balance
 					.reduce((acc, token) => ({ ...acc, [token.symbol]: token }), {})
-			))
+			));
+
 		}
 		// trigger and subscribe
 		fetchBalances()
 		const subscription = props.services.emitter.addListener('tx', fetchBalances);
 		return () => subscription.remove();
-	}, [props, props.data.wallet.events, AAVEpool, AAVEpriceoracle]);
+	}, [
+		props,
+		props.data.wallet.events,
+		AAVEpool,
+		AAVEpriceoracle,
+		Ccomptroller,
+		Cpriceoracle,
+	]);
 
 	return <>
 		{

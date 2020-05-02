@@ -55,8 +55,8 @@ const WalletSend = (props) =>
 				callbacks     = {{ setToken, setAmount, setEnough }}
 			/>
 
-			<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
-				Send {token} { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) ? '(disabled for non owners)' : ''}
+			<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || !props.details.account.isOwner}>
+				Send {token} { !props.details.account.isOwner && '(disabled for non owners)' }
 			</MDBBtn>
 
 		</form>

@@ -16,10 +16,10 @@ const WalletAAVELending = (props) =>
 {
 	const [ pool                ] = React.useState(new ethers.Contract(    LendingPool.networks[props.services.network.chainId].address,     LendingPool.abi, props.services.provider.getSigner()));
 	const [ poolcore            ] = React.useState(new ethers.Contract(LendingPoolCore.networks[props.services.network.chainId].address, LendingPoolCore.abi, props.services.provider.getSigner()));
-	const [ lendable            ] = React.useState(Object.values(props.details.tokens).filter(({reserveData, isEth, balance}) => reserveData && (isEth || balance.gt(0))));
+	const [ lendable            ] = React.useState(Object.values(props.details.tokens).filter(({aave, isEth, balance}) => aave));
 
 	const [ deposit, setDeposit ] = React.useState(!props.withdraw);
-	const [ token,   setToken   ] = React.useState('ETH');
+	const [ token,   setToken   ] = React.useState(props.details.tokens['ETH']);
 	const [ amount,  setAmount  ] = React.useState({});
 	const [ enough,  setEnough  ] = React.useState(true);
 	const toggle = () => setDeposit(!deposit);
@@ -28,29 +28,28 @@ const WalletAAVELending = (props) =>
 	{
 		ev.preventDefault();
 
-		const asset = props.details.tokens[token];
 		const value = (amount.max && !deposit) ? ethers.constants.MaxUint256 : amount.value;
 
 		utils.executeTransactions(
 			props.data.wallet.id,
 			[
-				deposit && !asset.isEth &&
+				deposit && !token.isEth &&
 				[
-					asset.address,
+					token.address,
 					'0',
 					(new ethers.utils.Interface(ERC20.abi)).functions.approve.encode([ poolcore.address, value ])
 				],
 				deposit && [
 					pool.address,
-					asset.isEth ? value : 0,
+					token.isEth ? value : 0,
 					pool.interface.functions.deposit.encode([
-						asset.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : asset.address,
+						token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address,
 						value,
 						0 // referal code
 					])
 				],
 				!deposit && [
-					asset.reserveData.aTokenAddress,
+					token.aave.aTokenAddress,
 					0,
 					(new ethers.utils.Interface(AToken.abi)).functions.redeem.encode([value])
 				]
@@ -64,13 +63,23 @@ const WalletAAVELending = (props) =>
 			<div className='d-flex flex-column justify-content-center border-right border-light pr-4 mr-4'>
 				{
 					lendable.map((token, i) =>
-						<a href='#!' key={i} onClick={() => setToken(token.symbol)} className='text-center m-2'>
+						<a href='#!' key={i} onClick={() => setToken(token)} className='text-center m-2'>
 							<img src={token.img} alt={token.symbol} height={32}/>
 							<div className='text-muted' style={{fontSize: '.8em'}}>
 								{ token.symbol }
 							</div>
 							<div className='text-muted' style={{fontSize: '.6em'}}>
-								{ (ethers.utils.formatUnits(token.reserveData.liquidityRate, 27)*100).toFixed(2) }% APY
+								{
+									Number(ethers.utils.formatUnits(
+										deposit
+											? token.balance
+											: token.aave.aTokenBalance,
+											token.decimals
+									)).toFixed(6)
+								}
+							</div>
+							<div className='text-muted' style={{fontSize: '.6em'}}>
+								{ (ethers.utils.formatUnits(token.aave.liquidityRate, 27)*100).toFixed(2) }% APY
 							</div>
 						</a>
 					)
@@ -79,9 +88,9 @@ const WalletAAVELending = (props) =>
 			<form onSubmit={handleSubmit} className={`flex-grow-1 d-flex flex-column justify-content-center ${props.className}`}>
 				<BalanceInput
 					className     = 'my-1'
-					token         = { `${deposit?'':'a'}${token}` }
-					tokenDecimals = { props.details.tokens[token].decimals }
-					tokenBalance  = { deposit ? props.details.tokens[token].balance : props.details.tokens[token].reserveData.aTokenBalance }
+					token         = { token.symbol }
+					tokenDecimals = { token.decimals }
+					tokenBalance  = { deposit ? token.balance : token.aave.aTokenBalance }
 					callbacks     = {{ setAmount, setEnough }}
 				/>
 
@@ -94,8 +103,8 @@ const WalletAAVELending = (props) =>
 					</div>
 				}
 
-				<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase())}>
-					{deposit?'Deposit':'Withdraw'} {token} { (props.data.wallet.owner.id !== props.services.accounts[0].toLowerCase()) && '(disabled for non owners)' }
+				<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || !props.details.account.isOwner}>
+					{deposit?'Deposit':'Withdraw'} {token.symbol} { !props.details.account.isOwner && '(disabled for non owners)' }
 				</MDBBtn>
 			</form>
 		</div>

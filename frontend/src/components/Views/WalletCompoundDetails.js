@@ -30,7 +30,7 @@ const WalletCompoundDetails = (props) =>
 								<td className='p-1 text-right'>
 									{
 										Number(ethers.utils.formatUnits(
-											token.compound.balance
+											token.compound.cTokenBalance
 												.mul(token.compound.exchangeRate)
 												.div(ethers.constants.WeiPerEther),
 											token.decimals
@@ -41,8 +41,8 @@ const WalletCompoundDetails = (props) =>
 								<td className='p-1 text-left text-muted' style={{fontSize: '.6em'}}>
 									{
 										Number(ethers.utils.formatUnits(
-											token.compound.balance,
-											Number(token.compound.decimals)
+											token.compound.cTokenBalance,
+											Number(token.compound.cTokenDecimals)
 										))
 										.toFixed(3)
 									}
