@@ -26,7 +26,7 @@ const WalletCompoundLending = (props) =>
 	React.useEffect(() => {
 		setLimit(
 			token.compound.cTokenBalance
-				.mul(token.compound.exchangeRate)
+				.mul(token.compound.exchangeRateStored)
 				.div(ethers.constants.WeiPerEther)
 		)
 	}, [props, token])

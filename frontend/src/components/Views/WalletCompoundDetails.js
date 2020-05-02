@@ -8,6 +8,8 @@ import { ethers } from 'ethers';
 const WalletCompoundDetails = (props) =>
 	<>
 		<div>
+			Liquidity: { Number(props.details.account.compound.accountLiquidity) || - Number(props.details.account.compound.shortfall) }
+
 			<MDBTable responsive small hover>
 				<MDBTableHead color='indigo' textWhite>
 					<tr>
@@ -31,7 +33,7 @@ const WalletCompoundDetails = (props) =>
 									{
 										Number(ethers.utils.formatUnits(
 											token.compound.cTokenBalance
-												.mul(token.compound.exchangeRate)
+												.mul(token.compound.exchangeRateStored)
 												.div(ethers.constants.WeiPerEther),
 											token.decimals
 										))

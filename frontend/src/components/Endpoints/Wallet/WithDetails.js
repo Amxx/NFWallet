@@ -52,9 +52,10 @@ const WithDetails = (props) =>
 				// Compound account details
 				try
 				{
-					const accountLiquidity = await Ccomptroller.getAccountLiquidity(props.data.wallet.id)
+					const [accountLiquidity, shortfall] = await Ccomptroller.getAccountLiquidity(props.data.wallet.id)
 					extraData.compound = {
 						accountLiquidity,
+						shortfall,
 					}
 				}
 				catch {};
@@ -124,13 +125,15 @@ const WithDetails = (props) =>
 							underlying,
 							cTokenBalance,
 							cTokenDecimals,
-							exchangeRate,
+							exchangeRateStored,
+							borrowRatePerBlock,
 							assetPrice,
 						] = await Promise.all([
 							!token.isEth && contract.underlying(),
 							contract.balanceOf(props.data.wallet.id),
 							contract.decimals(),
 							contract.exchangeRateStored(),
+							contract.borrowRatePerBlock(),
 							Cpriceoracle.getUnderlyingPrice(token.ctoken),
 						]);
 
@@ -139,7 +142,8 @@ const WithDetails = (props) =>
 							cTokenAddress: token.ctoken,
 							cTokenBalance,
 							cTokenDecimals,
-							exchangeRate,
+							exchangeRateStored,
+							borrowRatePerBlock,
 							assetPrice,
 						};
 					}
