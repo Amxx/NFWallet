@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { MDBTable, MDBTableHead, MDBTableBody } from 'mdbreact';
-import Grid           from '@material-ui/core/Grid';
-// import LinearProgress from '@material-ui/core/LinearProgress';
-import Chart          from 'react-apexcharts';
+import { MDBTable, MDBTableBody } from 'mdbreact';
+import Grid  from '@material-ui/core/Grid';
+import Chart from 'react-apexcharts';
 
 import { ethers } from 'ethers';
 

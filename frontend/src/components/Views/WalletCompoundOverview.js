@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdbreact';
-import LinearProgress from '@material-ui/core/LinearProgress';
-
 import { ethers } from 'ethers';
 
 

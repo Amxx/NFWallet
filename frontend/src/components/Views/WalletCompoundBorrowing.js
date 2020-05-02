@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
 import BalanceInput from '../UI/BalanceInput';
-import Switch       from '@material-ui/core/Switch';
 
 import { ethers }   from 'ethers';
 import * as utils   from '../../libs/utils'
@@ -14,12 +13,10 @@ const WalletCompoundBorrowing = (props) =>
 {
 	const [ borrowable                ] = React.useState(Object.values(props.details.tokens).filter(({compound}) => compound));
 
-	const [ stableRate, setStableRate ] = React.useState(false);
 	const [ token,      setToken      ] = React.useState(props.details.tokens['ETH']);
 	const [ amount,     setAmount     ] = React.useState({});
 	const [ limit,      setLimit      ] = React.useState(ethers.constants.Zero);
 	const [ enough,     setEnough     ] = React.useState(true);
-	const toggleRate = () => setStableRate(!stableRate);
 
 	React.useEffect(() => {
 		setLimit(utils.BNmin(
