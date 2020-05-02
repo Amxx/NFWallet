@@ -78,6 +78,7 @@ const WalletView = (props) =>
 								Object.values(props.details.tokens).find(({compound}) => compound)
 								?
 									<TabSlider
+										scrollable
 										entries={[
 											{ label: 'Overview',             render: <WalletCompoundOverview               {...props} /> },
 											{ label: 'Deposit',              render: <WalletCompoundLending fixed          {...props} /> },
