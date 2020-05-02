@@ -2,24 +2,22 @@ import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
 import BalanceInput from '../UI/BalanceInput';
 
-import { ethers }      from 'ethers';
-import * as utils      from '../../libs/utils'
+import { ethers }   from 'ethers';
+import * as utils   from '../../libs/utils'
 
-import ERC20           from '../../abi/ERC20.json';
-import LendingPool     from '../../abi/LendingPool.json';
-import LendingPoolCore from '../../abi/LendingPoolCore.json';
+import ERC20        from '../../abi/ERC20.json';
+import CEther       from '../../abi/CEther.json';
+import CToken       from '../../abi/CToken.json';
 
 
-const WalletAAVERepayingWrapper = (props) =>
-	Object.values(props.details.tokens).find(({aave}) => aave && aave.borrowBalance.gt(0))
-	? <WalletAAVERepaying {...props}/>
+const WalletCompoundRepayingWrapper = (props) =>
+	Object.values(props.details.tokens).find(({compound}) => compound && compound.borrowBalance.gt(0))
+	? <WalletCompoundRepaying {...props}/>
 	: <div className='text-center text-muted'>This wallet doesn't have any loans to repay</div>
 
-const WalletAAVERepaying = (props) =>
+const WalletCompoundRepaying = (props) =>
 {
-	const [ pool              ] = React.useState(new ethers.Contract(    LendingPool.networks[props.services.network.chainId].address,     LendingPool.abi, props.services.provider.getSigner()));
-	const [ poolcore          ] = React.useState(new ethers.Contract(LendingPoolCore.networks[props.services.network.chainId].address, LendingPoolCore.abi, props.services.provider.getSigner()));
-	const [ repayable         ] = React.useState(Object.values(props.details.tokens).filter(({aave}) => aave && aave.borrowBalance.gt(0)));
+	const [ repayable         ] = React.useState(Object.values(props.details.tokens).filter(({compound}) => compound && compound.borrowBalance.gt(0)));
 
 	const [ token,  setToken  ] = React.useState(repayable[0]);
 	const [ amount, setAmount ] = React.useState({});
@@ -29,7 +27,7 @@ const WalletAAVERepaying = (props) =>
 	{
 		ev.preventDefault();
 
-		const everything = amount.max && amount.value === token.aave.borrowBalance;
+		const everything = amount.max && amount.value === token.compound.borrowBalance;
 		const value      = !everything ? amount.value : ethers.constants.MaxUint256;
 		const approve    = !everything ? amount.value : utils.BNmin((amount.value.add(amount.value.div(20))), token.balance);
 
@@ -40,16 +38,12 @@ const WalletAAVERepaying = (props) =>
 				[
 					token.address,
 					'0',
-					(new ethers.utils.Interface(ERC20.abi)).functions.approve.encode([ poolcore.address, approve ])
+					(new ethers.utils.Interface(ERC20.abi)).functions.approve.encode([ token.compound.cTokenAddress, approve ])
 				],
 				[
-					pool.address,
+					token.compound.cTokenAddress,
 					token.isEth ? approve : ethers.constants.Zero,
-					pool.interface.functions.repay.encode([
-						token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address,
-						value,
-						props.details.account.address,
-					])
+					(new ethers.utils.Interface((token.isEth ? CEther : CToken).abi)).functions.repayBorrow.encode([value])
 				]
 			],
 			props.services
@@ -67,10 +61,10 @@ const WalletAAVERepaying = (props) =>
 								{ token.symbol }
 							</div>
 							<div className='text-muted' style={{fontSize: '.6em'}}>
-								{ ethers.utils.formatUnits(token.aave.borrowBalance, token.decimals) }
+								{ ethers.utils.formatUnits(token.compound.borrowBalance, token.decimals) }
 							</div>
 							<div className='text-muted' style={{fontSize: '.6em'}}>
-								{ (ethers.utils.formatUnits(token.aave.borrowRate, 27)*100).toFixed(2) }% APY
+								{ (((1 + (token.compound.borrowRatePerBlock / 10**18)) ** 2254114 - 1) * 100).toFixed(3) }% APY
 							</div>
 						</a>
 					)
@@ -82,7 +76,7 @@ const WalletAAVERepaying = (props) =>
 					className     = 'my-1'
 					token         = { token.symbol }
 					tokenDecimals = { token.decimals }
-					tokenBalance  = { utils.BNmin(token.aave.borrowBalance, token.balance) }
+					tokenBalance  = { utils.BNmin(token.compound.borrowBalance, token.balance) }
 					callbacks     = {{ setAmount, setEnough }}
 				/>
 
@@ -94,4 +88,4 @@ const WalletAAVERepaying = (props) =>
 	);
 }
 
-export default WalletAAVERepayingWrapper;
+export default WalletCompoundRepayingWrapper;

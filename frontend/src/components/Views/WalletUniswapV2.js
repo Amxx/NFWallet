@@ -70,24 +70,24 @@ const WalletUniswapV2 = (props) =>
 		ev.preventDefault();
 
 		utils.executeTransactions(
-			props.data.wallet.id,
+			props.details.account.address,
 			[
 				// approve if source is an erc20
 				!base.isEth &&
 				[
 					base.address,
-					'0',
+					ethers.constants.Zero,
 					(new ethers.utils.Interface(ERC20.abi)).functions['approve'].encode([ router.address, amount.value ])
 				],
 				// call UniswapV2Router
 				[
 					router.address,
-					base.isEth ? amount.value : 0,
+					base.isEth ? amount.value : ethers.constants.Zero,
 					router.interface.functions[uniparams.method].encode([
 						!base.isEth ? amount.value : undefined,
-						'0',
+						ethers.constants.Zero,
 						uniparams.path,
-						props.data.wallet.id,
+						props.details.account.address,
 						ethers.constants.MaxUint256,
 					].filter(Boolean))
 				]

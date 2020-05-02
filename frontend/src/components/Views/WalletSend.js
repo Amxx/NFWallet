@@ -25,10 +25,10 @@ const WalletSend = (props) =>
 		const asset = props.details.tokens[token];
 
 		utils.executeTransactions(
-			props.data.wallet.id,
+			props.details.account.address,
 			[[
 				asset.isEth ? addr         : asset.address,
-				asset.isEth ? amount.value : 0,
+				asset.isEth ? amount.value : ethers.constants.Zero,
 				asset.isEth ? '0x'         : (new ethers.utils.Interface(ERC20.abi)).functions['transfer'].encode([ addr, amount.value ]),
 			]],
 			props.services

@@ -3,16 +3,16 @@ import { MDBBtn } from 'mdbreact';
 import BalanceInput from '../UI/BalanceInput';
 import Switch       from '@material-ui/core/Switch';
 
-import { ethers }      from 'ethers';
-import * as utils      from '../../libs/utils'
+import { ethers }   from 'ethers';
+import * as utils   from '../../libs/utils'
 
-import LendingPool     from '../../abi/LendingPool.json';
+import CEther       from '../../abi/CEther.json';
+import CToken       from '../../abi/CToken.json';
 
 
-const WalletAAVEBorrowing = (props) =>
+const WalletCompoundBorrowing = (props) =>
 {
-	const [ pool                      ] = React.useState(new ethers.Contract(LendingPool.networks[props.services.network.chainId].address, LendingPool.abi, props.services.provider.getSigner()));
-	const [ borrowable                ] = React.useState(Object.values(props.details.tokens).filter(({aave}) => aave));
+	const [ borrowable                ] = React.useState(Object.values(props.details.tokens).filter(({compound}) => compound));
 
 	const [ stableRate, setStableRate ] = React.useState(false);
 	const [ token,      setToken      ] = React.useState(props.details.tokens['ETH']);
@@ -23,10 +23,10 @@ const WalletAAVEBorrowing = (props) =>
 
 	React.useEffect(() => {
 		setLimit(utils.BNmin(
-			token.aave.availableLiquidity,
-			props.details.account.aave.availableBorrowsETH
-				.mul(ethers.constants.WeiPerEther)
-				.div(token.aave.assetPrice)
+			token.compound.availableLiquidity,
+			props.details.account.compound.accountLiquidity
+				.mul(ethers.utils.bigNumberify(10).pow(token.decimals))
+				.div(token.compound.assetPrice)
 		))
 	}, [props, token])
 
@@ -34,18 +34,19 @@ const WalletAAVEBorrowing = (props) =>
 	{
 		ev.preventDefault();
 
+		if (token.isEth)
+		{
+			props.services.emitter.emit('Notify', 'warning', 'Ask Compound to fix their code', 'Not possible to borrow ETH to smart contracts powered wallet');
+			return;
+		}
+
 		utils.executeTransactions(
 			props.details.account.address,
 			[
 				[
-					pool.address,
+					token.compound.cTokenAddress,
 					ethers.constants.Zero,
-					pool.interface.functions.borrow.encode([
-						token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address,
-						amount.value,
-						stableRate ? 1 : 2,
-						0 // referal code
-					])
+					(new ethers.utils.Interface((token.isEth ? CEther : CToken).abi)).functions.borrow.encode([amount.value]),
 				]
 			],
 			props.services
@@ -77,12 +78,6 @@ const WalletAAVEBorrowing = (props) =>
 					callbacks     = {{ setAmount, setEnough }}
 				/>
 
-				<div className='d-flex justify-content-center align-items-center'>
-					<small className='text-muted'>variable rate</small>
-						<Switch size='small' color='primary' checked={stableRate} onChange={toggleRate} disabled/>
-					<small className='text-muted'>fixed rate</small>
-				</div>
-
 				<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!enough || !props.details.account.isOwner}>
 					Borrow {token.symbol} { !props.details.account.isOwner && '(disabled for non owners)' }
 				</MDBBtn>
@@ -92,4 +87,4 @@ const WalletAAVEBorrowing = (props) =>
 	);
 }
 
-export default WalletAAVEBorrowing;
+export default WalletCompoundBorrowing;

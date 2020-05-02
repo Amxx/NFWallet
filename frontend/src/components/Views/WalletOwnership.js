@@ -11,7 +11,7 @@ const WalletOwnership = (props) =>
 	{
 		ev.preventDefault();
 
-		props.services.registry.transferFrom(props.data.wallet.owner.id, addr, props.data.wallet.id)
+		props.services.registry.transferFrom(props.data.wallet.owner.id, addr, props.details.account.address)
 		.then(txPromise => {
 			props.services.emitter.emit('Notify', 'info', 'Transaction sent');
 			txPromise.wait()

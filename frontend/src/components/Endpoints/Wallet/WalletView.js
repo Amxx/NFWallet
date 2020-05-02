@@ -9,10 +9,10 @@ import WalletAAVELending         from '../../Views/WalletAAVELending';
 import WalletAAVEBorrowing       from '../../Views/WalletAAVEBorrowing';
 import WalletAAVERepaying        from '../../Views/WalletAAVERepaying';
 import WalletAAVEHealth          from '../../Views/WalletAAVEHealth';
-import WalletCompoundDetails     from '../../Views/WalletCompoundDetails';
+import WalletCompoundOverview    from '../../Views/WalletCompoundOverview';
 import WalletCompoundLending     from '../../Views/WalletCompoundLending';
-// import WalletCompoundBorrowing   from '../../Views/WalletCompoundBorrowing';
-// import WalletCompoundRepaying    from '../../Views/WalletCompoundRepaying';
+import WalletCompoundBorrowing   from '../../Views/WalletCompoundBorrowing';
+import WalletCompoundRepaying    from '../../Views/WalletCompoundRepaying';
 import WalletBalances            from '../../Views/WalletBalances';
 import WalletBalanceChart        from '../../Views/WalletBalanceChart';
 import WalletDetailsExpanded     from '../../Views/WalletDetailsExpanded';
@@ -79,11 +79,11 @@ const WalletView = (props) =>
 								?
 									<TabSlider
 										entries={[
-											{ label: 'Overview',             render: <WalletCompoundDetails                {...props} /> },
+											{ label: 'Overview',             render: <WalletCompoundOverview               {...props} /> },
 											{ label: 'Deposit',              render: <WalletCompoundLending fixed          {...props} /> },
 											{ label: 'Withdraw',             render: <WalletCompoundLending fixed withdraw {...props} /> },
-											// { label: 'Borrow',               render: <WalletCompoundBorrowing              {...props} /> },
-											// { label: 'Repay',                render: <WalletCompoundRepaying               {...props} /> },
+											{ label: 'Borrow',               render: <WalletCompoundBorrowing              {...props} /> },
+											{ label: 'Repay',                render: <WalletCompoundRepaying               {...props} /> },
 										]}
 									/>
 								:

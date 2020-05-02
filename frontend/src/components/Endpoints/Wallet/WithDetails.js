@@ -27,8 +27,11 @@ const WithDetails = (props) =>
 	// React.useEffect(() => { console.info('update tokens',  tokens ) }, [tokens ]);
 
 	React.useEffect(() => {
-		const fetchBalances = () =>
+		const fetchDetails = () =>
 		{
+			console.log('refresh details...');
+
+
 			(new Promise(async (resolve, reject) => {
 				let extraData = {};
 
@@ -52,10 +55,17 @@ const WithDetails = (props) =>
 				// Compound account details
 				try
 				{
-					const [accountLiquidity, shortfall] = await Ccomptroller.getAccountLiquidity(props.data.wallet.id)
+					const [
+						[, accountLiquidity, shortfall],
+						assetsIn,
+					] = await Promise.all([
+						Ccomptroller.getAccountLiquidity(props.data.wallet.id),
+						Ccomptroller.getAssetsIn(props.data.wallet.id),
+					]);
 					extraData.compound = {
 						accountLiquidity,
 						shortfall,
+						assetsIn,
 					}
 				}
 				catch {};
@@ -123,16 +133,16 @@ const WithDetails = (props) =>
 						const contract = new ethers.Contract(token.ctoken, (token.isEth ? CEther : CToken).abi, props.services.provider.getSigner());
 						const [
 							underlying,
-							cTokenBalance,
 							cTokenDecimals,
-							exchangeRateStored,
+							[, cTokenBalance, borrowBalance, exchangeRateStored],
+							availableLiquidity,
 							borrowRatePerBlock,
 							assetPrice,
 						] = await Promise.all([
 							!token.isEth && contract.underlying(),
-							contract.balanceOf(props.data.wallet.id),
 							contract.decimals(),
-							contract.exchangeRateStored(),
+							contract.getAccountSnapshot(props.data.wallet.id),
+							contract.getCash(),
 							contract.borrowRatePerBlock(),
 							Cpriceoracle.getUnderlyingPrice(token.ctoken),
 						]);
@@ -140,9 +150,11 @@ const WithDetails = (props) =>
 						extraData.compound = (token.isEth || (token.address === underlying)) &&
 						{
 							cTokenAddress: token.ctoken,
-							cTokenBalance,
 							cTokenDecimals,
+							cTokenBalance,
+							borrowBalance,
 							exchangeRateStored,
+							availableLiquidity,
 							borrowRatePerBlock,
 							assetPrice,
 						};
@@ -168,8 +180,8 @@ const WithDetails = (props) =>
 
 		}
 		// trigger and subscribe
-		fetchBalances()
-		const subscription = props.services.emitter.addListener('tx', fetchBalances);
+		fetchDetails()
+		const subscription = props.services.emitter.addListener('tx', fetchDetails);
 		return () => subscription.remove();
 	}, [
 		props,

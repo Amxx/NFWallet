@@ -31,7 +31,7 @@ const WalletAAVELending = (props) =>
 		const value = (amount.max && !deposit) ? ethers.constants.MaxUint256 : amount.value;
 
 		utils.executeTransactions(
-			props.data.wallet.id,
+			props.details.account.address,
 			[
 				deposit && !token.isEth &&
 				[
@@ -41,7 +41,7 @@ const WalletAAVELending = (props) =>
 				],
 				deposit && [
 					pool.address,
-					token.isEth ? value : 0,
+					token.isEth ? value : ethers.constants.Zero,
 					pool.interface.functions.deposit.encode([
 						token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address,
 						value,
@@ -50,7 +50,7 @@ const WalletAAVELending = (props) =>
 				],
 				!deposit && [
 					token.aave.aTokenAddress,
-					0,
+					ethers.constants.Zero,
 					(new ethers.utils.Interface(AToken.abi)).functions.redeem.encode([value])
 				]
 			],
