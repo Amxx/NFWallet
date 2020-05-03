@@ -564,16 +564,20 @@
   ],
   "networks": {
     "3": {
-      "address": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db"
+      "oldaddress": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
+      "address": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71"
     },
     "4": {
-      "address": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db"
+      "oldaddress": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
+      "address": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71"
     },
     "5": {
-      "address": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db"
+      "oldaddress": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
+      "address": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71"
     },
     "42": {
-      "address": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db"
+      "oldaddress": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
+      "address": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71"
     }
   }
 }
