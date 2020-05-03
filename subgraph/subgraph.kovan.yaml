@@ -27,6 +27,29 @@ dataSources:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/NFWalletFactory.ts
+  - kind: ethereum/contract
+    name: NFWalletFactory2
+    network: kovan
+    source:
+      address: '0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71'
+      abi: NFWalletFactory
+      startBlock: 18319080
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Transaction
+        - Account
+        - Wallet
+        - Transfer
+      abis:
+        - name: NFWalletFactory
+          file: ./abi/NFWalletFactory.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/NFWalletFactory.ts
 templates:
   - name: NFWallet
     kind: ethereum/contract
