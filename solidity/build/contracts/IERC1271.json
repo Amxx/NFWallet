@@ -38,14 +38,14 @@
     "absolutePath": "@iexec/solidity/contracts/ERC1271/IERC1271.sol",
     "exportedSymbols": {
       "IERC1271": [
-        802
+        1033
       ]
     },
-    "id": 803,
+    "id": 1034,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 792,
+        "id": 1023,
         "literals": [
           "solidity",
           "^",
@@ -53,7 +53,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:7"
+        "src": "0:23:9"
       },
       {
         "abstract": false,
@@ -62,9 +62,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 802,
+        "id": 1033,
         "linearizedBaseContracts": [
-          802
+          1033
         ],
         "name": "IERC1271",
         "nodeType": "ContractDefinition",
@@ -73,7 +73,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "20c13b0b",
-            "id": 801,
+            "id": 1032,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -81,18 +81,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 797,
+              "id": 1028,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 794,
+                  "id": 1025,
                   "mutability": "mutable",
                   "name": "data",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 801,
-                  "src": "73:19:7",
+                  "scope": 1032,
+                  "src": "73:19:9",
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -100,10 +100,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 793,
+                    "id": 1024,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "73:5:7",
+                    "src": "73:5:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -114,13 +114,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 796,
+                  "id": 1027,
                   "mutability": "mutable",
                   "name": "signature",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 801,
-                  "src": "94:24:7",
+                  "scope": 1032,
+                  "src": "94:24:9",
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -128,10 +128,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 795,
+                    "id": 1026,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "94:5:7",
+                    "src": "94:5:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -141,21 +141,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "72:47:7"
+              "src": "72:47:9"
             },
             "returnParameters": {
-              "id": 800,
+              "id": 1031,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 799,
+                  "id": 1030,
                   "mutability": "mutable",
                   "name": "magicValue",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 801,
-                  "src": "143:17:7",
+                  "scope": 1032,
+                  "src": "143:17:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -163,10 +163,10 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 798,
+                    "id": 1029,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
-                    "src": "143:6:7",
+                    "src": "143:6:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes4",
                       "typeString": "bytes4"
@@ -176,33 +176,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "142:19:7"
+              "src": "142:19:9"
             },
-            "scope": 802,
-            "src": "47:115:7",
+            "scope": 1033,
+            "src": "47:115:9",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 803,
-        "src": "25:139:7"
+        "scope": 1034,
+        "src": "25:139:9"
       }
     ],
-    "src": "0:165:7"
+    "src": "0:165:9"
   },
   "legacyAST": {
     "absolutePath": "@iexec/solidity/contracts/ERC1271/IERC1271.sol",
     "exportedSymbols": {
       "IERC1271": [
-        802
+        1033
       ]
     },
-    "id": 803,
+    "id": 1034,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 792,
+        "id": 1023,
         "literals": [
           "solidity",
           "^",
@@ -210,7 +210,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:7"
+        "src": "0:23:9"
       },
       {
         "abstract": false,
@@ -219,9 +219,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 802,
+        "id": 1033,
         "linearizedBaseContracts": [
-          802
+          1033
         ],
         "name": "IERC1271",
         "nodeType": "ContractDefinition",
@@ -230,7 +230,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "20c13b0b",
-            "id": 801,
+            "id": 1032,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -238,18 +238,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 797,
+              "id": 1028,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 794,
+                  "id": 1025,
                   "mutability": "mutable",
                   "name": "data",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 801,
-                  "src": "73:19:7",
+                  "scope": 1032,
+                  "src": "73:19:9",
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -257,10 +257,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 793,
+                    "id": 1024,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "73:5:7",
+                    "src": "73:5:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -271,13 +271,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 796,
+                  "id": 1027,
                   "mutability": "mutable",
                   "name": "signature",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 801,
-                  "src": "94:24:7",
+                  "scope": 1032,
+                  "src": "94:24:9",
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -285,10 +285,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 795,
+                    "id": 1026,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "94:5:7",
+                    "src": "94:5:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -298,21 +298,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "72:47:7"
+              "src": "72:47:9"
             },
             "returnParameters": {
-              "id": 800,
+              "id": 1031,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 799,
+                  "id": 1030,
                   "mutability": "mutable",
                   "name": "magicValue",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 801,
-                  "src": "143:17:7",
+                  "scope": 1032,
+                  "src": "143:17:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -320,10 +320,10 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 798,
+                    "id": 1029,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
-                    "src": "143:6:7",
+                    "src": "143:6:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes4",
                       "typeString": "bytes4"
@@ -333,20 +333,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "142:19:7"
+              "src": "142:19:9"
             },
-            "scope": 802,
-            "src": "47:115:7",
+            "scope": 1033,
+            "src": "47:115:9",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 803,
-        "src": "25:139:7"
+        "scope": 1034,
+        "src": "25:139:9"
       }
     ],
-    "src": "0:165:7"
+    "src": "0:165:9"
   },
   "compiler": {
     "name": "solc",
@@ -354,7 +354,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-04-29T08:45:38.557Z",
+  "updatedAt": "2020-05-03T10:07:21.852Z",
   "devdoc": {
     "methods": {}
   },

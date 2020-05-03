@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Grid  from '@material-ui/core/Grid';
-import Chart from 'react-apexcharts';
 
 import { ethers } from 'ethers';
 
