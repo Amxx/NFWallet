@@ -19,13 +19,6 @@ contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC1271
 	event Received(address indexed from, uint256 value);
 	event Executed(address indexed to,   uint256 value, bytes data);
 
-	// Asset receiving
-	receive()
-	external payable
-	{
-		emit Received(_msgSender(), msg.value);
-	}
-
 	function onERC721Received(address, address, uint256, bytes memory)
 	public override returns (bytes4)
 	{

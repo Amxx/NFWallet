@@ -1,3 +1,4 @@
+var Transfer        = artifacts.require('Transfer');
 var NFWallet        = artifacts.require('NFWallet');
 var NFWalletFactory = artifacts.require('NFWalletFactory');
 
@@ -25,6 +26,7 @@ contract('NFWalletFactory', async (accounts) => {
 		 * Retreive deployed contracts
 		 */
 		NFWalletFactoryInstance = await NFWalletFactory.deployed();
+		TransferInstance        = await Transfer.deployed();
 	});
 
 	describe("Wallets creation", async () => {
@@ -102,8 +104,9 @@ contract('NFWalletFactory', async (accounts) => {
 				});
 
 				it("fillup (post-deployment)", async () => {
-					const txMined = await web3.eth.sendTransaction({ from: accounts[0], to: predicted, value: web3.utils.toWei('0.01', 'ether') });
-					assert.equal(txMined.logs.filter(({ address }) => address == predicted).length, 1);
+					const txMined = await TransferInstance.transfer(predicted, { value: web3.utils.toWei('0.01', 'ether') });
+					// const txMined = await web3.eth.sendTransaction({ from: accounts[0], to: predicted, value: web3.utils.toWei('0.01', 'ether') });
+					// assert.equal(txMined.logs.filter(({ address }) => address == predicted).length, 1);
 				});
 
 				it("check balance", async () => {

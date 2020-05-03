@@ -5,6 +5,16 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Create2.sol";
 
+contract NFWalletProxy is InitializableUpgradeabilityProxy
+{
+	event Received(address indexed from, uint256 value);
+
+	receive()
+	external payable override
+	{
+		emit Received(msg.sender, msg.value);
+	}
+}
 
 abstract contract CounterfactualTokenRegistry is ERC721, Ownable
 {
@@ -16,7 +26,7 @@ abstract contract CounterfactualTokenRegistry is ERC721, Ownable
 	public ERC721(_name, _symbol)
 	{
 		master        = _master;
-		proxyCode     = type(InitializableUpgradeabilityProxy).creationCode;
+		proxyCode     = type(NFWalletProxy).creationCode;
 		proxyCodeHash = keccak256(proxyCode);
 	}
 
@@ -27,7 +37,7 @@ abstract contract CounterfactualTokenRegistry is ERC721, Ownable
 		// Create entry (proxy)
 		address entry = Create2.deploy(0, keccak256(abi.encodePacked(_args, _owner)), proxyCode);
 		// Initialize entry
-		InitializableUpgradeabilityProxy(payable(entry)).initialize(master, _args);
+		NFWalletProxy(payable(entry)).initialize(master, _args);
 		// Mint corresponding token
 		_mint(_owner, uint256(entry));
 		return uint256(entry);
