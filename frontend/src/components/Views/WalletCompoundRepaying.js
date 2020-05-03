@@ -42,8 +42,8 @@ const WalletCompoundRepaying = (props) =>
 				],
 				[
 					token.compound.cTokenAddress,
-					token.isEth ? approve : ethers.constants.Zero,
-					(new ethers.utils.Interface((token.isEth ? CEther : CToken).abi)).functions.repayBorrow.encode([value])
+					token.isEth ? amount.value : ethers.constants.Zero,
+					(new ethers.utils.Interface((token.isEth ? CEther : CToken).abi)).functions.repayBorrow.encode(token.isEth ? [] : [value])
 				]
 			],
 			props.services

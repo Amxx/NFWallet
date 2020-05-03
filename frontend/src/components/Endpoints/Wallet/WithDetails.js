@@ -62,6 +62,7 @@ const WithDetails = (props) =>
 						Ccomptroller.getAccountLiquidity(props.data.wallet.id),
 						Ccomptroller.getAssetsIn(props.data.wallet.id),
 					]);
+
 					extraData.compound = {
 						accountLiquidity,
 						shortfall,

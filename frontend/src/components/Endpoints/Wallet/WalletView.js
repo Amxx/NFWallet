@@ -13,6 +13,7 @@ import WalletCompoundOverview    from '../../Views/WalletCompoundOverview';
 import WalletCompoundLending     from '../../Views/WalletCompoundLending';
 import WalletCompoundBorrowing   from '../../Views/WalletCompoundBorrowing';
 import WalletCompoundRepaying    from '../../Views/WalletCompoundRepaying';
+import WalletCompoundHealth      from '../../Views/WalletCompoundHealth';
 import WalletBalances            from '../../Views/WalletBalances';
 import WalletBalanceChart        from '../../Views/WalletBalanceChart';
 import WalletDetailsExpanded     from '../../Views/WalletDetailsExpanded';
@@ -85,6 +86,7 @@ const WalletView = (props) =>
 											{ label: 'Withdraw',             render: <WalletCompoundLending fixed withdraw {...props} /> },
 											{ label: 'Borrow',               render: <WalletCompoundBorrowing              {...props} /> },
 											{ label: 'Repay',                render: <WalletCompoundRepaying               {...props} /> },
+											{ label: 'Health',               render: <WalletCompoundHealth                 {...props} /> },
 										]}
 									/>
 								:

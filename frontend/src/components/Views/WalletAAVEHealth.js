@@ -25,6 +25,11 @@ const options = {
 };
 
 
+const WalletAAVEHealthWrapper = (props) =>
+	props.details.account.aave.totalCollateralETH.gt(0)
+	? <WalletAAVEHealth {...props}/>
+	: <div className='text-center text-muted'>This wallet doesn't have any AAVE assets</div>
+
 const WalletAAVEHealth = (props) =>
 {
 	const ratio = props.details.account.aave.totalBorrowsETH.mul(100).div(props.details.account.aave.totalCollateralETH);
@@ -95,4 +100,4 @@ const WalletAAVEHealth = (props) =>
 
 }
 
-export default WalletAAVEHealth;
+export default WalletAAVEHealthWrapper;

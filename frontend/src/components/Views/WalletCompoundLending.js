@@ -10,13 +10,13 @@ import ERC20          from '../../abi/ERC20.json';
 import CEther         from '../../abi/CEther.json';
 import CToken         from '../../abi/CToken.json';
 import Comptroller    from '../../abi/Comptroller.json';
-import CEtherRedeemer from '../../abi/CEtherRedeemer.json';
+// import CEtherRedeemer from '../../abi/CEtherRedeemer.json';
 
 
 const WalletCompoundLending = (props) =>
 {
 	const [ comptroller         ] = React.useState(new ethers.Contract(   Comptroller.networks[props.services.network.chainId].address,    Comptroller.abi, props.services.provider.getSigner()));
-	const [ redeemer            ] = React.useState(new ethers.Contract(CEtherRedeemer.networks[props.services.network.chainId].address, CEtherRedeemer.abi, props.services.provider.getSigner()));
+	// const [ redeemer            ] = React.useState(new ethers.Contract(CEtherRedeemer.networks[props.services.network.chainId].address, CEtherRedeemer.abi, props.services.provider.getSigner()));
 	const [ lendable            ] = React.useState(Object.values(props.details.tokens).filter(({compound, isEth, balance}) => compound && (isEth || balance.gt(0))));
 
 	const [ deposit, setDeposit ] = React.useState(!props.withdraw);
@@ -59,20 +59,24 @@ const WalletCompoundLending = (props) =>
 					ethers.constants.Zero,
 					comptroller.interface.functions.enterMarkets.encode([[token.compound.cTokenAddress]]),
 				],
-				!deposit && token.isEth && [
+				// !deposit && token.isEth && [
+				// 	token.compound.cTokenAddress,
+				// 	ethers.constants.Zero,
+				// 	(new ethers.utils.Interface(ERC20.abi)).functions.transfer.encode([redeemer.address, token.compound.cTokenBalance]),
+				// ],
+				!deposit && !amount.max && [
+					// token.isEth ? redeemer.address : token.compound.cTokenAddress,
 					token.compound.cTokenAddress,
 					ethers.constants.Zero,
-					(new ethers.utils.Interface(ERC20.abi)).functions.transfer.encode([redeemer.address, token.compound.cTokenBalance]),
-				],
-				!deposit && !amount.max && [
-					token.isEth ? redeemer.address : token.compound.cTokenAddress,
-					ethers.constants.Zero,
-					redeemer.interface.functions.redeemUnderlying.encode([amount.value]),
+					(new ethers.utils.Interface((token.isEth ? CEther : CToken).abi)).functions.redeemUnderlying.encode([amount.value]),
+					// redeemer.interface.functions.redeemUnderlying.encode([amount.value]),
 				],
 				!deposit && amount.max && [
-					token.isEth ? redeemer.address : token.compound.cTokenAddress,
+					// token.isEth ? redeemer.address : token.compound.cTokenAddress,
+					token.compound.cTokenAddress,
 					ethers.constants.Zero,
-					redeemer.interface.functions.redeem.encode([token.compound.cTokenBalance]),
+					(new ethers.utils.Interface((token.isEth ? CEther : CToken).abi)).functions.redeem.encode([token.compound.cTokenBalance]),
+					// redeemer.interface.functions.redeem.encode([token.compound.cTokenBalance]),
 				],
 			],
 			props.services,

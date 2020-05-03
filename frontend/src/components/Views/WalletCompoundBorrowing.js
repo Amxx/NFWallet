@@ -31,11 +31,11 @@ const WalletCompoundBorrowing = (props) =>
 	{
 		ev.preventDefault();
 
-		if (token.isEth)
-		{
-			props.services.emitter.emit('Notify', 'warning', 'Ask Compound to fix their code', 'Not possible to borrow ETH to smart contracts powered wallet');
-			return;
-		}
+		// if (token.isEth)
+		// {
+		// 	props.services.emitter.emit('Notify', 'warning', 'Ask Compound to fix their code', 'Not possible to borrow ETH to smart contracts powered wallet');
+		// 	return;
+		// }
 
 		utils.executeTransactions(
 			props.details.account.address,

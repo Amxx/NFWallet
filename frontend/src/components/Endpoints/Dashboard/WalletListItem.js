@@ -9,7 +9,7 @@ const WalletListItem = (props) =>
 		<EthereumReactComponents.AccountItem
 			name    = 'NFWallet'
 			address = {props.entry.id}
-			balance = {ethers.utils.formatEther(props.entry.balance)}
+			balance = {Number(ethers.utils.formatEther(props.entry.balance)).toFixed(6)}
 		/>
 	</Link>
 
