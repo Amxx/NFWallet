@@ -59,8 +59,8 @@ const BalanceInput = (props) =>
 
 	// asserving
 	React.useEffect(() => {
-		props.token && setToken(props.token)
-	}, [props.token]);
+		props.tokenSymbol && setToken(props.tokenSymbol)
+	}, [props.tokenSymbol]);
 
 	React.useEffect(() => {
 		props.value && updateValue(props.value)

@@ -35,12 +35,10 @@ const Wallet = (props) =>
 		<>
 			{
 				loading &&
-					<div className='container my-auto'>
-						<div className='d-flex justify-content-center'>
-							<Spinner animation='grow'>
-								<span className='sr-only'>Loading...</span>
-							</Spinner>
-						</div>
+					<div className='container my-auto text-center'>
+						<Spinner animation='grow'>
+							<span className='sr-only'>Loading...</span>
+						</Spinner>
 					</div>
 			}
 			{

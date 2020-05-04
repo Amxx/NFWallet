@@ -21,7 +21,7 @@ import WalletCompoundHealth      from './Views/WalletCompoundHealth';
 
 
 const Aave = (props) =>
-	Object.values(props.details.tokens).find(({compound}) => compound)
+	Object.values(props.details.tokens).find(({aave}) => aave)
 	?
 		<TabSlider
 			// scrollable
@@ -35,7 +35,7 @@ const Aave = (props) =>
 			]}
 		/>
 	:
-		<div className='text-center text-muted p-4'>Compound is not available on this network</div>
+		<div className='container my-auto text-center text-muted p-4'>AAVE is not available on this network</div>
 
 
 const Compound = (props) =>
@@ -53,7 +53,7 @@ const Compound = (props) =>
 			]}
 		/>
 	:
-		<div className='text-center text-muted p-4'>Compound is not available on this network</div>
+		<div className='container my-auto text-center text-muted p-4'>Compound is not available on this network</div>
 
 
 const WalletView = (props) =>
