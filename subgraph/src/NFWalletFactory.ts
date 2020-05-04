@@ -29,8 +29,13 @@ export function handleTransfer(event: TransferEvent): void {
 	let to       = new Account(event.params.to.toHex());
 	let transfer = new Transfer(createEventID(event));
 
-	wallet.owner   = to.id;
-	wallet.balance = BigInt.fromI32(0);
+	wallet.owner = to.id;
+
+	if (from.id == '0x0000000000000000000000000000000000000000')
+	{
+		NFWalletTemplate.create(addr);
+		wallet.balance = BigInt.fromI32(0);
+	}
 
 	transfer.transaction = logTransaction(event).id;
 	transfer.timestamp   = event.block.timestamp;
@@ -42,9 +47,4 @@ export function handleTransfer(event: TransferEvent): void {
 	from.save();
 	to.save();
 	transfer.save();
-
-	if (from.id == '0x0000000000000000000000000000000000000000')
-	{
-		NFWalletTemplate.create(addr);
-	}
 }
