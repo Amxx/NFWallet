@@ -32,14 +32,17 @@ const SwapToken = (props) =>
 					provider    = {props.services.provider}
 				/>
 			}
-			<BalanceInput
-				className     = 'w-100'
-				value         = {props.value}
-				tokenDecimals = {props.token.decimals}
-				tokenBalance  = {!props.value && props.token.balance}
-				callbacks     = {{setAmount: props.setAmount, setEnough: props.setEnough}}
-				disabled      = {props.disabled}
-			/>
+			{
+				!props.noValue &&
+				<BalanceInput
+					className     = 'w-100'
+					value         = {props.value}
+					tokenDecimals = {props.token.decimals}
+					tokenBalance  = {!props.value && props.token.balance}
+					callbacks     = {{setAmount: props.setAmount, setEnough: props.setEnough}}
+					disabled      = {props.disabled}
+				/>
+			}
 		</Paper>
 	</div>
 

@@ -5,7 +5,7 @@ import WalletActivity     from '../../../Views/WalletActivity';
 const History = (props) =>
 {
 	return (
-		<div className='h-100 p-4'>
+		<div className='container p-4'>
 			<WalletBalanceChart      {...props}/>
 			<WalletActivity          {...props}/>
 		</div>

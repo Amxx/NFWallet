@@ -8,7 +8,7 @@ const TokenSelectModal = (props) =>
 
 	return (
 		<>
-			<div onClick={() => setVisible(true)} className={props.className} style={{cursor: 'pointer'}}>
+			<div onClick={() => props.tokens.length && setVisible(true)} className={props.className} style={{cursor: props.tokens.length && 'pointer'}}>
 				{props.children}
 			</div>
 			<Modal open={visible} onClose={() => setVisible(false)}>

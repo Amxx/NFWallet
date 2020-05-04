@@ -1,16 +1,12 @@
 import * as React from 'react';
 import { MDBBtn, MDBIcon } from 'mdbreact';
 
-import Paper from '@material-ui/core/Paper';
-import Grid  from '@material-ui/core/Grid';
-
-import TokenSelectModal from './TokenSelectModal';
-import SwapToken        from './SwapToken';
-import BalanceInput     from '../../../UI/BalanceInput';
+import Paper     from '@material-ui/core/Paper';
+import Grid      from '@material-ui/core/Grid';
+import SwapToken from './SwapToken';
 
 import { ethers }        from 'ethers';
 import * as utils        from '../../../../libs/utils'
-
 import ERC20             from '../../../../abi/ERC20.json';
 import UniswapV2Router01 from '../../../../abi/UniswapV2Router01.json';
 
@@ -90,46 +86,87 @@ const Swap = (props) =>
 	return (
 		<Grid container direction='row' justify='center' alignItems='stretch' className='h-100 p-2'>
 
-			<Grid item xs={5} sm={5} md={4} lg={3} container direction='column' justify='space-evenly' alignItems='center'>
-				<Grid item className='w-100'>
-					<SwapToken
-						title     = 'Token to Sell'
-						token     = {base}
-						tokenList = {tokens}
-						onChange  = {updateBase}
-						setAmount = {setAmount}
-						setEnough = {setEnough}
-					/>
-				</Grid>
-			</Grid>
+			<Grid item xs={12} sm={11} md={10} lg={9} xl={8} container direction='column' justify='center' alignItems='center'>
+				<Grid item container direction='row' justify='center' alignItems='center' style={{width: '100%'}}>
 
-			<Grid item xs={2} container direction='column' justify='space-evenly' alignItems='center'>
-				<Grid item style={{visibility: 'hidden'}}>
-					<MDBBtn color='elegant' onClick={handleSwap} disabled={!enough || !props.details.account.isOwner}>Swap</MDBBtn>
-				</Grid>
-				<Grid item>
-					<a href='#!' onClick={invert}><MDBIcon icon="exchange-alt" /></a>
-				</Grid>
-				<Grid item>
-					<MDBBtn color='elegant' onClick={handleSwap} disabled={!enough || !props.details.account.isOwner}>Swap</MDBBtn>
-				</Grid>
-			</Grid>
+					<Grid item xs={5}>
+						<SwapToken
+							title     = 'Token to Sell'
+							token     = {base}
+							tokenList = {tokens}
+							onChange  = {updateBase}
+							setAmount = {setAmount}
+							setEnough = {setEnough}
+						/>
+					</Grid>
 
-			<Grid item xs={5} sm={5} md={4} lg={3} container direction='column' justify='space-evenly' alignItems='center'>
-				<Grid item className='w-100'>
-					<SwapToken
-						title     = 'Token to Buy'
-						token     = {quote}
-						tokenList = {tokens}
-						onChange  = {updateQuote}
-						value     = {estimated}
-						disabled
-					/>
+					<Grid item xs={1} className='text-center'>
+						<a href='#!' onClick={invert}><MDBIcon icon="exchange-alt" /></a>
+					</Grid>
+
+					<Grid item xs={5}>
+						<SwapToken
+							title     = 'Token to Buy'
+							token     = {quote}
+							tokenList = {tokens}
+							onChange  = {updateQuote}
+							value     = {estimated}
+							disabled
+						/>
+					</Grid>
+
 				</Grid>
+				<MDBBtn color='elegant' onClick={handleSwap} className='mt-4' disabled={!enough || !props.details.account.isOwner}>
+					Send
+				</MDBBtn>
 			</Grid>
 
 		</Grid>
 	);
+
+	// return (
+	// 	<Grid container direction='row' justify='center' alignItems='stretch' className='h-100 p-2'>
+	//
+	// 		<Grid item xs={5} sm={5} md={4} lg={3} container direction='column' justify='space-evenly' alignItems='center'>
+	// 			<Grid item className='w-100'>
+	// 				<SwapToken
+	// 					title     = 'Token to Sell'
+	// 					token     = {base}
+	// 					tokenList = {tokens}
+	// 					onChange  = {updateBase}
+	// 					setAmount = {setAmount}
+	// 					setEnough = {setEnough}
+	// 				/>
+	// 			</Grid>
+	// 		</Grid>
+	//
+	// 		<Grid item xs={2} container direction='column' justify='space-evenly' alignItems='center'>
+	// 			<Grid item style={{visibility: 'hidden'}}>
+	// 				<MDBBtn color='elegant' onClick={handleSwap} disabled={!enough || !props.details.account.isOwner}>Swap</MDBBtn>
+	// 			</Grid>
+	// 			<Grid item>
+	// 				<a href='#!' onClick={invert}><MDBIcon icon="exchange-alt" /></a>
+	// 			</Grid>
+	// 			<Grid item>
+	// 				<MDBBtn color='elegant' onClick={handleSwap} disabled={!enough || !props.details.account.isOwner}>Swap</MDBBtn>
+	// 			</Grid>
+	// 		</Grid>
+	//
+	// 		<Grid item xs={5} sm={5} md={4} lg={3} container direction='column' justify='space-evenly' alignItems='center'>
+	// 			<Grid item className='w-100'>
+	// 				<SwapToken
+	// 					title     = 'Token to Buy'
+	// 					token     = {quote}
+	// 					tokenList = {tokens}
+	// 					onChange  = {updateQuote}
+	// 					value     = {estimated}
+	// 					disabled
+	// 				/>
+	// 			</Grid>
+	// 		</Grid>
+	//
+	// 	</Grid>
+	// );
 }
 
 export default Swap;

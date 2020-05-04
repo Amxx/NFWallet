@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { MDBBtn, MDBIcon } from 'mdbreact';
 
-import Grid             from '@material-ui/core/Grid';
 import TabSlider        from '../../UI/TabSlider';
 import Sidebar          from './Views2/Sidebar';
+import Details          from './Views2/Details';
 import Send             from './Views2/Send';
+import Transfer         from './Views2/Transfer';
 import Swap             from './Views2/Swap';
 import History          from './Views2/History';
 
-// import QRCode from 'qrcode.react';
 
 import WalletActivity            from './Views/WalletActivity';
 import WalletAAVEOverview        from './Views/WalletAAVEOverview';
@@ -21,7 +21,6 @@ import WalletCompoundLending     from './Views/WalletCompoundLending';
 import WalletCompoundBorrowing   from './Views/WalletCompoundBorrowing';
 import WalletCompoundRepaying    from './Views/WalletCompoundRepaying';
 import WalletCompoundHealth      from './Views/WalletCompoundHealth';
-
 
 
 const Aave = (props) =>
@@ -60,17 +59,17 @@ const Compound = (props) =>
 		<div className='text-center text-muted p-4'>Compound is not available on this network</div>
 
 
-
 const WalletView = (props) =>
 {
-	const [ active, setActive ] = React.useState(0);
+	const [ active, setActive ] = React.useState(1);
 	const tabList = [
-		// { label: 'Details',  render: null },
-		{ label: 'Send',     render: <Send     {...props}/> },
-		{ label: 'Swap',     render: <Swap     {...props}/> },
-		{ label: 'AAVE',     render: <Aave     {...props}/> },
-		{ label: 'Compound', render: <Compound {...props}/> },
-		{ label: 'History',  render: <History  {...props}/> },
+		{ label: 'Details',  icon: null, render: <Details  {...props}/> },
+		{ label: 'Swap',     icon: null, render: <Swap     {...props}/> },
+		{ label: 'Send',     icon: null, render: <Send     {...props}/> },
+		{ label: 'Transfer', icon: null, render: <Transfer {...props}/> },
+		{ label: 'AAVE',     icon: null, render: <Aave     {...props}/> },
+		{ label: 'Compound', icon: null, render: <Compound {...props}/> },
+		{ label: 'History',  icon: null, render: <History  {...props}/> },
 	]
 
 	return (
