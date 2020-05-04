@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
-import BalanceInput from '../UI/BalanceInput';
+import BalanceInput from '../../../UI/BalanceInput';
 import Switch       from '@material-ui/core/Switch';
 
 import { ethers }      from 'ethers';
-import * as utils      from '../../libs/utils'
+import * as utils      from '../../../../libs/utils'
 
-import ERC20          from '../../abi/ERC20.json';
-import CEther         from '../../abi/CEther.json';
-import CToken         from '../../abi/CToken.json';
-import Comptroller    from '../../abi/Comptroller.json';
+import ERC20          from '../../../../abi/ERC20.json';
+import CEther         from '../../../../abi/CEther.json';
+import CToken         from '../../../../abi/CToken.json';
+import Comptroller    from '../../../../abi/Comptroller.json';
 
 
 const WalletCompoundLending = (props) =>
@@ -113,7 +113,7 @@ const WalletCompoundLending = (props) =>
 			<form onSubmit={handleSubmit} className={`flex-grow-1 d-flex flex-column justify-content-center ${props.className}`}>
 				<BalanceInput
 					className     = 'my-1'
-					token         = { token.symbol }
+					tokenSymbol   = { token.symbol }
 					tokenDecimals = { token.decimals }
 					tokenBalance  = { deposit ? token.balance : limit }
 					callbacks     = {{ setAmount, setEnough }}

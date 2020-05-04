@@ -197,7 +197,7 @@ const WithDetails = (props) =>
 		{
 			account && tokens
 			? React.Children.map(props.children, child => React.cloneElement(child, { details: { account, tokens} }))
-			: <div className='d-flex justify-content-center'><Spinner animation='grow'><span className='sr-only'>Loading...</span></Spinner></div>
+			: <div className='container my-auto'><div className='d-flex justify-content-center'><Spinner animation='grow'><span className='sr-only'>Loading...</span></Spinner></div></div>
 		}
 	</>;
 }

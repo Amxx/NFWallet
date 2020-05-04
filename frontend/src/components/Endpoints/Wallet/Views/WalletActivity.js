@@ -16,7 +16,11 @@ const WalletActivity = (props) =>
 						</td>
 						<td className='py-1 text-monospace'>
 							<a className='blue-text' href={`${props.services.config.etherscan}/tx/${event.transaction.id}`} target='_blank' rel='nofollow noopener noreferrer'>
-								{event.transaction.id.slice(0, 10)}...{event.transaction.id.slice(-8)}
+								{
+									props.extended
+									? event.transaction.id
+									: event.transaction.id.slice(0, 10) + '...' + event.transaction.id.slice(-8)
+								}
 							</a>
 						</td>
 						<td className='py-1 text-right'>

@@ -3,23 +3,23 @@ import Grid                      from '@material-ui/core/Grid';
 import Paper                     from '@material-ui/core/Paper';
 import TabSlider                 from '../../UI/TabSlider';
 
-import WalletActivity            from '../../Views/WalletActivity';
-import WalletAAVEOverview        from '../../Views/WalletAAVEOverview';
-import WalletAAVELending         from '../../Views/WalletAAVELending';
-import WalletAAVEBorrowing       from '../../Views/WalletAAVEBorrowing';
-import WalletAAVERepaying        from '../../Views/WalletAAVERepaying';
-import WalletAAVEHealth          from '../../Views/WalletAAVEHealth';
-import WalletCompoundOverview    from '../../Views/WalletCompoundOverview';
-import WalletCompoundLending     from '../../Views/WalletCompoundLending';
-import WalletCompoundBorrowing   from '../../Views/WalletCompoundBorrowing';
-import WalletCompoundRepaying    from '../../Views/WalletCompoundRepaying';
-import WalletCompoundHealth      from '../../Views/WalletCompoundHealth';
-import WalletBalances            from '../../Views/WalletBalances';
-import WalletBalanceChart        from '../../Views/WalletBalanceChart';
-import WalletDetailsExpanded     from '../../Views/WalletDetailsExpanded';
-import WalletOwnership           from '../../Views/WalletOwnership';
-import WalletSend                from '../../Views/WalletSend';
-import WalletUniswapV2           from '../../Views/WalletUniswapV2';
+import WalletActivity            from './Views/WalletActivity';
+import WalletAAVEOverview        from './Views/WalletAAVEOverview';
+import WalletAAVELending         from './Views/WalletAAVELending';
+import WalletAAVEBorrowing       from './Views/WalletAAVEBorrowing';
+import WalletAAVERepaying        from './Views/WalletAAVERepaying';
+import WalletAAVEHealth          from './Views/WalletAAVEHealth';
+import WalletCompoundOverview    from './Views/WalletCompoundOverview';
+import WalletCompoundLending     from './Views/WalletCompoundLending';
+import WalletCompoundBorrowing   from './Views/WalletCompoundBorrowing';
+import WalletCompoundRepaying    from './Views/WalletCompoundRepaying';
+import WalletCompoundHealth      from './Views/WalletCompoundHealth';
+import WalletBalances            from './Views/WalletBalances';
+import WalletBalanceChart        from './Views/WalletBalanceChart';
+import WalletDetailsExpanded     from './Views/WalletDetailsExpanded';
+import WalletOwnership           from './Views/WalletOwnership';
+import WalletSend                from './Views/WalletSend';
+import WalletUniswapV2           from './Views/WalletUniswapV2';
 
 
 const WalletView = (props) =>

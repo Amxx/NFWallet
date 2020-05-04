@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
-import AddressInputENS from '../UI/AddressInputENS';
+import AddressInputENS from '../../../UI/AddressInputENS';
 
-import * as utils from '../../libs/utils'
+import * as utils from '../../../../libs/utils'
 
 
 const WalletOwnership = (props) =>

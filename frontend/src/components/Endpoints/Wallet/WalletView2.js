@@ -1,277 +1,88 @@
 import * as React from 'react';
 import { MDBBtn, MDBIcon } from 'mdbreact';
 
-import Modal                     from '@material-ui/core/Modal';
-import Grid                      from '@material-ui/core/Grid';
-import Paper                     from '@material-ui/core/Paper';
-import TextField                 from '@material-ui/core/TextField';
-import Tabs                      from '@material-ui/core/Tabs';
-import Tab                       from '@material-ui/core/Tab';
+import Grid             from '@material-ui/core/Grid';
+import TabSlider        from '../../UI/TabSlider';
+import Sidebar          from './Views2/Sidebar';
+import Send             from './Views2/Send';
+import Swap             from './Views2/Swap';
+import History          from './Views2/History';
 
-import WalletActivity            from '../../Views/WalletActivity';
-import WalletAAVEOverview        from '../../Views/WalletAAVEOverview';
-import WalletAAVELending         from '../../Views/WalletAAVELending';
-import WalletAAVEBorrowing       from '../../Views/WalletAAVEBorrowing';
-import WalletAAVERepaying        from '../../Views/WalletAAVERepaying';
-import WalletAAVEHealth          from '../../Views/WalletAAVEHealth';
-import WalletCompoundOverview    from '../../Views/WalletCompoundOverview';
-import WalletCompoundLending     from '../../Views/WalletCompoundLending';
-import WalletCompoundBorrowing   from '../../Views/WalletCompoundBorrowing';
-import WalletCompoundRepaying    from '../../Views/WalletCompoundRepaying';
-import WalletCompoundHealth      from '../../Views/WalletCompoundHealth';
-import WalletBalances            from '../../Views/WalletBalances';
-import WalletBalanceChart        from '../../Views/WalletBalanceChart';
-import WalletDetailsExpanded     from '../../Views/WalletDetailsExpanded';
-import WalletOwnership           from '../../Views/WalletOwnership';
-import WalletSend                from '../../Views/WalletSend';
-import WalletUniswapV2           from '../../Views/WalletUniswapV2';
+// import QRCode from 'qrcode.react';
 
-import {ethers} from 'ethers';
-import BalanceInput from '../../UI/BalanceInput';
-
-
-import QRCode from 'qrcode.react';
+import WalletActivity            from './Views/WalletActivity';
+import WalletAAVEOverview        from './Views/WalletAAVEOverview';
+import WalletAAVELending         from './Views/WalletAAVELending';
+import WalletAAVEBorrowing       from './Views/WalletAAVEBorrowing';
+import WalletAAVERepaying        from './Views/WalletAAVERepaying';
+import WalletAAVEHealth          from './Views/WalletAAVEHealth';
+import WalletCompoundOverview    from './Views/WalletCompoundOverview';
+import WalletCompoundLending     from './Views/WalletCompoundLending';
+import WalletCompoundBorrowing   from './Views/WalletCompoundBorrowing';
+import WalletCompoundRepaying    from './Views/WalletCompoundRepaying';
+import WalletCompoundHealth      from './Views/WalletCompoundHealth';
 
 
 
+const Aave = (props) =>
+	Object.values(props.details.tokens).find(({compound}) => compound)
+	?
+		<TabSlider
+			// scrollable
+			entries={[
+				{ label: 'Overview',             render: <WalletAAVEOverview               {...props} /> },
+				{ label: 'Deposit',              render: <WalletAAVELending fixed          {...props} /> },
+				{ label: 'Withdraw',             render: <WalletAAVELending fixed withdraw {...props} /> },
+				{ label: 'Borrow',               render: <WalletAAVEBorrowing              {...props} /> },
+				{ label: 'Repay',                render: <WalletAAVERepaying               {...props} /> },
+				{ label: 'Health',               render: <WalletAAVEHealth                 {...props} /> },
+			]}
+		/>
+	:
+		<div className='text-center text-muted p-4'>Compound is not available on this network</div>
 
 
-
-
-
-
-
-const TabPanel = (props) => props.value === props.index && <div className={props.className}>{props.children }</div>;
-
-
-
-
-
-
-
-
-
-
-const TokenSelectModal = (props) =>
-{
-	const [ visible, setVisible ] = React.useState(false);
-
-	return (
-		<>
-			<div onClick={() => setVisible(true)} className={props.className} style={{cursor: 'pointer'}}>
-				{props.children}
-			</div>
-			<Modal open={visible} onClose={() => setVisible(false)}>
-
-				<div
-					className='darktheme bl br bt bb text-white rounded p-3'
-					style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-				>
-				{
-					props.tokens.map((token, i) =>
-						<div key={i} className='m-3'>
-							<a href='#!' onClick={() => { props.onChange && props.onChange(token); setVisible(false); }}>
-								<img src={token.img} height={32} alt={token.symbol}/><strong className='text-white ml-2'>{token.symbol}</strong>
-							</a>
-						</div>
-					)
-				}
-				</div>
-
-			</Modal>
-		</>
-	);
-}
-
-
-
-
-
-
-
-
-
+const Compound = (props) =>
+	Object.values(props.details.tokens).find(({compound}) => compound)
+	?
+		<TabSlider
+			// scrollable
+			entries={[
+				{ label: 'Overview',             render: <WalletCompoundOverview               {...props} /> },
+				{ label: 'Deposit',              render: <WalletCompoundLending fixed          {...props} /> },
+				{ label: 'Withdraw',             render: <WalletCompoundLending fixed withdraw {...props} /> },
+				{ label: 'Borrow',               render: <WalletCompoundBorrowing              {...props} /> },
+				{ label: 'Repay',                render: <WalletCompoundRepaying               {...props} /> },
+				{ label: 'Health',               render: <WalletCompoundHealth                 {...props} /> },
+			]}
+		/>
+	:
+		<div className='text-center text-muted p-4'>Compound is not available on this network</div>
 
 
 
 const WalletView = (props) =>
 {
-	const [ token           ] = React.useState(Object.values(props.details.tokens).filter(({UniswapV2})=>UniswapV2));
-	const [ base,  setBase  ] = React.useState(props.details.tokens['ETH']);
-	const [ quote, setQuote ] = React.useState(token.find(({symbol}) => symbol !== 'ETH'));
-
-	const invert      = ()         => { setBase(quote); setQuote(base); }
-	const updateBase  = (newBase ) => { newBase === quote ? invert() : setBase(newBase)   }
-	const updateQuote = (newQuote) => { newQuote === base ? invert() : setQuote(newQuote) }
-
-
-
-	const [ value, setValue ] = React.useState(0);
+	const [ active, setActive ] = React.useState(0);
+	const tabList = [
+		// { label: 'Details',  render: null },
+		{ label: 'Send',     render: <Send     {...props}/> },
+		{ label: 'Swap',     render: <Swap     {...props}/> },
+		{ label: 'AAVE',     render: <Aave     {...props}/> },
+		{ label: 'Compound', render: <Compound {...props}/> },
+		{ label: 'History',  render: <History  {...props}/> },
+	]
 
 	return (
-	<div className='flex-grow-1 d-flex darktheme text-white'>
-
-		<div className='d-flex flex-column br' style={{fontSize: '.8em'}}>
-
-			<div className='bb p-4 text-center'>
-
-				Header
-
+		<div className='flex-grow-1 d-flex'>
+			<Sidebar tabList={tabList} active={active} change={setActive} className='darktheme-light text-white br' {...props}/>
+			<div className={ 'darktheme-bg flex-grow-1 d-flex flex-column'}>
+			{
+				tabList.map(({label, render}, i) => active === i && render && React.cloneElement(render, { key: i }))
+			}
 			</div>
-
-
-
-			<div className='bb p-4'>
-				<Tabs
-	        orientation='vertical'
-	        variant='scrollable'
-	        value={value}
-					indicatorColor="primary"
-	        onChange={(e,v) => setValue(v)}
-	      >
-	        <Tab label='Send'/>
-	        <Tab label='Swap'/>
-	        <Tab label='AAVE'/>
-	        <Tab label='Compound'/>
-	      </Tabs>
-			</div>
-
-			<div className='flex-grow-1 p-4'>
-
-
-				<div className='mb-2 text-muted font-weight-bold' style={{fontSize: '1.2em'}}>
-					My assets
-				</div>
-
-				<table>
-				{
-					Object.values(props.details.tokens).map(token =>
-						<tr>
-							<td>
-								<img src={token.img} height={24} alt={token.symbol}/>
-							</td>
-							<td className='p-2 text-left'>
-								<strong>{token.symbol}</strong>
-							</td>
-							<td className='p-2 text-right'>
-								<span>{Number(ethers.utils.formatUnits(token.balance, token.decimals)).toFixed(3)}</span>
-							</td>
-
-						</tr>
-					)
-				}
-				</table>
-
-
-			</div>
-
 		</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-		<TabPanel value={value} index={0} className='flex-grow-1 d-flex p-4 darktheme-dark'>
-
-			<Grid container direction='row' justify='center' alignItems='stretch'>
-
-				<Grid item xs={2} container direction='column' justify='center' alignItems='center'>
-
-<Grid item>
-
-					<div className='p-3 text-center darktheme bl br bt bb font-weight-bold rounded-top'>
-						Token to Sell
-					</div>
-
-					<TokenSelectModal
-						tokens={token}
-						onChange={(token) => updateBase(token)}
-						className='p-3 text-center darktheme-light bl br'
-					>
-						<div className='my-2'>
-							<img src={base.img} height={32} alt={base.symbol}/><strong className='ml-2'>{base.symbol}</strong>
-						</div>
-						<div className='text-muted'>
-							{Number(ethers.utils.formatUnits(base.balance, base.decimals)).toFixed(3)}
-						</div>
-					</TokenSelectModal>
-
-					<div className='p-3 text-center darktheme-light bl br bt bb rounded-bottom'>
-						<TextField/>
-					</div>
-					</Grid>
-
-				</Grid>
-
-				<Grid item xs={2} container direction='column' justify='space-evenly' alignItems='center'>
-
-					<Grid item style={{visibility: 'hidden'}}>
-						<MDBBtn>Swap</MDBBtn>
-					</Grid>
-
-					<Grid item>
-						<a href='#!' onClick={invert}>
-							<MDBIcon icon='exchange-alt'/>
-						</a>
-					</Grid>
-
-					<Grid item>
-						<MDBBtn color='light' className='darktheme-light' outline>
-							Swap
-						</MDBBtn>
-					</Grid>
-
-				</Grid>
-
-				<Grid item xs={2} container direction='column' justify='center' alignItems='center'>
-
-					<Grid item>
-					<div className='p-3 text-center darktheme bl br bt bb font-weight-bold rounded-top'>
-						Token to Buy
-					</div>
-
-					<TokenSelectModal
-						tokens={token}
-						onChange={(token) => updateQuote(token)}
-						className='p-3 text-center darktheme-light bl br'
-					>
-						<div className='my-2'>
-							<img src={quote.img} height={32} alt={quote.symbol}/><strong className='ml-2'>{quote.symbol}</strong>
-						</div>
-						<div className='text-muted'>
-							{Number(ethers.utils.formatUnits(quote.balance, quote.decimals)).toFixed(3)}
-						</div>
-					</TokenSelectModal>
-
-					<div className='p-3 text-center darktheme-light bl br bt bb rounded-bottom'>
-						<TextField/>
-					</div>
-					</Grid>
-
-				</Grid>
-
-			</Grid>
-
-		</TabPanel>
-
-		<TabPanel value={value} index={1} className='flex-grow-1 d-flex p-4 darktheme-dark'>
-			toto
-		</TabPanel>
-
-
-
-	</div>
 	);
 }
-
-
 
 export default WalletView;

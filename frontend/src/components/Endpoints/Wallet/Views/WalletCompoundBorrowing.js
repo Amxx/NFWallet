@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
-import BalanceInput from '../UI/BalanceInput';
+import BalanceInput from '../../../UI/BalanceInput';
 
 import { ethers }   from 'ethers';
-import * as utils   from '../../libs/utils'
+import * as utils   from '../../../../libs/utils'
 
-import CToken       from '../../abi/CToken.json';
+import CToken       from '../../../../abi/CToken.json';
 
 
 const WalletCompoundBorrowing = (props) =>
@@ -51,7 +51,7 @@ const WalletCompoundBorrowing = (props) =>
 					borrowable.map((token, i) =>
 						<a href='#!' key={i} onClick={() => setToken(token)} className='text-center m-2'>
 							<img src={token.img} alt={token.symbol} height={32}/>
-							<div className='text-muted'>
+							<div className='text-muted' style={{fontSize: '.8em'}}>
 								{token.symbol}
 							</div>
 						</a>
@@ -63,7 +63,7 @@ const WalletCompoundBorrowing = (props) =>
 
 				<BalanceInput
 					className     = 'my-1'
-					token         = { token.symbol }
+					tokenSymbol   = { token.symbol }
 					tokenDecimals = { token.decimals }
 					tokenBalance  = { limit }
 					callbacks     = {{ setAmount, setEnough }}

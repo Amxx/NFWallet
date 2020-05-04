@@ -19,7 +19,7 @@ import { ethers } from 'ethers';
 // }
 const BalanceInput = (props) =>
 {
-	const [ token,   setToken   ] = React.useState(props.token || 'ETH');
+	const [ token,   setToken   ] = React.useState(props.tokenSymbol);
 	const [ value,   setValue   ] = React.useState(ethers.constants.Zero);
 	const [ view,    setView    ] = React.useState('');
 	const [ max,     setMax     ] = React.useState(false);
@@ -103,7 +103,7 @@ const BalanceInput = (props) =>
 		<TextField
 			disabled    = { props.disabled                  }
 			error       = { !enough                         }
-			label       = { props.label       || 'amount'   }
+			label       = { props.label                     }
 			placeholder = { props.placeholder || '0.1'      }
 			value       = { view                            }
 			variant     = { props.variant     || 'outlined' }
@@ -111,6 +111,7 @@ const BalanceInput = (props) =>
 			onChange    = { handleChange                    }
 			InputProps  = {{
 					startAdornment:
+						(props.tokenSelector || token) &&
 						<InputAdornment position='start'>
 							{
 								props.tokenSelector

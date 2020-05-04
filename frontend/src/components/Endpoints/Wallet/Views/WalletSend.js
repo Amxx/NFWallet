@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
-import AddressInputENS from '../UI/AddressInputENS';
-import BalanceInput    from '../UI/BalanceInput';
+import AddressInputENS from '../../../UI/AddressInputENS';
+import BalanceInput    from '../../../UI/BalanceInput';
 
-import * as utils from '../../libs/utils'
+import * as utils from '../../../../libs/utils'
 
-import ERC20      from '../../abi/ERC20.json';
+import ERC20      from '../../../../abi/ERC20.json';
 
 
 const WalletSend = (props) =>
@@ -48,7 +48,7 @@ const WalletSend = (props) =>
 			<BalanceInput
 				label         = 'Send'
 				className     = 'my-1'
-				token         = { token.symbol }
+				tokenSymbol   = { token.symbol }
 				tokenSelector = { sendable }
 				tokenDecimals = { token.decimals }
 				tokenBalance  = { token.balance }

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
-import BalanceInput    from '../UI/BalanceInput';
+import BalanceInput    from '../../../UI/BalanceInput';
 
 import { ethers }        from 'ethers';
-import * as utils        from '../../libs/utils'
+import * as utils        from '../../../../libs/utils'
 
-import ERC20             from '../../abi/ERC20.json';
-import UniswapV2Router01 from '../../abi/UniswapV2Router01.json';
+import ERC20             from '../../../../abi/ERC20.json';
+import UniswapV2Router01 from '../../../../abi/UniswapV2Router01.json';
 
 
 const WalletUniswapV2 = (props) =>
@@ -105,7 +105,7 @@ const WalletUniswapV2 = (props) =>
 			<BalanceInput
 				label         = 'Send'
 				className     = 'my-1'
-				token         = { base.symbol }
+				tokenSymbol   = { base.symbol }
 				tokenSelector = { swappable.filter(({isEth, balance}) => isEth || balance.gt(0)) }
 				tokenDecimals = { base.decimals }
 				tokenBalance  = { base.balance }
@@ -115,7 +115,7 @@ const WalletUniswapV2 = (props) =>
 				label         = 'Receive'
 				className     = 'my-1'
 				value         = { estimated }
-				token         = { quote.symbol }
+				tokenSymbol   = { quote.symbol }
 				tokenSelector = { swappable.filter(({symbol}) => symbol !== base) }
 				tokenDecimals = { quote.decimals }
 				callbacks     = {{ setToken: (symbol) => setQuote(props.details.tokens[symbol]) }}
