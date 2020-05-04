@@ -10,13 +10,11 @@ import ERC20          from '../../abi/ERC20.json';
 import CEther         from '../../abi/CEther.json';
 import CToken         from '../../abi/CToken.json';
 import Comptroller    from '../../abi/Comptroller.json';
-// import CEtherRedeemer from '../../abi/CEtherRedeemer.json';
 
 
 const WalletCompoundLending = (props) =>
 {
-	const [ comptroller         ] = React.useState(new ethers.Contract(   Comptroller.networks[props.services.network.chainId].address,    Comptroller.abi, props.services.provider.getSigner()));
-	// const [ redeemer            ] = React.useState(new ethers.Contract(CEtherRedeemer.networks[props.services.network.chainId].address, CEtherRedeemer.abi, props.services.provider.getSigner()));
+	const [ comptrollerAddress  ] = React.useState(Comptroller.networks[props.services.network.chainId].address);
 	const [ lendable            ] = React.useState(Object.values(props.details.tokens).filter(({compound, isEth, balance}) => compound && (isEth || balance.gt(0))));
 
 	const [ deposit, setDeposit ] = React.useState(!props.withdraw);
@@ -44,40 +42,41 @@ const WalletCompoundLending = (props) =>
 			props.details.account.address,
 			[
 				deposit && !token.isEth &&
-				[
-					token.address,
-					ethers.constants.Zero,
-					(new ethers.utils.Interface(ERC20.abi)).functions.approve.encode([token.compound.cTokenAddress, amount.value]),
-				],
-				deposit && [
-					token.compound.cTokenAddress,
-					token.isEth ? amount.value : ethers.constants.Zero,
-					(new ethers.utils.Interface((token.isEth ? CEther : CToken).abi)).functions.mint.encode(token.isEth ? [] : [amount.value]),
-				],
-				deposit && ! assetIn && [
-					comptroller.address,
-					ethers.constants.Zero,
-					comptroller.interface.functions.enterMarkets.encode([[token.compound.cTokenAddress]]),
-				],
-				// !deposit && token.isEth && [
-				// 	token.compound.cTokenAddress,
-				// 	ethers.constants.Zero,
-				// 	(new ethers.utils.Interface(ERC20.abi)).functions.transfer.encode([redeemer.address, token.compound.cTokenBalance]),
-				// ],
-				!deposit && !amount.max && [
-					// token.isEth ? redeemer.address : token.compound.cTokenAddress,
-					token.compound.cTokenAddress,
-					ethers.constants.Zero,
-					(new ethers.utils.Interface((token.isEth ? CEther : CToken).abi)).functions.redeemUnderlying.encode([amount.value]),
-					// redeemer.interface.functions.redeemUnderlying.encode([amount.value]),
-				],
-				!deposit && amount.max && [
-					// token.isEth ? redeemer.address : token.compound.cTokenAddress,
-					token.compound.cTokenAddress,
-					ethers.constants.Zero,
-					(new ethers.utils.Interface((token.isEth ? CEther : CToken).abi)).functions.redeem.encode([token.compound.cTokenBalance]),
-					// redeemer.interface.functions.redeem.encode([token.compound.cTokenBalance]),
-				],
+				{
+					address:  token.address,
+					artefact: ERC20,
+					method:   'approve',
+					args:     [ token.compound.cTokenAddress, amount.value ],
+				},
+				deposit &&
+				{
+					address:  token.compound.cTokenAddress,
+					value:    token.isEth && amount.value,
+					artefact: token.isEth ? CEther : CToken,
+					method:   'mint',
+					args:     token.isEth ? [] : [ amount.value ],
+				},
+				deposit && ! assetIn &&
+				{
+					address:  comptrollerAddress,
+					artefact: Comptroller,
+					method:   'enterMarkets',
+					args:     [[ token.compound.cTokenAddress ]],
+				},
+				!deposit && !amount.max &&
+				{
+					address:  token.compound.cTokenAddress,
+					artefact: CToken,
+					method:   'redeemUnderlying',
+					args:     [amount.value],
+				},
+				!deposit && amount.max &&
+				{
+					address:  token.compound.cTokenAddress,
+					artefact: CToken,
+					method:   'redeem',
+					args:     [token.compound.cTokenBalance],
+				},
 			],
 			props.services,
 			{
@@ -95,6 +94,17 @@ const WalletCompoundLending = (props) =>
 							<img src={token.img} alt={token.symbol} height={32}/>
 							<div className='text-muted' style={{fontSize: '.8em'}}>
 								{ token.symbol }
+							</div>
+							<div className='text-muted' style={{fontSize: '.6em'}}>
+								{
+									Number(ethers.utils.formatUnits(
+										token.compound.cTokenBalance
+											.mul(token.compound.exchangeRateStored)
+											.div(ethers.constants.WeiPerEther),
+										token.decimals
+									))
+									.toFixed(3)
+								}
 							</div>
 						</a>
 					)

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
 import AddressInputENS from '../UI/AddressInputENS';
 
+import * as utils from '../../libs/utils'
+
 
 const WalletOwnership = (props) =>
 {
@@ -11,21 +13,10 @@ const WalletOwnership = (props) =>
 	{
 		ev.preventDefault();
 
-		props.services.registry.transferFrom(props.data.wallet.owner.id, addr, props.details.account.address)
-		.then(txPromise => {
-			props.services.emitter.emit('Notify', 'info', 'Transaction sent');
-			txPromise.wait()
-			.then(() => {
-				props.services.emitter.emit('Notify', 'success', 'Transaction successfull');
-				props.services.emitter.emit('tx');
-			}) // success
-			.catch(() => {
-				props.services.emitter.emit('Notify', 'error', 'Transaction failled');
-			}) // transaction error
-		})
-		.catch(() => {
-			props.services.emitter.emit('Notify', 'error', 'Signature required');
-		}) // signature error
+		utils.executePromise(
+			props.services.registry.transferFrom(props.data.wallet.owner.id, addr, props.details.account.address),
+			props.services,
+		);
 	}
 
 	return (

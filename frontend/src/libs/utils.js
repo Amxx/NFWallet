@@ -7,16 +7,37 @@ const BNmax = (x,y) => x.gte(y) ? x : y;
 
 const toShortAddress = (entry) => `${entry.substr(0,6)}...${entry.substr(-4)}`;
 
+
+const formatTransaction = ({
+	address,
+	value,
+	data,
+	artefact,
+	method,
+	args,
+}) => ([
+	address,
+	value || ethers.constants.Zero,
+	artefact ? (new ethers.utils.Interface(artefact.abi)).functions[method].encode(args || []) : data || '0x',
+])
+
 const executeTransactions = (
 	wallet,
 	txs,
 	services,
 	callbacks = {}
-) => new Promise((resolve, reject) => {
+) => executePromise(
+	(new ethers.Contract(wallet, NFWallet.abi, services.provider.getSigner())).forwardBatch(txs.filter(Boolean).map(formatTransaction)),
+	services,
+	callbacks
+);
 
-	(new ethers.Contract(wallet, NFWallet.abi, services.provider.getSigner()))
-	.forwardBatch(txs.filter(Boolean))
-	.then(txPromise => {
+const executePromise = (
+	promise,
+	services,
+	callbacks = {}
+) => new Promise((resolve, reject) => {
+	promise.then(txPromise => {
 		callbacks.sent
 		? callbacks.sent()
 		: services.emitter.emit('Notify', 'info', 'Transaction sent');
@@ -41,11 +62,13 @@ const executeTransactions = (
 		? callbacks.sigerror(err)
 		: services.emitter.emit('Notify', 'error', 'Signature required');
 	}) // signature error
-})
+});
 
 export {
 	BNmin,
 	BNmax,
 	toShortAddress,
+	formatTransaction,
 	executeTransactions,
+	executePromise,
 };

@@ -14,7 +14,7 @@
 	},
 	"networks":
 	{
-		"ropsten":
+		"3":
 		{
 			"subgraph":   "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets-ropsten",
 			"etherscan":  "https://ropsten.etherscan.io",
@@ -55,7 +55,7 @@
 				}
 			}
 		},
-		"rinkeby":
+		"4":
 		{
 			"subgraph":   "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets-rinkeby",
 			"etherscan":  "https://rinkeby.etherscan.io",
@@ -114,7 +114,7 @@
 				}
 			}
 		},
-		"goerli":
+		"5":
 		{
 			"subgraph":   "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets-goerli",
 			"etherscan":  "https://goerli.etherscan.io",
@@ -155,7 +155,7 @@
 				}
 			}
 		},
-		"kovan":
+		"42":
 		{
 			"subgraph":   "https://api.thegraph.com/subgraphs/name/amxx/non-fungible-wallets-kovan",
 			"etherscan":  "https://kovan.etherscan.io",

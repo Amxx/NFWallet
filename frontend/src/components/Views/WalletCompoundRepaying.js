@@ -35,16 +35,19 @@ const WalletCompoundRepaying = (props) =>
 			props.details.account.address,
 			[
 				!token.isEth &&
-				[
-					token.address,
-					'0',
-					(new ethers.utils.Interface(ERC20.abi)).functions.approve.encode([ token.compound.cTokenAddress, approve ])
-				],
-				[
-					token.compound.cTokenAddress,
-					token.isEth ? amount.value : ethers.constants.Zero,
-					(new ethers.utils.Interface((token.isEth ? CEther : CToken).abi)).functions.repayBorrow.encode(token.isEth ? [] : [value])
-				]
+				{
+					address:  token.address,
+					artefact: ERC20,
+					method:   'approve',
+					args:     [ token.compound.cTokenAddress, approve ],
+				},
+				{
+					address:  token.compound.cTokenAddress,
+					value:    token.isEth && amount.value,
+					artefact: token.isEth ? CEther : CToken,
+					method:   'repayBorrow',
+					args:     token.isEth ? [] : [value]
+				},
 			],
 			props.services
 		);

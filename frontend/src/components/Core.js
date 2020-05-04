@@ -42,7 +42,7 @@ const Core = () =>
 		{
 			const accounts = await provider.listAccounts()
 			const network  = await provider.getNetwork()
-			const config   = CONFIG.networks[network.name]
+			const config   = CONFIG.networks[network.chainId]
 			const registry = new ethers.Contract(NFWalletFactory.networks[network.chainId].address, NFWalletFactory.abi, provider.getSigner());
 			const uri      = config.subgraph;
 			const cache    = new InMemoryCache();
@@ -65,7 +65,7 @@ const Core = () =>
 
 	const connect = (web3) => {
 		web3.autoRefreshOnNetworkChange = false;
-		
+
 		emitter.emit('Notify', 'success', 'You are connected');
 		web3.on('accountsChanged', (accounts) => (accounts.length === 0) ? setProvider(null) : configure(web3)); // should not be needed, but prevents crash
 		web3.on('networkChanged',  (network ) =>                                               configure(web3));

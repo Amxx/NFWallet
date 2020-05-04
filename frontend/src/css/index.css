@@ -55,3 +55,14 @@ code
 {
 	animation: unset !important;
 }
+
+
+
+.darktheme       { background-color: #292932; }
+.darktheme-dark  { background-color: #22222c; }
+.darktheme-light { background-color: #2e2f39; }
+
+.darktheme .bl { border-left:   1px solid #41476b; }
+.darktheme .br { border-right:  1px solid #41476b; }
+.darktheme .bt { border-top:    1px solid #41476b; }
+.darktheme .bb { border-bottom: 1px solid #41476b; }

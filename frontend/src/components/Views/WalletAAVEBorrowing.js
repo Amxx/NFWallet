@@ -11,7 +11,7 @@ import LendingPool     from '../../abi/LendingPool.json';
 
 const WalletAAVEBorrowing = (props) =>
 {
-	const [ pool                      ] = React.useState(new ethers.Contract(LendingPool.networks[props.services.network.chainId].address, LendingPool.abi, props.services.provider.getSigner()));
+	const [ poolAddress               ] = React.useState(LendingPool.networks[props.services.network.chainId].address);
 	const [ borrowable                ] = React.useState(Object.values(props.details.tokens).filter(({aave}) => aave));
 
 	const [ stableRate, setStableRate ] = React.useState(false);
@@ -37,16 +37,18 @@ const WalletAAVEBorrowing = (props) =>
 		utils.executeTransactions(
 			props.details.account.address,
 			[
-				[
-					pool.address,
-					ethers.constants.Zero,
-					pool.interface.functions.borrow.encode([
+				{
+					address:  poolAddress,
+					artefact: LendingPool,
+					method:   'borrow',
+					args:
+					[
 						token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address,
 						amount.value,
 						stableRate ? 1 : 2,
-						0 // referal code
-					])
-				]
+						0 /*referal code*/
+					]
+				}
 			],
 			props.services
 		);

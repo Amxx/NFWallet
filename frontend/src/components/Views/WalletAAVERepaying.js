@@ -17,8 +17,8 @@ const WalletAAVERepayingWrapper = (props) =>
 
 const WalletAAVERepaying = (props) =>
 {
-	const [ pool              ] = React.useState(new ethers.Contract(    LendingPool.networks[props.services.network.chainId].address,     LendingPool.abi, props.services.provider.getSigner()));
-	const [ poolcore          ] = React.useState(new ethers.Contract(LendingPoolCore.networks[props.services.network.chainId].address, LendingPoolCore.abi, props.services.provider.getSigner()));
+	const [ poolAddress       ] = React.useState(    LendingPool.networks[props.services.network.chainId].address);
+	const [ poolcoreAddress   ] = React.useState(LendingPoolCore.networks[props.services.network.chainId].address);
 	const [ repayable         ] = React.useState(Object.values(props.details.tokens).filter(({aave}) => aave && aave.borrowBalance.gt(0)));
 
 	const [ token,  setToken  ] = React.useState(repayable[0]);
@@ -37,20 +37,24 @@ const WalletAAVERepaying = (props) =>
 			props.details.account.address,
 			[
 				!token.isEth &&
-				[
-					token.address,
-					'0',
-					(new ethers.utils.Interface(ERC20.abi)).functions.approve.encode([ poolcore.address, approve ])
-				],
-				[
-					pool.address,
-					token.isEth ? approve : ethers.constants.Zero,
-					pool.interface.functions.repay.encode([
+				{
+					address:  token.address,
+					artefact: ERC20,
+					method:   'approve',
+					args:     [ poolcoreAddress, approve ],
+				},
+				{
+					address:  poolAddress,
+					value:    token.isEth && approve,
+					artefact: LendingPool,
+					method:   'repay',
+					args:
+					[
 						token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address,
 						value,
 						props.details.account.address,
-					])
-				]
+					],
+				},
 			],
 			props.services
 		);

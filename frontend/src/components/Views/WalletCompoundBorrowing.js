@@ -5,7 +5,6 @@ import BalanceInput from '../UI/BalanceInput';
 import { ethers }   from 'ethers';
 import * as utils   from '../../libs/utils'
 
-import CEther       from '../../abi/CEther.json';
 import CToken       from '../../abi/CToken.json';
 
 
@@ -31,20 +30,15 @@ const WalletCompoundBorrowing = (props) =>
 	{
 		ev.preventDefault();
 
-		// if (token.isEth)
-		// {
-		// 	props.services.emitter.emit('Notify', 'warning', 'Ask Compound to fix their code', 'Not possible to borrow ETH to smart contracts powered wallet');
-		// 	return;
-		// }
-
 		utils.executeTransactions(
 			props.details.account.address,
 			[
-				[
-					token.compound.cTokenAddress,
-					ethers.constants.Zero,
-					(new ethers.utils.Interface((token.isEth ? CEther : CToken).abi)).functions.borrow.encode([amount.value]),
-				]
+				{
+					address:  token.compound.cTokenAddress,
+					artefact: CToken,
+					method:   'borrow',
+					args:     [ amount.value ],
+				}
 			],
 			props.services
 		);

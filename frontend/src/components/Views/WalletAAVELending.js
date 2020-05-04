@@ -14,8 +14,8 @@ import AToken          from '../../abi/AToken.json';
 
 const WalletAAVELending = (props) =>
 {
-	const [ pool                ] = React.useState(new ethers.Contract(    LendingPool.networks[props.services.network.chainId].address,     LendingPool.abi, props.services.provider.getSigner()));
-	const [ poolcore            ] = React.useState(new ethers.Contract(LendingPoolCore.networks[props.services.network.chainId].address, LendingPoolCore.abi, props.services.provider.getSigner()));
+	const [ poolAddress         ] = React.useState(    LendingPool.networks[props.services.network.chainId].address);
+	const [ poolcoreAddress     ] = React.useState(LendingPoolCore.networks[props.services.network.chainId].address);
 	const [ lendable            ] = React.useState(Object.values(props.details.tokens).filter(({aave, isEth, balance}) => aave));
 
 	const [ deposit, setDeposit ] = React.useState(!props.withdraw);
@@ -34,25 +34,27 @@ const WalletAAVELending = (props) =>
 			props.details.account.address,
 			[
 				deposit && !token.isEth &&
-				[
-					token.address,
-					'0',
-					(new ethers.utils.Interface(ERC20.abi)).functions.approve.encode([ poolcore.address, value ])
-				],
-				deposit && [
-					pool.address,
-					token.isEth ? value : ethers.constants.Zero,
-					pool.interface.functions.deposit.encode([
-						token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address,
-						value,
-						0 // referal code
-					])
-				],
-				!deposit && [
-					token.aave.aTokenAddress,
-					ethers.constants.Zero,
-					(new ethers.utils.Interface(AToken.abi)).functions.redeem.encode([value])
-				]
+				{
+					address:  token.address,
+					artefact: ERC20,
+					method:   'approve',
+					args:     [ poolcoreAddress, value ],
+				},
+				deposit &&
+				{
+					address:  poolAddress,
+					value:    token.isEth && value,
+					artefact: LendingPool,
+					method:   'deposit',
+					args:     [ token.isEth ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' : token.address, value, 0 /*referal code*/ ],
+				},
+				!deposit &&
+				{
+					address:  token.aave.aTokenAddress,
+					artefact: AToken,
+					method:   'redeem',
+					args:     [ value ],
+				}
 			],
 			props.services
 		);

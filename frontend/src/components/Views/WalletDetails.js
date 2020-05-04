@@ -36,8 +36,8 @@ const WalletDetails = (props) =>
 				<td className='p-1 text-monospace'>
 					<a className='blue-text' href={
 						props.services.config.opensea
-						? `${props.services.config.opensea}/assets/${props.services.registry.addressPromised}/${ethers.utils.bigNumberify(props.details.account.address).toString()}`
-						: `${props.services.config.etherscan}/token/${props.services.registry.addressPromised}?a=${ethers.utils.bigNumberify(props.details.account.address).toString()}`
+						? `${props.services.config.opensea}/assets/${props.services.registry.address}/${ethers.utils.bigNumberify(props.details.account.address).toString()}`
+						: `${props.services.config.etherscan}/token/${props.services.registry.address}?a=${ethers.utils.bigNumberify(props.details.account.address).toString()}`
 					} target='_blank' rel='nofollow noopener noreferrer'>
 						{ ethers.utils.bigNumberify(props.details.account.address).toString() }
 					</a>
