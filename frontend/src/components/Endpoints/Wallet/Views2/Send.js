@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { MDBBtn, MDBIcon } from 'mdbreact';
+import { MDBBtn } from 'mdbreact';
 
-import Paper     from '@material-ui/core/Paper';
 import Grid      from '@material-ui/core/Grid';
 import SwapToken from './SwapToken';
 

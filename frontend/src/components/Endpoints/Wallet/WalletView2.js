@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { MDBBtn, MDBIcon } from 'mdbreact';
 
 import TabSlider        from '../../UI/TabSlider';
 import Sidebar          from './Views2/Sidebar';
@@ -9,8 +8,6 @@ import Transfer         from './Views2/Transfer';
 import Swap             from './Views2/Swap';
 import History          from './Views2/History';
 
-
-import WalletActivity            from './Views/WalletActivity';
 import WalletAAVEOverview        from './Views/WalletAAVEOverview';
 import WalletAAVELending         from './Views/WalletAAVELending';
 import WalletAAVEBorrowing       from './Views/WalletAAVEBorrowing';

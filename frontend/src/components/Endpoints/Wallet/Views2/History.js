@@ -1,6 +1,6 @@
 import * as React from 'react';
-import WalletBalanceChart from '../../../Views/WalletBalanceChart';
-import WalletActivity     from '../../../Views/WalletActivity';
+import WalletBalanceChart from '../Views/WalletBalanceChart';
+import WalletActivity     from '../Views/WalletActivity';
 
 const History = (props) =>
 {
