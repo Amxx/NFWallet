@@ -45,6 +45,7 @@
     "react-scripts": "3.4.1",
     "react-spinners": "^0.8.1",
     "react-swipeable-views": "^0.13.9",
+    "responsive-react": "^3.0.2",
     "typescript": "^3.8.3"
   },
   "eslintConfig": {
