@@ -20,13 +20,15 @@ contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC777R
 	event Received(address indexed from, uint256 value);
 	event Executed(address indexed to,   uint256 value, bytes data);
 
+	// ERC721
 	function onERC721Received(address, address, uint256, bytes memory)
 	public override returns (bytes4)
 	{
 		return this.onERC721Received.selector;
 	}
 
-	function tokensReceived(address, address, address, uint256, bytes calldata, bytes calldata)
+	// ERC777
+	function tokensReceived(address, address, address, uint256, bytes memory, bytes memory)
 	public override
 	{
 	}
@@ -55,6 +57,7 @@ contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC777R
 		emit Executed(to, value, data);
 	}
 
+	// ERC 1271
 	function isValidSignature(bytes calldata data, bytes calldata signature)
 	external view override returns (bytes4 magicValue)
 	{
@@ -62,6 +65,7 @@ contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC777R
 		return IERC1271(0).isValidSignature.selector;
 	}
 
+	// ERC 1654
 	function isValidSignature(bytes32 hash, bytes calldata signature)
 	external view override returns (bytes4 magicValue)
 	{
