@@ -11,7 +11,7 @@ import { ethers } from 'ethers';
 
 import TextField       from '@material-ui/core/TextField';
 import AccountItem     from '../UI/AccountItem';
-import AddressInputENS from '../UI/AddressInputENS';
+import AddressInputETH from '../UI/AddressInputETH';
 
 
 const PredictWallet = (props) =>
@@ -42,7 +42,7 @@ const PredictWallet = (props) =>
 				<MDBModalHeader toggle={toggle}>Predict hidden wallet</MDBModalHeader>
 				<MDBModalBody>
 					<div className='d-flex flex-column justify-content-center'>
-						<AddressInputENS className='my-1' label='initial owner' defaultValue={addr} onChange={setAddr} provider={props.services.provider}/>
+						<AddressInputETH className='my-1' label='initial owner' defaultValue={addr} onChange={setAddr} provider={props.services.provider}/>
 						<TextField       className='my-1' label='seed'          defaultValue={seed} onChange={e => setSeed(e.target.value)} variant='outlined'/>
 						<MDBIcon         className='my-3 text-center' icon='arrow-down'/>
 						<AccountItem     className='my-1' name='hidden wallet address' address={pred}/>

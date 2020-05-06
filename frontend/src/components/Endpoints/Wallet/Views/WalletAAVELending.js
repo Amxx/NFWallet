@@ -28,7 +28,14 @@ const WalletAAVELending = (props) =>
 	{
 		ev.preventDefault();
 
-		const value = (amount.max && !deposit) ? ethers.constants.MaxUint256 : amount.value;
+		const value    = (amount.max && !deposit) ? ethers.constants.MaxUint256 : amount.value;
+		const expected = (amount.max && !deposit) ? token.aave.aTokenBalance    : amount.value;
+
+		if (!deposit && expected.gt(token.aave.availableLiquidity))
+		{
+			props.services.emitter.emit('Notify', 'warning', 'Cannot proceed with withdraw, insufficient available liquidity', 'AAVE error');
+			return;
+		}
 
 		utils.executeTransactions(
 			props.details.account.address,

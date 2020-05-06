@@ -29,7 +29,7 @@ function addressToIcon(address)
 	}
 }
 
-class AddressInputENS extends EthereumReactComponents.AddressInput
+class AddressInputETH extends EthereumReactComponents.AddressInput
 {
 	constructor(props)
 	{
@@ -68,7 +68,7 @@ class AddressInputENS extends EthereumReactComponents.AddressInput
 	{
 		try
 		{
-			this.setAddr(ethers.utils.getAddress((/0x[0-9a-zA-Z]{40}/).exec(value)[0]))
+			this.setAddr(ethers.utils.getAddress((/0x[0-9a-fA-F]{40}/).exec(value)[0]))
 		}
 		catch
 		{
@@ -95,4 +95,4 @@ class AddressInputENS extends EthereumReactComponents.AddressInput
 	}
 }
 
-export default AddressInputENS;
+export default AddressInputETH;

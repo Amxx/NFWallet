@@ -13,7 +13,7 @@ import UniswapV2Router01 from '../../../../abi/UniswapV2Router01.json';
 const Swap = (props) =>
 {
 	const [ router                  ] = React.useState(new ethers.Contract(UniswapV2Router01.networks[props.services.network.chainId].address, UniswapV2Router01.abi, props.services.provider.getSigner()));
-	const [ tokens                  ] = React.useState(Object.values(props.details.tokens).filter(({UniswapV2}) => UniswapV2));
+	const [ tokens                  ] = React.useState(Object.values(props.details.tokens).filter(({uniswap}) => uniswap));
 	const [ base,      setBase      ] = React.useState(props.details.tokens['ETH']);
 	const [ quote,     setQuote     ] = React.useState(tokens.find(({symbol}) => symbol !== 'ETH'));
 	const [ amount,    setAmount    ] = React.useState({});
@@ -122,50 +122,6 @@ const Swap = (props) =>
 
 		</Grid>
 	);
-
-	// return (
-	// 	<Grid container direction='row' justify='center' alignItems='stretch' className='h-100 p-2'>
-	//
-	// 		<Grid item xs={5} sm={5} md={4} lg={3} container direction='column' justify='space-evenly' alignItems='center'>
-	// 			<Grid item className='w-100'>
-	// 				<SwapToken
-	// 					title     = 'Token to Sell'
-	// 					token     = {base}
-	// 					tokenList = {tokens}
-	// 					onChange  = {updateBase}
-	// 					setAmount = {setAmount}
-	// 					setEnough = {setEnough}
-	// 				/>
-	// 			</Grid>
-	// 		</Grid>
-	//
-	// 		<Grid item xs={2} container direction='column' justify='space-evenly' alignItems='center'>
-	// 			<Grid item style={{visibility: 'hidden'}}>
-	// 				<MDBBtn color='elegant' onClick={handleSwap} disabled={!enough || !props.details.account.isOwner}>Swap</MDBBtn>
-	// 			</Grid>
-	// 			<Grid item>
-	// 				<a href='#!' onClick={invert}><MDBIcon icon="exchange-alt" /></a>
-	// 			</Grid>
-	// 			<Grid item>
-	// 				<MDBBtn color='elegant' onClick={handleSwap} disabled={!enough || !props.details.account.isOwner}>Swap</MDBBtn>
-	// 			</Grid>
-	// 		</Grid>
-	//
-	// 		<Grid item xs={5} sm={5} md={4} lg={3} container direction='column' justify='space-evenly' alignItems='center'>
-	// 			<Grid item className='w-100'>
-	// 				<SwapToken
-	// 					title     = 'Token to Buy'
-	// 					token     = {quote}
-	// 					tokenList = {tokens}
-	// 					onChange  = {updateQuote}
-	// 					value     = {estimated}
-	// 					disabled
-	// 				/>
-	// 			</Grid>
-	// 		</Grid>
-	//
-	// 	</Grid>
-	// );
 }
 
 export default Swap;

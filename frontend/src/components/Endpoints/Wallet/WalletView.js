@@ -20,6 +20,8 @@ import WalletDetailsExpanded     from './Views/WalletDetailsExpanded';
 import WalletOwnership           from './Views/WalletOwnership';
 import WalletSend                from './Views/WalletSend';
 import WalletUniswapV2           from './Views/WalletUniswapV2';
+import BitcoinReceive            from './Views2/BitcoinReceive';
+import BitcoinSend               from './Views2/BitcoinSend';
 
 
 const WalletView = (props) =>
@@ -41,9 +43,9 @@ const WalletView = (props) =>
 			<Paper square elevation={3}>
 				<TabSlider
 					entries={[
-						{ label: 'Send',                 render: <WalletSend            {...props}/> },
-						{ label: 'Swap',                 render: <WalletUniswapV2       {...props}/> },
-						{ label: 'Wallet ownership',     render: <WalletOwnership       {...props}/> },
+						{ label: 'Send',                 render: <WalletSend      {...props}/> },
+						{ label: 'Swap',                 render: <WalletUniswapV2 {...props}/> },
+						{ label: 'Wallet ownership',     render: <WalletOwnership {...props}/> },
 					]}
 				/>
 			</Paper>
@@ -92,6 +94,21 @@ const WalletView = (props) =>
 								:
 									<div className='text-center text-muted p-4'>Compound is not available on this network</div>
 						},
+						{
+							label: 'Bitcoin',
+							render:
+								props.details.tokens['pBTC'] && props.details.tokens['pBTC'].pToken
+								?
+									<TabSlider
+										scrollable
+										entries={[
+											{ label: 'Receive',              render: <BitcoinReceive {...props} /> },
+											{ label: 'Send',                 render: <BitcoinSend    {...props} /> },
+										]}
+									/>
+								:
+									<div className='text-center text-muted p-4'>Compound is not available on this network</div>
+						},
 					]}
 				/>
 			</Paper>
@@ -101,9 +118,9 @@ const WalletView = (props) =>
 			<Paper square elevation={3}>
 				<TabSlider
 					entries={[
-						{ label: 'Balances',             render: <WalletBalances        {...props}/> },
-						{ label: 'Chart',                render: <WalletBalanceChart    {...props}/> },
-						{ label: 'Detailed activity',    render: <WalletActivity        {...props}/> },
+						{ label: 'Balances',             render: <WalletBalances     {...props}/> },
+						{ label: 'Chart',                render: <WalletBalanceChart {...props}/> },
+						{ label: 'Detailed activity',    render: <WalletActivity     {...props}/> },
 					]}
 				/>
 			</Paper>

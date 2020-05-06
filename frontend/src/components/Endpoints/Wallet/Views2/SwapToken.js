@@ -2,7 +2,8 @@ import * as React from 'react';
 import {ethers}   from 'ethers';
 import Paper            from '@material-ui/core/Paper';
 import TokenSelectModal from './TokenSelectModal';
-import AddressInputENS  from '../../../UI/AddressInputENS';
+import AddressInputETH  from '../../../UI/AddressInputETH';
+import AddressInputBTC  from '../../../UI/AddressInputBTC';
 import BalanceInput     from '../../../UI/BalanceInput';
 
 const SwapToken = (props) =>
@@ -11,7 +12,7 @@ const SwapToken = (props) =>
 			{props.title}
 		</Paper>
 		<Paper square elevation={3} className='text-center p-3'>
-			<TokenSelectModal tokens={props.tokenList} onChange={props.onChange}>
+			<TokenSelectModal tokens={props.tokenList || []} onChange={props.onChange}>
 				<div>
 					<img src={props.token.img} height={32} alt={props.token.symbol}/>
 					<span className='ml-2'>{ props.token.symbol }</span>
@@ -23,13 +24,22 @@ const SwapToken = (props) =>
 		</Paper>
 		<Paper square elevation={3} className='text-center p-3 rounded-bottom'>
 			{
-				props.setAddress &&
-				<AddressInputENS
+				props.setAddress && !props.bitcoin &&
+				<AddressInputETH
 					className   = 'w-100 mb-2'
 					color       = 'light'
 					label       = 'destination'
 					onChange    = {props.setAddress}
 					provider    = {props.services.provider}
+				/>
+			}
+			{
+				props.setAddress && props.bitcoin &&
+				<AddressInputBTC
+					className   = 'w-100 mb-2'
+					color       = 'light'
+					label       = 'bitcoin destination'
+					onChange    = {props.setAddress}
 				/>
 			}
 			{

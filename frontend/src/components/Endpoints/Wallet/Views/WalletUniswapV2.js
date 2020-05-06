@@ -12,7 +12,7 @@ import UniswapV2Router01 from '../../../../abi/UniswapV2Router01.json';
 const WalletUniswapV2 = (props) =>
 {
 	const [ router                  ] = React.useState(new ethers.Contract(UniswapV2Router01.networks[props.services.network.chainId].address, UniswapV2Router01.abi, props.services.provider.getSigner()));
-	const [ swappable               ] = React.useState(Object.values(props.details.tokens).filter(({UniswapV2}) => UniswapV2));
+	const [ swappable               ] = React.useState(Object.values(props.details.tokens).filter(({uniswap}) => uniswap));
 
 	const [ base,      setBase      ] = React.useState(props.details.tokens['ETH']);
 	const [ quote,     setQuote     ] = React.useState(swappable.find(({symbol}) => symbol !== 'ETH'));

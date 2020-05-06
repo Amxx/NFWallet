@@ -9,7 +9,7 @@ import {
 import { ethers } from 'ethers';
 
 import TextField       from '@material-ui/core/TextField';
-import AddressInputENS from '../UI/AddressInputENS';
+import AddressInputETH from '../UI/AddressInputETH';
 import Switch          from '@material-ui/core/Switch';
 
 const MintWallet = (props) =>
@@ -54,7 +54,7 @@ const MintWallet = (props) =>
 				<MDBModalHeader toggle={toggle}>New wallet</MDBModalHeader>
 				<MDBModalBody>
 					<form onSubmit={handleSubmit} className='d-flex flex-column'>
-						<AddressInputENS className='my-1' label='initial owner' defaultValue={addr} onChange={setAddr} services={props.services}/>
+						<AddressInputETH className='my-1' label='initial owner' defaultValue={addr} onChange={setAddr} services={props.services}/>
 						{ full && <TextField className='my-1' label='seed' defaultValue={seed} onChange={e => setSeed(e.target.value)} variant='outlined'/> }
 
 						<div className='d-flex justify-content-center align-items-center'>

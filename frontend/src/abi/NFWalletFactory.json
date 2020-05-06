@@ -564,20 +564,24 @@
   ],
   "networks": {
     "3": {
-      "oldaddress": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
-      "address": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71"
+      "address-gen1": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
+      "address-gen2": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71",
+      "address":      "0x51B8072Ca35612edE98F390a58903A7D91826A66"
     },
     "4": {
-      "oldaddress": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
-      "address": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71"
+      "address-gen1": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
+      "address-gen2": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71",
+      "address":      "0x51B8072Ca35612edE98F390a58903A7D91826A66"
     },
     "5": {
-      "oldaddress": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
-      "address": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71"
+      "address-gen1": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
+      "address-gen2": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71",
+      "address":      "0x51B8072Ca35612edE98F390a58903A7D91826A66"
     },
     "42": {
-      "oldaddress": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
-      "address": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71"
+      "address-gen1": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
+      "address-gen2": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71",
+      "address":      "0x51B8072Ca35612edE98F390a58903A7D91826A66"
     }
   }
 }

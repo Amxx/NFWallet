@@ -7,6 +7,8 @@ import Send             from './Views2/Send';
 import Transfer         from './Views2/Transfer';
 import Swap             from './Views2/Swap';
 import History          from './Views2/History';
+import BitcoinReceive   from './Views2/BitcoinReceive';
+import BitcoinSend      from './Views2/BitcoinSend';
 
 import WalletAAVEOverview        from './Views/WalletAAVEOverview';
 import WalletAAVELending         from './Views/WalletAAVELending';
@@ -55,17 +57,31 @@ const Compound = (props) =>
 	:
 		<div className='container my-auto text-center text-muted p-4'>Compound is not available on this network</div>
 
+const Bitcoin = (props) =>
+	props.details.tokens['pBTC'] && props.details.tokens['pBTC'].pToken
+	?
+		<TabSlider
+			// scrollable
+			entries={[
+				{ label: 'Deposit',              render: <BitcoinReceive {...props} /> },
+				{ label: 'Withdraw',             render: <BitcoinSend    {...props} /> },
+			]}
+		/>
+	:
+		<div className='container my-auto text-center text-muted p-4'>pBTC is not available on this network</div>
+
 
 const WalletView = (props) =>
 {
-	const [ active, setActive ] = React.useState(1);
+	const [ active, setActive ] = React.useState(0);
 	const tabList = [
-		{ label: 'Details',  icon: null, render: <Details  {...props}/> },
-		{ label: 'Swap',     icon: null, render: <Swap     {...props}/> },
+		{ label: 'Receive',  icon: null, render: <Details  {...props}/> },
 		{ label: 'Send',     icon: null, render: <Send     {...props}/> },
+		{ label: 'Swap',     icon: null, render: <Swap     {...props}/> },
 		{ label: 'Transfer', icon: null, render: <Transfer {...props}/> },
 		{ label: 'AAVE',     icon: null, render: <Aave     {...props}/> },
 		{ label: 'Compound', icon: null, render: <Compound {...props}/> },
+		{ label: 'Bitcoin',  icon: null, render: <Bitcoin  {...props}/> },
 		{ label: 'History',  icon: null, render: <History  {...props}/> },
 	]
 

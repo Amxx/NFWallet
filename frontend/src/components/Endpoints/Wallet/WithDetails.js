@@ -82,7 +82,7 @@ const WithDetails = (props) =>
 
 			// tokens data
 			Promise.all(
-				Object.values(props.services.config.exchange.tokens)
+				Object.values(props.services.config.assets.tokens)
 				.map(async (token) => {
 					let extraData = {};
 
@@ -131,7 +131,8 @@ const WithDetails = (props) =>
 					// Compound token data
 					try
 					{
-						const contract = new ethers.Contract(token.ctoken, (token.isEth ? CEther : CToken).abi, props.services.provider.getSigner());
+						const ctoken   = props.services.config.assets.compound[token.symbol];
+						const contract = new ethers.Contract(ctoken, (token.isEth ? CEther : CToken).abi, props.services.provider.getSigner());
 						const [
 							underlying,
 							cTokenDecimals,
@@ -145,12 +146,12 @@ const WithDetails = (props) =>
 							contract.getAccountSnapshot(props.data.wallet.id),
 							contract.getCash(),
 							contract.borrowRatePerBlock(),
-							Cpriceoracle.getUnderlyingPrice(token.ctoken),
+							Cpriceoracle.getUnderlyingPrice(ctoken),
 						]);
 
 						extraData.compound = (token.isEth || (token.address === underlying)) &&
 						{
-							cTokenAddress: token.ctoken,
+							cTokenAddress: ctoken,
 							cTokenDecimals,
 							cTokenBalance,
 							borrowBalance,
@@ -164,13 +165,25 @@ const WithDetails = (props) =>
 
 					if (token.isEth)
 					{
-						return { ...token, ...extraData, balance: ethers.utils.bigNumberify(props.data.wallet.balance) };
+						return {
+							...token,
+							...extraData,
+							balance: ethers.utils.bigNumberify(props.data.wallet.balance),
+							uniswap: props.services.config.assets.uniswap && props.services.config.assets.uniswap[token.symbol],
+							pToken:  props.services.config.assets.pToken  && props.services.config.assets.pToken[token.symbol],
+						};
 					}
 					else
 					{
 						const contract = new ethers.Contract(token.address, ERC20.abi, props.services.provider.getSigner());
 						const balance  = await contract.balanceOf(props.data.wallet.id);
-						return { ...token, ...extraData, balance };
+						return {
+							...token,
+							...extraData,
+							balance,
+							uniswap: props.services.config.assets.uniswap && props.services.config.assets.uniswap[token.symbol],
+							pToken:  props.services.config.assets.pToken  && props.services.config.assets.pToken[token.symbol],
+						};
 					}
 				})
 			).then(tokens => setTokens(

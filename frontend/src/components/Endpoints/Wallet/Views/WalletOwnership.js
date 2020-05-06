@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
-import AddressInputENS from '../../../UI/AddressInputENS';
+import AddressInputETH from '../../../UI/AddressInputETH';
 
 import * as utils from '../../../../libs/utils'
 
@@ -21,7 +21,7 @@ const WalletOwnership = (props) =>
 
 	return (
 		<form onSubmit={handleSubmit} className={`d-flex flex-column ${props.className}`}>
-			<AddressInputENS
+			<AddressInputETH
 				color     = 'light'
 				className = 'my-1'
 				label     = 'destination'
