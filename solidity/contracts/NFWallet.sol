@@ -2,6 +2,7 @@ pragma solidity ^0.6.0;
 pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+import "@openzeppelin/contracts/token/ERC777/IERC777Recipient.sol";
 import "@iexec/solidity/contracts/ERC1271/IERC1271.sol";
 import "@iexec/solidity/contracts/ERC1654/IERC1654.sol";
 import "@iexec/solidity/contracts/Libs/ECDSA.sol";
@@ -14,7 +15,7 @@ struct Call
 	bytes   data;
 }
 
-contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC1271, IERC1654
+contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC777Recipient, IERC1271, IERC1654
 {
 	event Received(address indexed from, uint256 value);
 	event Executed(address indexed to,   uint256 value, bytes data);
@@ -23,6 +24,11 @@ contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC1271
 	public override returns (bytes4)
 	{
 		return this.onERC721Received.selector;
+	}
+
+	function tokensReceived(address, address, address, uint256, bytes calldata, bytes calldata)
+	public override
+	{
 	}
 
 	// Wallet
