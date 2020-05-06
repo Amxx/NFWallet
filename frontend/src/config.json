@@ -60,7 +60,8 @@
 				"uniswap":
 				{
 					"ETH":   true,
-					"DAI-A": true
+					"DAI-A": true,
+					"pBTC":  true
 				},
 				"compound":
 				{
