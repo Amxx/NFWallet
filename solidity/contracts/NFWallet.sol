@@ -3,6 +3,7 @@ pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/token/ERC777/IERC777Recipient.sol";
+import "@openzeppelin/contracts/utils/Address.sol";
 import "@iexec/solidity/contracts/ERC1271/IERC1271.sol";
 import "@iexec/solidity/contracts/ERC1654/IERC1654.sol";
 import "@iexec/solidity/contracts/Libs/ECDSA.sol";
@@ -17,6 +18,8 @@ struct Call
 
 contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC777Recipient, IERC1271, IERC1654
 {
+	using Address for address;
+
 	event Received(address indexed from, uint256 value);
 	event Executed(address indexed to,   uint256 value, bytes data);
 
@@ -24,6 +27,7 @@ contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC777R
 	function onERC721Received(address, address, uint256, bytes memory)
 	public override returns (bytes4)
 	{
+		// TODO: emit event ?
 		return this.onERC721Received.selector;
 	}
 
@@ -31,6 +35,7 @@ contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC777R
 	function tokensReceived(address, address, address, uint256, bytes memory, bytes memory)
 	public override
 	{
+		// TODO: emit event ?
 	}
 
 	// Wallet
@@ -61,15 +66,31 @@ contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC777R
 	function isValidSignature(bytes calldata data, bytes calldata signature)
 	external view override returns (bytes4 magicValue)
 	{
-		require(owner() == recover(keccak256(data), signature));
-		return IERC1271(0).isValidSignature.selector;
+		address signer = owner();
+		if (signer.isContract())
+		{
+			return IERC1271(signer).isValidSignature(data, signature);
+		}
+		else
+		{
+			require(signer == recover(keccak256(data), signature));
+			return IERC1271(0).isValidSignature.selector;
+		}
 	}
 
 	// ERC 1654
-	function isValidSignature(bytes32 hash, bytes calldata signature)
+	function isValidSignature(bytes32 data, bytes calldata signature)
 	external view override returns (bytes4 magicValue)
 	{
-		require(owner() == recover(hash, signature));
-		return IERC1654(0).isValidSignature.selector;
+		address signer = owner();
+		if (signer.isContract())
+		{
+			return IERC1654(signer).isValidSignature(data, signature);
+		}
+		else
+		{
+			require(signer == recover(data, signature));
+			return IERC1654(0).isValidSignature.selector;
+		}
 	}
 }
