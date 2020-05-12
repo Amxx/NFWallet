@@ -1,5 +1,8 @@
 import React from 'react';
-import { MDBBtn, MDBIcon, MDBModal, MDBModalBody } from 'mdbreact';
+import { MDBBtn       } from 'mdbreact';
+import { MDBIcon      } from 'mdbreact';
+import { MDBModal     } from 'mdbreact';
+import { MDBModalBody } from 'mdbreact';
 import Instascan from '@eventstag/instascan'
 
 

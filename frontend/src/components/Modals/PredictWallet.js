@@ -1,17 +1,17 @@
 import React from 'react';
-import {
-	MDBIcon,
-	MDBNavLink,
-	MDBModal,
-	MDBModalHeader,
-	MDBModalBody,
-	MDBModalFooter,
-} from 'mdbreact';
-import { ethers } from 'ethers';
+import { MDBIcon        } from 'mdbreact'
+import { MDBNavLink     } from 'mdbreact'
+import { MDBModal       } from 'mdbreact'
+import { MDBModalHeader } from 'mdbreact'
+import { MDBModalBody   } from 'mdbreact'
+import { MDBModalFooter } from 'mdbreact'
+import TextField          from '@material-ui/core/TextField';
+import AccountItem        from '../UI/AccountItem';
+import AddressInputETH    from '../UI/AddressInputETH';
 
-import TextField       from '@material-ui/core/TextField';
-import AccountItem     from '../UI/AccountItem';
-import AddressInputETH from '../UI/AddressInputETH';
+import { ethers } from 'ethers';
+// import * as utils      from '../../libs/utils'
+import NFWalletFactory from '../../abi/NFWalletFactory.json';
 
 
 const PredictWallet = (props) =>
@@ -25,7 +25,10 @@ const PredictWallet = (props) =>
 	React.useEffect(() => {
 		try
 		{
-			props.services.registry.predictWallet(addr.toLowerCase(), ethers.utils.id(seed)).then(setPred).catch(() => {})
+			(new ethers.Contract(NFWalletFactory.networks[props.services.network.chainId].address, NFWalletFactory.abi, props.services.provider))
+			.predictWallet(addr.toLowerCase(), ethers.utils.id(seed))
+			.then(setPred)
+			.catch(() => {})
 		}
 		catch (_)
 		{

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Spinner } from 'react-bootstrap';
-import { ethers } from 'ethers';
+import { ethers  } from 'ethers';
 
 // NFWallet
 import NFWallet           from '../../../abi/NFWallet.json';

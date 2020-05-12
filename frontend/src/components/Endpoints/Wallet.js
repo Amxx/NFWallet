@@ -9,6 +9,7 @@ import WithDetails from './Wallet/WithDetails';
 import WalletView  from './Wallet/WalletView';
 import WalletView2 from './Wallet/WalletView2';
 
+
 const WalletResponsive = (props) =>
 	<>
 		<Responsive displayIn={[ 'Mobile' ]}><WalletView  {...props}/></Responsive>

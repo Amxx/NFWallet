@@ -1,6 +1,5 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-
 import Pagination from '../../UI/Pagination';
 import './Grid.css';
 

@@ -1,17 +1,17 @@
 import React from 'react';
-import {
-	MDBBtn,
-	MDBNavLink,
-	MDBModal,
-	MDBModalHeader,
-	MDBModalBody,
-} from 'mdbreact';
-import { ethers } from 'ethers';
-import * as utils from '../../libs/utils'
+import { MDBBtn         } from 'mdbreact';
+import { MDBNavLink     } from 'mdbreact';
+import { MDBModal       } from 'mdbreact';
+import { MDBModalHeader } from 'mdbreact';
+import { MDBModalBody   } from 'mdbreact';
+import TextField          from '@material-ui/core/TextField';
+import AddressInputETH    from '../UI/AddressInputETH';
+import Switch             from '@material-ui/core/Switch';
 
-import TextField       from '@material-ui/core/TextField';
-import AddressInputETH from '../UI/AddressInputETH';
-import Switch          from '@material-ui/core/Switch';
+import { ethers }      from 'ethers';
+import * as utils      from '../../libs/utils'
+import NFWalletFactory from '../../abi/NFWalletFactory.json';
+
 
 const MintWallet = (props) =>
 {
@@ -25,27 +25,16 @@ const MintWallet = (props) =>
 	const handleSubmit = (ev) =>
 	{
 		ev.preventDefault();
-		props.services.registry
-		.connect(utils.getSigner(props.services))
-		.createWallet(
-			addr,
-			full ? ethers.utils.id(seed) : ethers.utils.randomBytes(32),
+
+		utils.executePromise(
+			(new ethers.Contract(NFWalletFactory.networks[props.services.network.chainId].address, NFWalletFactory.abi, utils.getSigner(props.services)))
+			.createWallet(
+				addr,
+				full ? ethers.utils.id(seed) : ethers.utils.randomBytes(32),
+			),
+			props.services
 		)
-		.then(txPromise => {
-			props.services.emitter.emit('Notify', 'info', 'Transaction sent');
-			txPromise.wait()
-			.then(tx => {
-				props.services.emitter.emit('Notify', 'success', 'New wallet minted');
-			}) // success
-			.catch(err => {
-				props.services.emitter.emit('Notify', 'error', 'Transaction failled');
-			}) // transaction error
-		})
-		.catch(err => {
-			console.log(err)
-			props.services.emitter.emit('Notify', 'error', 'Signature required');
-		}) // signature error
-		.finally(toggle);
+		.then(toggle);
 	}
 
 	return (

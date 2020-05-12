@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import Error from './Error';
 
+
 const Pagination = (props) => {
 
 	const [pageSize,         ] = React.useState(Number(props.pageSize) || 20**2);

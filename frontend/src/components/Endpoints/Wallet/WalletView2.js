@@ -1,14 +1,14 @@
 import * as React from 'react';
+import TabSlider                 from '../../UI/TabSlider';
 
-import TabSlider        from '../../UI/TabSlider';
-import Sidebar          from './Views2/Sidebar';
-import Details          from './Views2/Details';
-import Send             from './Views2/Send';
-import Transfer         from './Views2/Transfer';
-import Swap             from './Views2/Swap';
-import History          from './Views2/History';
-import BitcoinReceive   from './Views2/BitcoinReceive';
-import BitcoinSend      from './Views2/BitcoinSend';
+import Sidebar                   from './Views2/Sidebar';
+import Details                   from './Views2/Details';
+import Send                      from './Views2/Send';
+import Transfer                  from './Views2/Transfer';
+import Swap                      from './Views2/Swap';
+import History                   from './Views2/History';
+import BitcoinReceive            from './Views2/BitcoinReceive';
+import BitcoinSend               from './Views2/BitcoinSend';
 
 import WalletAAVEOverview        from './Views/WalletAAVEOverview';
 import WalletAAVELending         from './Views/WalletAAVELending';

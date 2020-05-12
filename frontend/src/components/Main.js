@@ -6,6 +6,7 @@ import Dashboard from './Endpoints/Dashboard';
 import Overview  from './Endpoints/Overview';
 import Wallet    from './Endpoints/Wallet';
 
+
 const Main = (props) =>
 {
 	return (

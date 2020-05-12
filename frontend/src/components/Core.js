@@ -13,10 +13,7 @@ import Main          from './Main';
 import Error         from './UI/Error';
 import Notifications from './Services/Notifications';
 
-import NFWalletFactory from '../abi/NFWalletFactory.json';
-
 import CONFIG from '../config.json';
-
 
 
 const Core = () =>
@@ -47,7 +44,6 @@ const Core = () =>
 			const accounts = await provider.listAccounts()
 			const network  = await provider.getNetwork()
 			const config   = CONFIG.networks[network.chainId]
-			const registry = new ethers.Contract(NFWalletFactory.networks[network.chainId].address, NFWalletFactory.abi, provider); // readonly
 			// GSN
 			const gsnProvider = config.gsn && new ethers.providers.Web3Provider(
 				new RelayProvider(
@@ -76,7 +72,6 @@ const Core = () =>
 				network,
 				config,
 				gsnProvider,
-				registry,
 				client,
 			});
 

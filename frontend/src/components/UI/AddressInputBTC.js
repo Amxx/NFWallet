@@ -5,6 +5,7 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 
 import Scan from '../Modals/Scan';
 
+
 class AddressInputBTC extends EthereumReactComponents.AddressInput
 {
 	constructor(props)

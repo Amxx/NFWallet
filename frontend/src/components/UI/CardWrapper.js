@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { MDBCard, MDBCardTitle, MDBCardBody } from 'mdbreact';
+import { MDBCard      } from 'mdbreact';
+import { MDBCardTitle } from 'mdbreact';
+import { MDBCardBody  } from 'mdbreact';
+
 
 const CardWrapper = (props) =>
 	<div className={props.className}>

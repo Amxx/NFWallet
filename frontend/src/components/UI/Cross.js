@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
 
+
 const Cross = (props) =>
 	<CrossSvg
 		xmlns='http://www.w3.org/2000/svg'

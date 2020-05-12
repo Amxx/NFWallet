@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { ethers } from 'ethers';
 
+
 const AccountItem = (props) =>
 	<StyledWrapper>
 		<FlexWrapper>

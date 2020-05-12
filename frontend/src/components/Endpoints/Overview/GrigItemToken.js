@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Link           } from 'react-router-dom';
+import { OverlayTrigger } from 'react-bootstrap';
+import { Tooltip        } from 'react-bootstrap';
 import * as utils from '../../../libs/utils';
 
 

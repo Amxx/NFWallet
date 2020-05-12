@@ -2,10 +2,11 @@ import * as React from 'react'
 import * as EthereumReactComponents from 'ethereum-react-components';
 import TextField      from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
-import Cross      from './Cross';
-import { ethers } from 'ethers';
+import Cross          from './Cross';
+import { ethers }     from 'ethers';
 
 import Scan from '../Modals/Scan';
+
 
 function addressToIcon(address)
 {

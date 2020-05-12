@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Spinner }    from 'react-bootstrap';
-import graphql    from '../../../graphql';
-
+import graphql        from '../../../graphql';
 import Pagination     from '../../UI/Pagination';
 import WalletListItem from './WalletListItem';
 

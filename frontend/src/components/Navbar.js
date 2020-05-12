@@ -1,18 +1,17 @@
 import React from 'react';
-import {
-	MDBNavbar,
-	MDBNavbarBrand,
-	MDBNavbarNav,
-	MDBNavItem,
-	MDBNavLink,
-	MDBNavbarToggler,
-	MDBCollapse,
-} from 'mdbreact';
-import Switch        from '@material-ui/core/Switch';
-import MintWallet    from './Modals/MintWallet';
-import PredictWallet from './Modals/PredictWallet';
+import { MDBNavbar        } from 'mdbreact';
+import { MDBNavbarBrand   } from 'mdbreact';
+import { MDBNavbarNav     } from 'mdbreact';
+import { MDBNavItem       } from 'mdbreact';
+import { MDBNavLink       } from 'mdbreact';
+import { MDBNavbarToggler } from 'mdbreact';
+import { MDBCollapse      } from 'mdbreact';
+import Switch               from '@material-ui/core/Switch';
+import MintWallet           from './Modals/MintWallet';
+import PredictWallet        from './Modals/PredictWallet';
 
 import icon from '../assets/nfw-logo-03.svg'
+
 
 const Navbar = (props) =>
 {
