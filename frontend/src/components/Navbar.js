@@ -23,8 +23,12 @@ const Navbar = (props) =>
 			<MDBNavbarBrand className='d-flex align-items-center'>
 				<img src={icon} alt='nfw-logo' height={32}/>
 				<strong className='white-text ml-2'>
-					NFWExplorer ({props.services.network.name})
+					NFWExplorer
 				</strong>
+				&nbsp;
+				<small className='text-capitalize'>
+					({props.services.network.name} - GSN: {props.services.gsnProvider?'on':'off'})
+				</small>
 			</MDBNavbarBrand>
 			<MDBNavbarToggler onClick={toggle} />
 			<MDBCollapse id='navbarCollapse' isOpen={open} navbar>

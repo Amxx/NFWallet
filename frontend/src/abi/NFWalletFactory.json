@@ -566,22 +566,28 @@
     "3": {
       "address-gen1": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
       "address-gen2": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71",
-      "address":      "0x51B8072Ca35612edE98F390a58903A7D91826A66"
+      "address-gen3": "0x51B8072Ca35612edE98F390a58903A7D91826A66",
+      "address-gen4": "0xF7e7ca14A36f9727f069996080995C3fBCb7e75B",
+      "address":      "0xF7e7ca14A36f9727f069996080995C3fBCb7e75B"
     },
     "4": {
       "address-gen1": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
       "address-gen2": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71",
+      "address-gen3": "0x51B8072Ca35612edE98F390a58903A7D91826A66",
       "address":      "0x51B8072Ca35612edE98F390a58903A7D91826A66"
     },
     "5": {
       "address-gen1": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
       "address-gen2": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71",
+      "address-gen3": "0x51B8072Ca35612edE98F390a58903A7D91826A66",
       "address":      "0x51B8072Ca35612edE98F390a58903A7D91826A66"
     },
     "42": {
       "address-gen1": "0x19631cB609b85FE81A00b4935A044E3A7d30F8db",
       "address-gen2": "0x1bbF2a8f0F27E82224FF8995b4ab785991AFdd71",
-      "address":      "0x51B8072Ca35612edE98F390a58903A7D91826A66"
+      "address-gen3": "0x51B8072Ca35612edE98F390a58903A7D91826A66",
+      "address-gen4": "0xF7e7ca14A36f9727f069996080995C3fBCb7e75B",
+      "address":      "0xF7e7ca14A36f9727f069996080995C3fBCb7e75B"
     }
   }
 }

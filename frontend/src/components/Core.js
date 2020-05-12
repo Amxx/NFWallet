@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { RelayProvider  } from '@opengsn/gsn/dist/src/relayclient';
+import { configureGSN   } from '@opengsn/gsn/dist/src/relayclient/GSNConfigurator';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient   } from 'apollo-client';
 import { InMemoryCache  } from 'apollo-cache-inmemory';
@@ -40,10 +42,29 @@ const Core = () =>
 		// configure services
 		try
 		{
+			// account, network & config
 			const accounts = await provider.listAccounts()
 			const network  = await provider.getNetwork()
 			const config   = CONFIG.networks[network.chainId]
-			const registry = new ethers.Contract(NFWalletFactory.networks[network.chainId].address, NFWalletFactory.abi, provider.getSigner());
+			// GSN
+			const gsnProvider = config.gsn && new ethers.providers.Web3Provider(
+				new RelayProvider(
+					web3,
+					configureGSN({
+						chainId:                 network.chainId,
+						relayHubAddress:         config.gsn.relayhub,
+						paymasterAddress:        config.gsn.paymaster,
+						stakeManagerAddress:     config.gsn.stakemgr,
+						gasPriceFactorPercent:   70,
+						methodSuffix:            '_v4',
+						jsonStringifyRequest:    true,
+						relayLookupWindowBlocks: 1e5,
+					})
+				)
+			);
+			// registry
+			const registry = new ethers.Contract(NFWalletFactory.networks[network.chainId].address, NFWalletFactory.abi, (gsnProvider || provider).getSigner());
+			// thegraph
 			const uri      = config.subgraph;
 			const cache    = new InMemoryCache();
 			const link     = new HttpLink({ uri });
@@ -53,6 +74,7 @@ const Core = () =>
 				accounts,
 				network,
 				config,
+				gsnProvider,
 				registry,
 				client,
 			});

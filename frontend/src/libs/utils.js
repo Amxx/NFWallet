@@ -27,7 +27,7 @@ const executeTransactions = (
 	services,
 	callbacks = {}
 ) => executePromise(
-	(new ethers.Contract(wallet, NFWallet.abi, services.provider.getSigner())).forwardBatch(txs.filter(Boolean).map(formatTransaction)),
+	(new ethers.Contract(wallet, NFWallet.abi, (services.gsnProvider || services.provider).getSigner())).forwardBatch(txs.filter(Boolean).map(formatTransaction)),
 	services,
 	callbacks
 );

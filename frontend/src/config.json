@@ -3,7 +3,7 @@
 	{
 		"provider":
 		{
-			"network": "rinkeby"
+			"network": "ropsten"
 		},
 		"ipfs":
 		{
@@ -72,6 +72,12 @@
 				{
 					"pBTC": true
 				}
+			},
+			"gsn":
+			{
+				"paymaster": "0x663946D7Ea17FEd07BF1420559F9FB73d85B5B03",
+				"relayhub":  "0xEF46DD512bCD36619a6531Ca84B188b47D85124b",
+				"stakemgr":  "0x41c7C7c1Bf501e2F43b51c200FEeEC87540AC925"
 			}
 		},
 		"4":
@@ -222,6 +228,12 @@
 				{
 					"ETH": "0xf92fbe0d3c0dcdae407923b2ac17ec223b1084e4"
 				}
+			},
+			"gsn":
+			{
+				"paymaster": "0x38489512d064106f5A7AD3d9e13268Aaf777A41c",
+				"relayhub":  "0x2E0d94754b348D208D64d52d78BcD443aFA9fa52",
+				"stakemgr":  "0x0ecf783407C5C80D71CFEa37938C0b60BD255FF8"
 			}
 		}
 	}
