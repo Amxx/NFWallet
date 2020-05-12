@@ -73,6 +73,29 @@ dataSources:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/NFWalletFactory.ts
+  - kind: ethereum/contract
+    name: NFWalletFactory4
+    network: ropsten
+    source:
+      address: '0xF7e7ca14A36f9727f069996080995C3fBCb7e75B'
+      abi: NFWalletFactory
+      startBlock: 7887713
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Transaction
+        - Account
+        - Wallet
+        - Transfer
+      abis:
+        - name: NFWalletFactory
+          file: ./abi/NFWalletFactory.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/NFWalletFactory.ts
 templates:
   - name: NFWallet
     kind: ethereum/contract
