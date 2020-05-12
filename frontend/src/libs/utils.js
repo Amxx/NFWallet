@@ -47,12 +47,14 @@ const executePromise = (
 		.then(tx => {
 			resolve({ case: 0, tx });
 			services.emitter.emit('tx');
+			console.info('tx mined:', tx)
 			callbacks.mined
 			? callbacks.mined(tx)
 			: services.emitter.emit('Notify', 'success', 'Transaction successfull');
 		}) // success
 		.catch(err => {
 			resolve({ case: 1, err });
+			console.error('tx failled:', err)
 			callbacks.failled
 			? callbacks.failled(err)
 			: services.emitter.emit('Notify', 'error', 'Transaction failled');
@@ -60,6 +62,7 @@ const executePromise = (
 	})
 	.catch(err => {
 		resolve({ case: 2, err });
+		console.error('tx sigerror:', err)
 		callbacks.sigerror
 		? callbacks.sigerror(err)
 		: services.emitter.emit('Notify', 'error', 'Signature required');

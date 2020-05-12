@@ -54,7 +54,7 @@ const Core = () =>
 						paymasterAddress:        config.gsn.paymaster,
 						stakeManagerAddress:     config.gsn.stakemgr,
 						gasPriceFactorPercent:   70,
-						methodSuffix:            '_v4',
+						methodSuffix:            '_v3',
 						jsonStringifyRequest:    true,
 						relayLookupWindowBlocks: 1e5,
 						// verbose:                 true,
@@ -75,7 +75,7 @@ const Core = () =>
 				client,
 			});
 
-			// setUseGSN(!!gsnProvider); // leave off by default
+			setUseGSN(!!gsnProvider);
 		}
 		catch (e)
 		{
