@@ -2,19 +2,21 @@ import * as React from 'react';
 import { MDBBtn } from 'mdbreact';
 import AddressInputETH from '../../../UI/AddressInputETH';
 
-import * as utils from '../../../../libs/utils'
+import { ethers }      from 'ethers';
+import * as utils      from '../../../../libs/utils'
+import NFWalletFactory from '../../../../abi/NFWalletFactory.json';
 
 
 const WalletOwnership = (props) =>
 {
-	const [ addr, setAddr ] = React.useState('');
+	const [ address, setAddress ] = React.useState('');
 
 	const handleSubmit = (ev) =>
 	{
 		ev.preventDefault();
 
 		utils.executePromise(
-			props.services.registry.transferFrom(props.data.wallet.owner.id, addr, props.details.account.address),
+			(new ethers.Contract(props.details.account.registry, NFWalletFactory.abi, utils.getSigner(props.services))).transferFrom(props.data.wallet.owner.id, address, props.details.account.address),
 			props.services,
 		);
 	}
@@ -25,7 +27,7 @@ const WalletOwnership = (props) =>
 				color     = 'light'
 				className = 'my-1'
 				label     = 'destination'
-				onChange  = {setAddr}
+				onChange  = {setAddress}
 				provider  = {props.services.provider}
 			/>
 			<MDBBtn color='indigo' type='sumbit' className='mx-0' disabled={!props.details.account.isOwner}>

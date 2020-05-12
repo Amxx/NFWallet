@@ -21,13 +21,15 @@ const formatTransaction = ({
 	artefact ? (new ethers.utils.Interface(artefact.abi)).functions[method].encode(args || []) : data || '0x',
 ])
 
+const getSigner = ({ useGSN, gsnProvider, provider}) => (useGSN?gsnProvider:provider).getSigner();
+
 const executeTransactions = (
 	wallet,
 	txs,
 	services,
 	callbacks = {}
 ) => executePromise(
-	(new ethers.Contract(wallet, NFWallet.abi, (services.gsnProvider || services.provider).getSigner())).forwardBatch(txs.filter(Boolean).map(formatTransaction)),
+	(new ethers.Contract(wallet, NFWallet.abi, getSigner(services))).forwardBatch(txs.filter(Boolean).map(formatTransaction)),
 	services,
 	callbacks
 );
@@ -69,6 +71,7 @@ export {
 	BNmax,
 	toShortAddress,
 	formatTransaction,
+	getSigner,
 	executeTransactions,
 	executePromise,
 };

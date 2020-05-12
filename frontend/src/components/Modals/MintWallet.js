@@ -7,6 +7,7 @@ import {
 	MDBModalBody,
 } from 'mdbreact';
 import { ethers } from 'ethers';
+import * as utils from '../../libs/utils'
 
 import TextField       from '@material-ui/core/TextField';
 import AddressInputETH from '../UI/AddressInputETH';
@@ -24,7 +25,9 @@ const MintWallet = (props) =>
 	const handleSubmit = (ev) =>
 	{
 		ev.preventDefault();
-		props.services.registry.createWallet(
+		props.services.registry
+		.connect(utils.getSigner(props.services))
+		.createWallet(
 			addr,
 			full ? ethers.utils.id(seed) : ethers.utils.randomBytes(32),
 		)

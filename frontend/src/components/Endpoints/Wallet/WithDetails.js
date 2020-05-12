@@ -2,6 +2,9 @@ import * as React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { ethers } from 'ethers';
 
+// NFWallet
+import NFWallet           from '../../../abi/NFWallet.json';
+// ERC20
 import ERC20              from '../../../abi/ERC20.json';
 // AAVE
 import LendingPool        from '../../../abi/LendingPool.json';
@@ -15,10 +18,10 @@ import PriceOracle        from '../../../abi/PriceOracle.json';
 
 const WithDetails = (props) =>
 {
-	const [ AAVEpool            ] = React.useState(       LendingPool.networks[props.services.network.chainId] && new ethers.Contract(       LendingPool.networks[props.services.network.chainId].address,        LendingPool.abi, props.services.provider.getSigner()));
-	const [ AAVEpriceoracle     ] = React.useState(IPriceOracleGetter.networks[props.services.network.chainId] && new ethers.Contract(IPriceOracleGetter.networks[props.services.network.chainId].address, IPriceOracleGetter.abi, props.services.provider.getSigner()));
-	const [ Cpriceoracle        ] = React.useState(       PriceOracle.networks[props.services.network.chainId] && new ethers.Contract(       PriceOracle.networks[props.services.network.chainId].address,        PriceOracle.abi, props.services.provider.getSigner()));
-	const [ Ccomptroller        ] = React.useState(       Comptroller.networks[props.services.network.chainId] && new ethers.Contract(       Comptroller.networks[props.services.network.chainId].address,        Comptroller.abi, props.services.provider.getSigner()));
+	const [ AAVEpool            ] = React.useState(       LendingPool.networks[props.services.network.chainId] && new ethers.Contract(       LendingPool.networks[props.services.network.chainId].address,        LendingPool.abi, props.services.provider));
+	const [ AAVEpriceoracle     ] = React.useState(IPriceOracleGetter.networks[props.services.network.chainId] && new ethers.Contract(IPriceOracleGetter.networks[props.services.network.chainId].address, IPriceOracleGetter.abi, props.services.provider));
+	const [ Cpriceoracle        ] = React.useState(       PriceOracle.networks[props.services.network.chainId] && new ethers.Contract(       PriceOracle.networks[props.services.network.chainId].address,        PriceOracle.abi, props.services.provider));
+	const [ Ccomptroller        ] = React.useState(       Comptroller.networks[props.services.network.chainId] && new ethers.Contract(       Comptroller.networks[props.services.network.chainId].address,        Comptroller.abi, props.services.provider));
 
 	const [ account, setAccount ] = React.useState(null);
 	const [ tokens,  setTokens  ] = React.useState(null);
@@ -34,6 +37,8 @@ const WithDetails = (props) =>
 
 			(new Promise(async (resolve, reject) => {
 				let extraData = {};
+
+				extraData.registry = await (new ethers.Contract(props.data.wallet.id, NFWallet.abi, props.services.provider)).registry();
 
 				// AAVE account details
 				try
@@ -132,7 +137,7 @@ const WithDetails = (props) =>
 					try
 					{
 						const ctoken   = props.services.config.assets.compound[token.symbol];
-						const contract = new ethers.Contract(ctoken, (token.isEth ? CEther : CToken).abi, props.services.provider.getSigner());
+						const contract = new ethers.Contract(ctoken, (token.isEth ? CEther : CToken).abi, props.services.provider);
 						const [
 							underlying,
 							cTokenDecimals,
@@ -175,7 +180,7 @@ const WithDetails = (props) =>
 					}
 					else
 					{
-						const contract = new ethers.Contract(token.address, ERC20.abi, props.services.provider.getSigner());
+						const contract = new ethers.Contract(token.address, ERC20.abi, props.services.provider);
 						const balance  = await contract.balanceOf(props.data.wallet.id);
 						return {
 							...token,

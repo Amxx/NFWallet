@@ -12,7 +12,7 @@ import ERC1820Registry from '../../../../abi/ERC1820Registry.json';
 const PTokenReceive = (props) =>
 {
 	const [ ERC777TokenRecipientID ] = React.useState("0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b");
-	const [ registry               ] = React.useState(new ethers.Contract(ERC1820Registry.networks[props.services.network.chainId].address, ERC1820Registry.abi, props.services.provider.getSigner()));
+	const [ registry               ] = React.useState(new ethers.Contract(ERC1820Registry.networks[props.services.network.chainId].address, ERC1820Registry.abi, props.services.provider));
 	const [ deposit, setDeposit    ] = React.useState(null);
 	const [ ready, setReady        ] = React.useState(false);
 

@@ -22,6 +22,7 @@ import CONFIG from '../config.json';
 const Core = () =>
 {
 	const [ emitter,              ] = React.useState(new EventEmitter());
+	const [ useGSN,   setUseGSN   ] = React.useState(false);
 	const [ provider, setProvider ] = React.useState(null);
 	const [ services, setServices ] = React.useState(null);
 
@@ -46,6 +47,7 @@ const Core = () =>
 			const accounts = await provider.listAccounts()
 			const network  = await provider.getNetwork()
 			const config   = CONFIG.networks[network.chainId]
+			const registry = new ethers.Contract(NFWalletFactory.networks[network.chainId].address, NFWalletFactory.abi, provider); // readonly
 			// GSN
 			const gsnProvider = config.gsn && new ethers.providers.Web3Provider(
 				new RelayProvider(
@@ -59,11 +61,10 @@ const Core = () =>
 						methodSuffix:            '_v4',
 						jsonStringifyRequest:    true,
 						relayLookupWindowBlocks: 1e5,
+						// verbose:                 true,
 					})
 				)
 			);
-			// registry
-			const registry = new ethers.Contract(NFWalletFactory.networks[network.chainId].address, NFWalletFactory.abi, (gsnProvider || provider).getSigner());
 			// thegraph
 			const uri      = config.subgraph;
 			const cache    = new InMemoryCache();
@@ -78,6 +79,8 @@ const Core = () =>
 				registry,
 				client,
 			});
+
+			// setUseGSN(!!gsnProvider); // leave off by default
 		}
 		catch (e)
 		{
@@ -119,6 +122,8 @@ const Core = () =>
 							<Main services={{
 								emitter,
 								provider,
+								useGSN,
+								setUseGSN,
 								...services
 							}}/>
 						</ApolloProvider>
