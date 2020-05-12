@@ -77,4 +77,15 @@ module.exports = async function(deployer, network, accounts)
 	const factoryOptions = { salt: process.env.SALT || web3.utils.randomHex(32) };
 
 	await factoryDeployer(NFWalletFactory, { call: web3.eth.abi.encodeFunctionCall(NFWalletFactory._json.abi.find(e => e.name == 'transferOwnership'), [ accounts[0] ]), ...factoryOptions });
+
+	const NFWalletFactoryInstance = await NFWalletFactory.deployed();
+	switch (network)
+	{
+		// case 'mainnet': case 'mainnet-fork': await NFWalletFactoryInstance.initialize('0x0000000000000000000000000000000000000000'); break;
+		case 'ropsten': case 'ropsten-fork': await NFWalletFactoryInstance.initialize('0xcC87aa60a6457D9606995C4E7E9c38A2b627Da88'); break;
+		// case 'rinkeby': case 'rinkeby-fork': await NFWalletFactoryInstance.initialize('0x0000000000000000000000000000000000000000'); break;
+		// case 'goerli':  case 'goerli-fork':  await NFWalletFactoryInstance.initialize('0x0000000000000000000000000000000000000000'); break;
+		case 'kovan':   case 'kovan-fork':   await NFWalletFactoryInstance.initialize('0x6453D37248Ab2C16eBd1A8f782a2CBC65860E60B'); break;
+		default: break;
+	}
 };

@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@iexec/solidity": "0.1.0-beta.14",
+    "@opengsn/gsn": "^0.9.0",
     "@openzeppelin/contracts": "3.0.0",
     "truffle-plugin-verify": "^0.3.10"
   },

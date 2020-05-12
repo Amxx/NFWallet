@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2;
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/token/ERC777/IERC777Recipient.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
+import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
 import "@iexec/solidity/contracts/ERC1271/IERC1271.sol";
 import "@iexec/solidity/contracts/ERC1654/IERC1654.sol";
 import "@iexec/solidity/contracts/Libs/ECDSA.sol";
@@ -16,26 +17,31 @@ struct Call
 	bytes   data;
 }
 
-contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC777Recipient, IERC1271, IERC1654
+contract NFWallet is
+	CounterfactualTokenEntity,
+	BaseRelayRecipient,
+	ECDSA,
+	IERC721Receiver,
+	IERC777Recipient,
+	IERC1271,
+	IERC1654
 {
 	using Address for address;
 
 	event Received(address indexed from, uint256 value);
 	event Executed(address indexed to,   uint256 value, bytes data);
 
-	// ERC721
-	function onERC721Received(address, address, uint256, bytes memory)
-	public override returns (bytes4)
+	function _msgSender()
+	internal view override(Context, BaseRelayRecipient) returns (address payable sender)
 	{
-		// TODO: emit event ?
-		return this.onERC721Received.selector;
+		return BaseRelayRecipient._msgSender();
 	}
 
-	// ERC777
-	function tokensReceived(address, address, address, uint256, bytes memory, bytes memory)
-	public override
+	function initialize(address _registry, address _trustedForwarder)
+	public
 	{
-		// TODO: emit event ?
+		CounterfactualTokenEntity.initialize(_registry);
+		trustedForwarder = _trustedForwarder;
 	}
 
 	// Wallet
@@ -60,6 +66,21 @@ contract NFWallet is CounterfactualTokenEntity, ECDSA, IERC721Receiver, IERC777R
 		(bool success, bytes memory returndata) = payable(to).call{value: value}(data);
 		require(success, string(returndata));
 		emit Executed(to, value, data);
+	}
+
+	// ERC721
+	function onERC721Received(address, address, uint256, bytes memory)
+	public override returns (bytes4)
+	{
+		// TODO: emit event ?
+		return this.onERC721Received.selector;
+	}
+
+	// ERC777
+	function tokensReceived(address, address, address, uint256, bytes memory, bytes memory)
+	public override
+	{
+		// TODO: emit event ?
 	}
 
 	// ERC 1271
