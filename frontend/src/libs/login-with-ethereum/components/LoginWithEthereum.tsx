@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { MDBIcon, MDBInput, MDBInputGroup, MDBModal, MDBModalBody } from 'mdbreact';
+import { MDBIcon, MDBInput, MDBModal, MDBModalBody } from 'mdbreact';
 
 import { ENSLoginSDK, types } from '@enslogin/sdk';
 // import WalletConnectProvider from '@walletconnect/web3-provider';
@@ -338,7 +338,7 @@ export class LoginWithEthereum extends React.Component<Props, State>
 										this.props.networks &&
 											<select
 												className='md-form md-outline'
-												defaultValue={ this.props.config.provider && this.props.config.provider.network || '' }
+												defaultValue={ (this.props.config.provider && this.props.config.provider.network) || '' }
 												onChange={ (ev) => {
 													this.props.config.provider = this.props.config.provider || {};
 													this.props.config.provider.network = ev.target.value;
