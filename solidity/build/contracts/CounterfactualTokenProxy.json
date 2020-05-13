@@ -72,14 +72,14 @@
     "absolutePath": "/home/amxx/Work/Projects/NFWallets/solidity/contracts/core/CounterfactualTokenProxy.sol",
     "exportedSymbols": {
       "CounterfactualTokenProxy": [
-        560
+        581
       ]
     },
-    "id": 561,
+    "id": 582,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 538,
+        "id": 559,
         "literals": [
           "solidity",
           "^",
@@ -92,10 +92,10 @@
       {
         "absolutePath": "@iexec/solidity/contracts/Upgradeability/InitializableUpgradeabilityProxy.sol",
         "file": "@iexec/solidity/contracts/Upgradeability/InitializableUpgradeabilityProxy.sol",
-        "id": 539,
+        "id": 560,
         "nodeType": "ImportDirective",
-        "scope": 561,
-        "sourceUnit": 1237,
+        "scope": 582,
+        "sourceUnit": 1258,
         "src": "25:87:3",
         "symbolAliases": [],
         "unitAlias": ""
@@ -107,35 +107,35 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 540,
+              "id": 561,
               "name": "InitializableUpgradeabilityProxy",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1236,
+              "referencedDeclaration": 1257,
               "src": "152:32:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_InitializableUpgradeabilityProxy_$1236",
+                "typeIdentifier": "t_contract$_InitializableUpgradeabilityProxy_$1257",
                 "typeString": "contract InitializableUpgradeabilityProxy"
               }
             },
-            "id": 541,
+            "id": 562,
             "nodeType": "InheritanceSpecifier",
             "src": "152:32:3"
           }
         ],
         "contractDependencies": [
-          1181,
-          1236,
-          1288
+          1202,
+          1257,
+          1309
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 560,
+        "id": 581,
         "linearizedBaseContracts": [
-          560,
-          1236,
-          1181,
-          1288
+          581,
+          1257,
+          1202,
+          1309
         ],
         "name": "CounterfactualTokenProxy",
         "nodeType": "ContractDefinition",
@@ -143,22 +143,22 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 547,
+            "id": 568,
             "name": "Received",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 546,
+              "id": 567,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 543,
+                  "id": 564,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "from",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 547,
+                  "scope": 568,
                   "src": "203:20:3",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -167,7 +167,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 542,
+                    "id": 563,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "203:7:3",
@@ -182,13 +182,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 545,
+                  "id": 566,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "value",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 547,
+                  "scope": 568,
                   "src": "225:13:3",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -197,7 +197,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 544,
+                    "id": 565,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "225:7:3",
@@ -216,10 +216,10 @@
           },
           {
             "baseFunctions": [
-              1247
+              1268
             ],
             "body": {
-              "id": 558,
+              "id": 579,
               "nodeType": "Block",
               "src": "281:44:3",
               "statements": [
@@ -231,7 +231,7 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 552,
+                          "id": 573,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
@@ -242,7 +242,7 @@
                             "typeString": "msg"
                           }
                         },
-                        "id": 553,
+                        "id": 574,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -260,7 +260,7 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 554,
+                          "id": 575,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
@@ -271,7 +271,7 @@
                             "typeString": "msg"
                           }
                         },
-                        "id": 555,
+                        "id": 576,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -297,18 +297,18 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 551,
+                      "id": 572,
                       "name": "Received",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 547,
+                      "referencedDeclaration": 568,
                       "src": "290:8:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_uint256_$returns$__$",
                         "typeString": "function (address,uint256)"
                       }
                     },
-                    "id": 556,
+                    "id": 577,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -323,45 +323,45 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 557,
+                  "id": 578,
                   "nodeType": "EmitStatement",
                   "src": "285:36:3"
                 }
               ]
             },
             "documentation": null,
-            "id": 559,
+            "id": 580,
             "implemented": true,
             "kind": "receive",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "overrides": {
-              "id": 549,
+              "id": 570,
               "nodeType": "OverrideSpecifier",
               "overrides": [],
               "src": "271:8:3"
             },
             "parameters": {
-              "id": 548,
+              "id": 569,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "250:2:3"
             },
             "returnParameters": {
-              "id": 550,
+              "id": 571,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "281:0:3"
             },
-            "scope": 560,
+            "scope": 581,
             "src": "243:82:3",
             "stateMutability": "payable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 561,
+        "scope": 582,
         "src": "115:212:3"
       }
     ],
@@ -371,14 +371,14 @@
     "absolutePath": "/home/amxx/Work/Projects/NFWallets/solidity/contracts/core/CounterfactualTokenProxy.sol",
     "exportedSymbols": {
       "CounterfactualTokenProxy": [
-        560
+        581
       ]
     },
-    "id": 561,
+    "id": 582,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 538,
+        "id": 559,
         "literals": [
           "solidity",
           "^",
@@ -391,10 +391,10 @@
       {
         "absolutePath": "@iexec/solidity/contracts/Upgradeability/InitializableUpgradeabilityProxy.sol",
         "file": "@iexec/solidity/contracts/Upgradeability/InitializableUpgradeabilityProxy.sol",
-        "id": 539,
+        "id": 560,
         "nodeType": "ImportDirective",
-        "scope": 561,
-        "sourceUnit": 1237,
+        "scope": 582,
+        "sourceUnit": 1258,
         "src": "25:87:3",
         "symbolAliases": [],
         "unitAlias": ""
@@ -406,35 +406,35 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 540,
+              "id": 561,
               "name": "InitializableUpgradeabilityProxy",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1236,
+              "referencedDeclaration": 1257,
               "src": "152:32:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_InitializableUpgradeabilityProxy_$1236",
+                "typeIdentifier": "t_contract$_InitializableUpgradeabilityProxy_$1257",
                 "typeString": "contract InitializableUpgradeabilityProxy"
               }
             },
-            "id": 541,
+            "id": 562,
             "nodeType": "InheritanceSpecifier",
             "src": "152:32:3"
           }
         ],
         "contractDependencies": [
-          1181,
-          1236,
-          1288
+          1202,
+          1257,
+          1309
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 560,
+        "id": 581,
         "linearizedBaseContracts": [
-          560,
-          1236,
-          1181,
-          1288
+          581,
+          1257,
+          1202,
+          1309
         ],
         "name": "CounterfactualTokenProxy",
         "nodeType": "ContractDefinition",
@@ -442,22 +442,22 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 547,
+            "id": 568,
             "name": "Received",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 546,
+              "id": 567,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 543,
+                  "id": 564,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "from",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 547,
+                  "scope": 568,
                   "src": "203:20:3",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -466,7 +466,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 542,
+                    "id": 563,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "203:7:3",
@@ -481,13 +481,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 545,
+                  "id": 566,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "value",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 547,
+                  "scope": 568,
                   "src": "225:13:3",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -496,7 +496,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 544,
+                    "id": 565,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "225:7:3",
@@ -515,10 +515,10 @@
           },
           {
             "baseFunctions": [
-              1247
+              1268
             ],
             "body": {
-              "id": 558,
+              "id": 579,
               "nodeType": "Block",
               "src": "281:44:3",
               "statements": [
@@ -530,7 +530,7 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 552,
+                          "id": 573,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
@@ -541,7 +541,7 @@
                             "typeString": "msg"
                           }
                         },
-                        "id": 553,
+                        "id": 574,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -559,7 +559,7 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 554,
+                          "id": 575,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
@@ -570,7 +570,7 @@
                             "typeString": "msg"
                           }
                         },
-                        "id": 555,
+                        "id": 576,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -596,18 +596,18 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 551,
+                      "id": 572,
                       "name": "Received",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 547,
+                      "referencedDeclaration": 568,
                       "src": "290:8:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_uint256_$returns$__$",
                         "typeString": "function (address,uint256)"
                       }
                     },
-                    "id": 556,
+                    "id": 577,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -622,45 +622,45 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 557,
+                  "id": 578,
                   "nodeType": "EmitStatement",
                   "src": "285:36:3"
                 }
               ]
             },
             "documentation": null,
-            "id": 559,
+            "id": 580,
             "implemented": true,
             "kind": "receive",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "overrides": {
-              "id": 549,
+              "id": 570,
               "nodeType": "OverrideSpecifier",
               "overrides": [],
               "src": "271:8:3"
             },
             "parameters": {
-              "id": 548,
+              "id": 569,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "250:2:3"
             },
             "returnParameters": {
-              "id": 550,
+              "id": 571,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "281:0:3"
             },
-            "scope": 560,
+            "scope": 581,
             "src": "243:82:3",
             "stateMutability": "payable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 561,
+        "scope": 582,
         "src": "115:212:3"
       }
     ],
@@ -672,7 +672,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-05-12T13:38:00.510Z",
+  "updatedAt": "2020-05-13T21:03:30.119Z",
   "devdoc": {
     "methods": {
       "initialize(address,bytes)": {

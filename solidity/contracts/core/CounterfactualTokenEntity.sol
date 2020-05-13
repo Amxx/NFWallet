@@ -23,7 +23,13 @@ abstract contract CounterfactualTokenEntity is Context
 
 	modifier onlyOwner()
 	{
-		require(owner() == _msgSender(), 'caller is not the owner');
+		require(owner() == _msgSender(), 'caller is not authorized');
+		_;
+	}
+
+	modifier onlyOwnerOrRegistry()
+	{
+		require(owner() == _msgSender() || address(registry) == _msgSender(), 'caller is not authorized');
 		_;
 	}
 }

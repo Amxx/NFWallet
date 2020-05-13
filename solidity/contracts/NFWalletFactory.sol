@@ -35,18 +35,23 @@ contract NFWalletFactory is
 	function encodeInitializer(bytes32 _salt)
 	internal view returns (bytes memory)
 	{
-		return abi.encodeWithSignature('initialize(address,address)', address(this), trustedForwarder, _salt);
+		return abi.encodeWithSignature('initialize(address)', address(this), _salt);
 	}
 
 	function createWallet(address _owner, bytes32 _salt)
 	external payable returns (address)
 	{
+		// instanciate
 		address wallet = address(_mintCreate(_owner, encodeInitializer(_salt)));
+		// send value
 		if (msg.value > 0)
 		{
 			(bool success, bytes memory returndata) = payable(wallet).call{value: msg.value}('');
 			require(success, string(returndata));
 		}
+		// configure gsn (trustedForwarder might change between networks)
+		NFWallet(wallet).setForwarder(trustedForwarder);
+		// return address
 		return wallet;
 	}
 

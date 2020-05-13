@@ -37,10 +37,9 @@ contract NFWallet is
 		return BaseRelayRecipient._msgSender();
 	}
 
-	function initialize(address _registry, address _trustedForwarder)
-	public
+	function setForwarder(address _trustedForwarder)
+	external onlyOwnerOrRegistry()
 	{
-		CounterfactualTokenEntity.initialize(_registry);
 		trustedForwarder = _trustedForwarder;
 	}
 

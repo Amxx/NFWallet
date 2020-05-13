@@ -27,14 +27,14 @@
     "absolutePath": "/home/amxx/Work/Projects/NFWallets/solidity/contracts/tools/Transfer.sol",
     "exportedSymbols": {
       "Transfer": [
-        759
+        780
       ]
     },
-    "id": 760,
+    "id": 781,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 745,
+        "id": 766,
         "literals": [
           "solidity",
           "^",
@@ -51,16 +51,16 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 759,
+        "id": 780,
         "linearizedBaseContracts": [
-          759
+          780
         ],
         "name": "Transfer",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 757,
+              "id": 778,
               "nodeType": "Block",
               "src": "103:30:6",
               "statements": [
@@ -72,7 +72,7 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 753,
+                          "id": 774,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
@@ -83,7 +83,7 @@
                             "typeString": "msg"
                           }
                         },
-                        "id": 754,
+                        "id": 775,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -107,18 +107,18 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 750,
+                        "id": 771,
                         "name": "to",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 747,
+                        "referencedDeclaration": 768,
                         "src": "107:2:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address_payable",
                           "typeString": "address payable"
                         }
                       },
-                      "id": 752,
+                      "id": 773,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -132,7 +132,7 @@
                         "typeString": "function (uint256)"
                       }
                     },
-                    "id": 755,
+                    "id": 776,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -147,7 +147,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 756,
+                  "id": 777,
                   "nodeType": "ExpressionStatement",
                   "src": "107:22:6"
                 }
@@ -155,7 +155,7 @@
             },
             "documentation": null,
             "functionSelector": "1a695230",
-            "id": 758,
+            "id": 779,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -163,17 +163,17 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 748,
+              "id": 769,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 747,
+                  "id": 768,
                   "mutability": "mutable",
                   "name": "to",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 758,
+                  "scope": 779,
                   "src": "64:18:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -182,7 +182,7 @@
                     "typeString": "address payable"
                   },
                   "typeName": {
-                    "id": 746,
+                    "id": 767,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "64:15:6",
@@ -199,19 +199,19 @@
               "src": "63:20:6"
             },
             "returnParameters": {
-              "id": 749,
+              "id": 770,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "103:0:6"
             },
-            "scope": 759,
+            "scope": 780,
             "src": "46:87:6",
             "stateMutability": "payable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 760,
+        "scope": 781,
         "src": "25:110:6"
       }
     ],
@@ -221,14 +221,14 @@
     "absolutePath": "/home/amxx/Work/Projects/NFWallets/solidity/contracts/tools/Transfer.sol",
     "exportedSymbols": {
       "Transfer": [
-        759
+        780
       ]
     },
-    "id": 760,
+    "id": 781,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 745,
+        "id": 766,
         "literals": [
           "solidity",
           "^",
@@ -245,16 +245,16 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 759,
+        "id": 780,
         "linearizedBaseContracts": [
-          759
+          780
         ],
         "name": "Transfer",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 757,
+              "id": 778,
               "nodeType": "Block",
               "src": "103:30:6",
               "statements": [
@@ -266,7 +266,7 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 753,
+                          "id": 774,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
@@ -277,7 +277,7 @@
                             "typeString": "msg"
                           }
                         },
-                        "id": 754,
+                        "id": 775,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -301,18 +301,18 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 750,
+                        "id": 771,
                         "name": "to",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 747,
+                        "referencedDeclaration": 768,
                         "src": "107:2:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address_payable",
                           "typeString": "address payable"
                         }
                       },
-                      "id": 752,
+                      "id": 773,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -326,7 +326,7 @@
                         "typeString": "function (uint256)"
                       }
                     },
-                    "id": 755,
+                    "id": 776,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -341,7 +341,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 756,
+                  "id": 777,
                   "nodeType": "ExpressionStatement",
                   "src": "107:22:6"
                 }
@@ -349,7 +349,7 @@
             },
             "documentation": null,
             "functionSelector": "1a695230",
-            "id": 758,
+            "id": 779,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -357,17 +357,17 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 748,
+              "id": 769,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 747,
+                  "id": 768,
                   "mutability": "mutable",
                   "name": "to",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 758,
+                  "scope": 779,
                   "src": "64:18:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -376,7 +376,7 @@
                     "typeString": "address payable"
                   },
                   "typeName": {
-                    "id": 746,
+                    "id": 767,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "64:15:6",
@@ -393,19 +393,19 @@
               "src": "63:20:6"
             },
             "returnParameters": {
-              "id": 749,
+              "id": 770,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "103:0:6"
             },
-            "scope": 759,
+            "scope": 780,
             "src": "46:87:6",
             "stateMutability": "payable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 760,
+        "scope": 781,
         "src": "25:110:6"
       }
     ],
@@ -417,7 +417,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-05-12T13:55:16.514Z",
+  "updatedAt": "2020-05-13T21:07:44.356Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

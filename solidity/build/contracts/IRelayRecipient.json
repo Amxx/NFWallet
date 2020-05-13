@@ -27,14 +27,14 @@
     "absolutePath": "@opengsn/gsn/contracts/interfaces/IRelayRecipient.sol",
     "exportedSymbols": {
       "IRelayRecipient": [
-        1967
+        1988
       ]
     },
-    "id": 1968,
+    "id": 1989,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1953,
+        "id": 1974,
         "literals": [
           "solidity",
           "^",
@@ -50,15 +50,15 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
-          "id": 1954,
+          "id": 1975,
           "nodeType": "StructuredDocumentation",
           "src": "25:165:19",
           "text": "a contract must implement this interface in order to support relayed transaction.\nIt is better to inherit the BaseRelayRecipient as its implementation."
         },
         "fullyImplemented": false,
-        "id": 1967,
+        "id": 1988,
         "linearizedBaseContracts": [
-          1967
+          1988
         ],
         "name": "IRelayRecipient",
         "nodeType": "ContractDefinition",
@@ -66,13 +66,13 @@
           {
             "body": null,
             "documentation": {
-              "id": 1955,
+              "id": 1976,
               "nodeType": "StructuredDocumentation",
               "src": "232:198:19",
               "text": "return the forwarder we trust to forward relayed transactions to us.\nthe forwarder is required to verify the sender's signature, and verify\nthe call is not a replay."
             },
             "functionSelector": "ce1b815f",
-            "id": 1960,
+            "id": 1981,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -80,23 +80,23 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1956,
+              "id": 1977,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "463:2:19"
             },
             "returnParameters": {
-              "id": 1959,
+              "id": 1980,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1958,
+                  "id": 1979,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1960,
+                  "scope": 1981,
                   "src": "494:7:19",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -105,7 +105,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1957,
+                    "id": 1978,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "494:7:19",
@@ -121,7 +121,7 @@
               ],
               "src": "493:9:19"
             },
-            "scope": 1967,
+            "scope": 1988,
             "src": "435:68:19",
             "stateMutability": "view",
             "virtual": true,
@@ -130,12 +130,12 @@
           {
             "body": null,
             "documentation": {
-              "id": 1961,
+              "id": 1982,
               "nodeType": "StructuredDocumentation",
               "src": "509:290:19",
               "text": "return the sender of this call.\nif the call came through our trusted forwarder, then the real sender is appended as the last 20 bytes\nof the msg.data.\notherwise, return `msg.sender`\nshould be used in the contract anywhere instead of msg.sender"
             },
-            "id": 1966,
+            "id": 1987,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -143,23 +143,23 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1962,
+              "id": 1983,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "823:2:19"
             },
             "returnParameters": {
-              "id": 1965,
+              "id": 1986,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1964,
+                  "id": 1985,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1966,
+                  "scope": 1987,
                   "src": "857:15:19",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -168,7 +168,7 @@
                     "typeString": "address payable"
                   },
                   "typeName": {
-                    "id": 1963,
+                    "id": 1984,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "857:15:19",
@@ -184,14 +184,14 @@
               ],
               "src": "856:17:19"
             },
-            "scope": 1967,
+            "scope": 1988,
             "src": "804:70:19",
             "stateMutability": "view",
             "virtual": true,
             "visibility": "internal"
           }
         ],
-        "scope": 1968,
+        "scope": 1989,
         "src": "191:685:19"
       }
     ],
@@ -201,14 +201,14 @@
     "absolutePath": "@opengsn/gsn/contracts/interfaces/IRelayRecipient.sol",
     "exportedSymbols": {
       "IRelayRecipient": [
-        1967
+        1988
       ]
     },
-    "id": 1968,
+    "id": 1989,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1953,
+        "id": 1974,
         "literals": [
           "solidity",
           "^",
@@ -224,15 +224,15 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
-          "id": 1954,
+          "id": 1975,
           "nodeType": "StructuredDocumentation",
           "src": "25:165:19",
           "text": "a contract must implement this interface in order to support relayed transaction.\nIt is better to inherit the BaseRelayRecipient as its implementation."
         },
         "fullyImplemented": false,
-        "id": 1967,
+        "id": 1988,
         "linearizedBaseContracts": [
-          1967
+          1988
         ],
         "name": "IRelayRecipient",
         "nodeType": "ContractDefinition",
@@ -240,13 +240,13 @@
           {
             "body": null,
             "documentation": {
-              "id": 1955,
+              "id": 1976,
               "nodeType": "StructuredDocumentation",
               "src": "232:198:19",
               "text": "return the forwarder we trust to forward relayed transactions to us.\nthe forwarder is required to verify the sender's signature, and verify\nthe call is not a replay."
             },
             "functionSelector": "ce1b815f",
-            "id": 1960,
+            "id": 1981,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -254,23 +254,23 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1956,
+              "id": 1977,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "463:2:19"
             },
             "returnParameters": {
-              "id": 1959,
+              "id": 1980,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1958,
+                  "id": 1979,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1960,
+                  "scope": 1981,
                   "src": "494:7:19",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -279,7 +279,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1957,
+                    "id": 1978,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "494:7:19",
@@ -295,7 +295,7 @@
               ],
               "src": "493:9:19"
             },
-            "scope": 1967,
+            "scope": 1988,
             "src": "435:68:19",
             "stateMutability": "view",
             "virtual": true,
@@ -304,12 +304,12 @@
           {
             "body": null,
             "documentation": {
-              "id": 1961,
+              "id": 1982,
               "nodeType": "StructuredDocumentation",
               "src": "509:290:19",
               "text": "return the sender of this call.\nif the call came through our trusted forwarder, then the real sender is appended as the last 20 bytes\nof the msg.data.\notherwise, return `msg.sender`\nshould be used in the contract anywhere instead of msg.sender"
             },
-            "id": 1966,
+            "id": 1987,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -317,23 +317,23 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1962,
+              "id": 1983,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "823:2:19"
             },
             "returnParameters": {
-              "id": 1965,
+              "id": 1986,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1964,
+                  "id": 1985,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1966,
+                  "scope": 1987,
                   "src": "857:15:19",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -342,7 +342,7 @@
                     "typeString": "address payable"
                   },
                   "typeName": {
-                    "id": 1963,
+                    "id": 1984,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "857:15:19",
@@ -358,14 +358,14 @@
               ],
               "src": "856:17:19"
             },
-            "scope": 1967,
+            "scope": 1988,
             "src": "804:70:19",
             "stateMutability": "view",
             "virtual": true,
             "visibility": "internal"
           }
         ],
-        "scope": 1968,
+        "scope": 1989,
         "src": "191:685:19"
       }
     ],
@@ -377,7 +377,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-05-12T13:38:00.524Z",
+  "updatedAt": "2020-05-13T21:03:30.132Z",
   "devdoc": {
     "methods": {}
   },

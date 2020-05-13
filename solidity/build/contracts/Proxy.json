@@ -22,14 +22,14 @@
     "absolutePath": "@iexec/solidity/contracts/Upgradeability/Proxy.sol",
     "exportedSymbols": {
       "Proxy": [
-        1288
+        1309
       ]
     },
-    "id": 1289,
+    "id": 1310,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1238,
+        "id": 1259,
         "literals": [
           "solidity",
           "^",
@@ -45,22 +45,22 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
-          "id": 1239,
+          "id": 1260,
           "nodeType": "StructuredDocumentation",
           "src": "25:290:14",
           "text": "@title Proxy\n@dev Implements delegation of calls to other contracts, with proper\nforwarding of return values and bubbling of failures.\nIt defines a fallback function that delegates all calls to the address\nreturned by the abstract _implementation() internal function."
         },
         "fullyImplemented": false,
-        "id": 1288,
+        "id": 1309,
         "linearizedBaseContracts": [
-          1288
+          1309
         ],
         "name": "Proxy",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 1246,
+              "id": 1267,
               "nodeType": "Block",
               "src": "461:22:14",
               "statements": [
@@ -70,18 +70,18 @@
                     "arguments": [],
                     "expression": {
                       "argumentTypes": [],
-                      "id": 1243,
+                      "id": 1264,
                       "name": "_fallback",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1287,
+                      "referencedDeclaration": 1308,
                       "src": "467:9:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
                         "typeString": "function ()"
                       }
                     },
-                    "id": 1244,
+                    "id": 1265,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -96,19 +96,19 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1245,
+                  "id": 1266,
                   "nodeType": "ExpressionStatement",
                   "src": "467:11:14"
                 }
               ]
             },
             "documentation": {
-              "id": 1240,
+              "id": 1261,
               "nodeType": "StructuredDocumentation",
               "src": "344:79:14",
               "text": "@dev Receive function.\nImplemented entirely in `_fallback`."
             },
-            "id": 1247,
+            "id": 1268,
             "implemented": true,
             "kind": "receive",
             "modifiers": [],
@@ -116,18 +116,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1241,
+              "id": 1262,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "433:2:14"
             },
             "returnParameters": {
-              "id": 1242,
+              "id": 1263,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "461:0:14"
             },
-            "scope": 1288,
+            "scope": 1309,
             "src": "426:57:14",
             "stateMutability": "payable",
             "virtual": true,
@@ -135,7 +135,7 @@
           },
           {
             "body": {
-              "id": 1254,
+              "id": 1275,
               "nodeType": "Block",
               "src": "598:22:14",
               "statements": [
@@ -145,18 +145,18 @@
                     "arguments": [],
                     "expression": {
                       "argumentTypes": [],
-                      "id": 1251,
+                      "id": 1272,
                       "name": "_fallback",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1287,
+                      "referencedDeclaration": 1308,
                       "src": "604:9:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
                         "typeString": "function ()"
                       }
                     },
-                    "id": 1252,
+                    "id": 1273,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -171,19 +171,19 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1253,
+                  "id": 1274,
                   "nodeType": "ExpressionStatement",
                   "src": "604:11:14"
                 }
               ]
             },
             "documentation": {
-              "id": 1248,
+              "id": 1269,
               "nodeType": "StructuredDocumentation",
               "src": "487:80:14",
               "text": "@dev Fallback function.\nImplemented entirely in `_fallback`."
             },
-            "id": 1255,
+            "id": 1276,
             "implemented": true,
             "kind": "fallback",
             "modifiers": [],
@@ -191,18 +191,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1249,
+              "id": 1270,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "578:2:14"
             },
             "returnParameters": {
-              "id": 1250,
+              "id": 1271,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "598:0:14"
             },
-            "scope": 1288,
+            "scope": 1309,
             "src": "570:50:14",
             "stateMutability": "payable",
             "virtual": false,
@@ -211,12 +211,12 @@
           {
             "body": null,
             "documentation": {
-              "id": 1256,
+              "id": 1277,
               "nodeType": "StructuredDocumentation",
               "src": "624:62:14",
               "text": "@return impl The Address of the implementation."
             },
-            "id": 1261,
+            "id": 1282,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -224,23 +224,23 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1257,
+              "id": 1278,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "713:2:14"
             },
             "returnParameters": {
-              "id": 1260,
+              "id": 1281,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1259,
+                  "id": 1280,
                   "mutability": "mutable",
                   "name": "impl",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1261,
+                  "scope": 1282,
                   "src": "747:12:14",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -249,7 +249,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1258,
+                    "id": 1279,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "747:7:14",
@@ -265,7 +265,7 @@
               ],
               "src": "746:14:14"
             },
-            "scope": 1288,
+            "scope": 1309,
             "src": "689:72:14",
             "stateMutability": "view",
             "virtual": true,
@@ -273,7 +273,7 @@
           },
           {
             "body": {
-              "id": 1268,
+              "id": 1289,
               "nodeType": "Block",
               "src": "1099:691:14",
               "statements": [
@@ -537,26 +537,26 @@
                   "evmVersion": "istanbul",
                   "externalReferences": [
                     {
-                      "declaration": 1264,
+                      "declaration": 1285,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "1507:14:14",
                       "valueSize": 1
                     }
                   ],
-                  "id": 1267,
+                  "id": 1288,
                   "nodeType": "InlineAssembly",
                   "src": "1105:681:14"
                 }
               ]
             },
             "documentation": {
-              "id": 1262,
+              "id": 1283,
               "nodeType": "StructuredDocumentation",
               "src": "765:279:14",
               "text": "@dev Delegates execution to an implementation contract.\nThis is a low level function that doesn't return to its internal call site.\nIt will return to the external caller whatever the implementation returns.\n@param implementation Address to delegate."
             },
-            "id": 1269,
+            "id": 1290,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -564,17 +564,17 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1265,
+              "id": 1286,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1264,
+                  "id": 1285,
                   "mutability": "mutable",
                   "name": "implementation",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1269,
+                  "scope": 1290,
                   "src": "1066:22:14",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -583,7 +583,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1263,
+                    "id": 1284,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1066:7:14",
@@ -600,12 +600,12 @@
               "src": "1065:24:14"
             },
             "returnParameters": {
-              "id": 1266,
+              "id": 1287,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1099:0:14"
             },
-            "scope": 1288,
+            "scope": 1309,
             "src": "1047:743:14",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -613,18 +613,18 @@
           },
           {
             "body": {
-              "id": 1273,
+              "id": 1294,
               "nodeType": "Block",
               "src": "2041:5:14",
               "statements": []
             },
             "documentation": {
-              "id": 1270,
+              "id": 1291,
               "nodeType": "StructuredDocumentation",
               "src": "1794:202:14",
               "text": "@dev Function that is run as the first thing in the fallback function.\nCan be redefined in derived contracts to add functionality.\nRedefinitions must call super._willFallback()."
             },
-            "id": 1274,
+            "id": 1295,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -632,18 +632,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1271,
+              "id": 1292,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "2021:2:14"
             },
             "returnParameters": {
-              "id": 1272,
+              "id": 1293,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "2041:0:14"
             },
-            "scope": 1288,
+            "scope": 1309,
             "src": "1999:47:14",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -651,7 +651,7 @@
           },
           {
             "body": {
-              "id": 1286,
+              "id": 1307,
               "nodeType": "Block",
               "src": "2171:60:14",
               "statements": [
@@ -661,18 +661,18 @@
                     "arguments": [],
                     "expression": {
                       "argumentTypes": [],
-                      "id": 1278,
+                      "id": 1299,
                       "name": "_willFallback",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1274,
+                      "referencedDeclaration": 1295,
                       "src": "2177:13:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
                         "typeString": "function ()"
                       }
                     },
-                    "id": 1279,
+                    "id": 1300,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -687,7 +687,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1280,
+                  "id": 1301,
                   "nodeType": "ExpressionStatement",
                   "src": "2177:15:14"
                 },
@@ -700,18 +700,18 @@
                         "arguments": [],
                         "expression": {
                           "argumentTypes": [],
-                          "id": 1282,
+                          "id": 1303,
                           "name": "_implementation",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1261,
+                          "referencedDeclaration": 1282,
                           "src": "2208:15:14",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
                             "typeString": "function () view returns (address)"
                           }
                         },
-                        "id": 1283,
+                        "id": 1304,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -734,18 +734,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 1281,
+                      "id": 1302,
                       "name": "_delegate",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1269,
+                      "referencedDeclaration": 1290,
                       "src": "2198:9:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 1284,
+                    "id": 1305,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -760,19 +760,19 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1285,
+                  "id": 1306,
                   "nodeType": "ExpressionStatement",
                   "src": "2198:28:14"
                 }
               ]
             },
             "documentation": {
-              "id": 1275,
+              "id": 1296,
               "nodeType": "StructuredDocumentation",
               "src": "2050:88:14",
               "text": "@dev fallback implementation.\nExtracted to enable manual triggering."
             },
-            "id": 1287,
+            "id": 1308,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -780,25 +780,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1276,
+              "id": 1297,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "2159:2:14"
             },
             "returnParameters": {
-              "id": 1277,
+              "id": 1298,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "2171:0:14"
             },
-            "scope": 1288,
+            "scope": 1309,
             "src": "2141:90:14",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 1289,
+        "scope": 1310,
         "src": "316:1917:14"
       }
     ],
@@ -808,14 +808,14 @@
     "absolutePath": "@iexec/solidity/contracts/Upgradeability/Proxy.sol",
     "exportedSymbols": {
       "Proxy": [
-        1288
+        1309
       ]
     },
-    "id": 1289,
+    "id": 1310,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1238,
+        "id": 1259,
         "literals": [
           "solidity",
           "^",
@@ -831,22 +831,22 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
-          "id": 1239,
+          "id": 1260,
           "nodeType": "StructuredDocumentation",
           "src": "25:290:14",
           "text": "@title Proxy\n@dev Implements delegation of calls to other contracts, with proper\nforwarding of return values and bubbling of failures.\nIt defines a fallback function that delegates all calls to the address\nreturned by the abstract _implementation() internal function."
         },
         "fullyImplemented": false,
-        "id": 1288,
+        "id": 1309,
         "linearizedBaseContracts": [
-          1288
+          1309
         ],
         "name": "Proxy",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 1246,
+              "id": 1267,
               "nodeType": "Block",
               "src": "461:22:14",
               "statements": [
@@ -856,18 +856,18 @@
                     "arguments": [],
                     "expression": {
                       "argumentTypes": [],
-                      "id": 1243,
+                      "id": 1264,
                       "name": "_fallback",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1287,
+                      "referencedDeclaration": 1308,
                       "src": "467:9:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
                         "typeString": "function ()"
                       }
                     },
-                    "id": 1244,
+                    "id": 1265,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -882,19 +882,19 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1245,
+                  "id": 1266,
                   "nodeType": "ExpressionStatement",
                   "src": "467:11:14"
                 }
               ]
             },
             "documentation": {
-              "id": 1240,
+              "id": 1261,
               "nodeType": "StructuredDocumentation",
               "src": "344:79:14",
               "text": "@dev Receive function.\nImplemented entirely in `_fallback`."
             },
-            "id": 1247,
+            "id": 1268,
             "implemented": true,
             "kind": "receive",
             "modifiers": [],
@@ -902,18 +902,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1241,
+              "id": 1262,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "433:2:14"
             },
             "returnParameters": {
-              "id": 1242,
+              "id": 1263,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "461:0:14"
             },
-            "scope": 1288,
+            "scope": 1309,
             "src": "426:57:14",
             "stateMutability": "payable",
             "virtual": true,
@@ -921,7 +921,7 @@
           },
           {
             "body": {
-              "id": 1254,
+              "id": 1275,
               "nodeType": "Block",
               "src": "598:22:14",
               "statements": [
@@ -931,18 +931,18 @@
                     "arguments": [],
                     "expression": {
                       "argumentTypes": [],
-                      "id": 1251,
+                      "id": 1272,
                       "name": "_fallback",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1287,
+                      "referencedDeclaration": 1308,
                       "src": "604:9:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
                         "typeString": "function ()"
                       }
                     },
-                    "id": 1252,
+                    "id": 1273,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -957,19 +957,19 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1253,
+                  "id": 1274,
                   "nodeType": "ExpressionStatement",
                   "src": "604:11:14"
                 }
               ]
             },
             "documentation": {
-              "id": 1248,
+              "id": 1269,
               "nodeType": "StructuredDocumentation",
               "src": "487:80:14",
               "text": "@dev Fallback function.\nImplemented entirely in `_fallback`."
             },
-            "id": 1255,
+            "id": 1276,
             "implemented": true,
             "kind": "fallback",
             "modifiers": [],
@@ -977,18 +977,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1249,
+              "id": 1270,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "578:2:14"
             },
             "returnParameters": {
-              "id": 1250,
+              "id": 1271,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "598:0:14"
             },
-            "scope": 1288,
+            "scope": 1309,
             "src": "570:50:14",
             "stateMutability": "payable",
             "virtual": false,
@@ -997,12 +997,12 @@
           {
             "body": null,
             "documentation": {
-              "id": 1256,
+              "id": 1277,
               "nodeType": "StructuredDocumentation",
               "src": "624:62:14",
               "text": "@return impl The Address of the implementation."
             },
-            "id": 1261,
+            "id": 1282,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -1010,23 +1010,23 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1257,
+              "id": 1278,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "713:2:14"
             },
             "returnParameters": {
-              "id": 1260,
+              "id": 1281,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1259,
+                  "id": 1280,
                   "mutability": "mutable",
                   "name": "impl",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1261,
+                  "scope": 1282,
                   "src": "747:12:14",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1035,7 +1035,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1258,
+                    "id": 1279,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "747:7:14",
@@ -1051,7 +1051,7 @@
               ],
               "src": "746:14:14"
             },
-            "scope": 1288,
+            "scope": 1309,
             "src": "689:72:14",
             "stateMutability": "view",
             "virtual": true,
@@ -1059,7 +1059,7 @@
           },
           {
             "body": {
-              "id": 1268,
+              "id": 1289,
               "nodeType": "Block",
               "src": "1099:691:14",
               "statements": [
@@ -1323,26 +1323,26 @@
                   "evmVersion": "istanbul",
                   "externalReferences": [
                     {
-                      "declaration": 1264,
+                      "declaration": 1285,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "1507:14:14",
                       "valueSize": 1
                     }
                   ],
-                  "id": 1267,
+                  "id": 1288,
                   "nodeType": "InlineAssembly",
                   "src": "1105:681:14"
                 }
               ]
             },
             "documentation": {
-              "id": 1262,
+              "id": 1283,
               "nodeType": "StructuredDocumentation",
               "src": "765:279:14",
               "text": "@dev Delegates execution to an implementation contract.\nThis is a low level function that doesn't return to its internal call site.\nIt will return to the external caller whatever the implementation returns.\n@param implementation Address to delegate."
             },
-            "id": 1269,
+            "id": 1290,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -1350,17 +1350,17 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1265,
+              "id": 1286,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1264,
+                  "id": 1285,
                   "mutability": "mutable",
                   "name": "implementation",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1269,
+                  "scope": 1290,
                   "src": "1066:22:14",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1369,7 +1369,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1263,
+                    "id": 1284,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1066:7:14",
@@ -1386,12 +1386,12 @@
               "src": "1065:24:14"
             },
             "returnParameters": {
-              "id": 1266,
+              "id": 1287,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1099:0:14"
             },
-            "scope": 1288,
+            "scope": 1309,
             "src": "1047:743:14",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -1399,18 +1399,18 @@
           },
           {
             "body": {
-              "id": 1273,
+              "id": 1294,
               "nodeType": "Block",
               "src": "2041:5:14",
               "statements": []
             },
             "documentation": {
-              "id": 1270,
+              "id": 1291,
               "nodeType": "StructuredDocumentation",
               "src": "1794:202:14",
               "text": "@dev Function that is run as the first thing in the fallback function.\nCan be redefined in derived contracts to add functionality.\nRedefinitions must call super._willFallback()."
             },
-            "id": 1274,
+            "id": 1295,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -1418,18 +1418,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1271,
+              "id": 1292,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "2021:2:14"
             },
             "returnParameters": {
-              "id": 1272,
+              "id": 1293,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "2041:0:14"
             },
-            "scope": 1288,
+            "scope": 1309,
             "src": "1999:47:14",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -1437,7 +1437,7 @@
           },
           {
             "body": {
-              "id": 1286,
+              "id": 1307,
               "nodeType": "Block",
               "src": "2171:60:14",
               "statements": [
@@ -1447,18 +1447,18 @@
                     "arguments": [],
                     "expression": {
                       "argumentTypes": [],
-                      "id": 1278,
+                      "id": 1299,
                       "name": "_willFallback",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1274,
+                      "referencedDeclaration": 1295,
                       "src": "2177:13:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
                         "typeString": "function ()"
                       }
                     },
-                    "id": 1279,
+                    "id": 1300,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1473,7 +1473,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1280,
+                  "id": 1301,
                   "nodeType": "ExpressionStatement",
                   "src": "2177:15:14"
                 },
@@ -1486,18 +1486,18 @@
                         "arguments": [],
                         "expression": {
                           "argumentTypes": [],
-                          "id": 1282,
+                          "id": 1303,
                           "name": "_implementation",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1261,
+                          "referencedDeclaration": 1282,
                           "src": "2208:15:14",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
                             "typeString": "function () view returns (address)"
                           }
                         },
-                        "id": 1283,
+                        "id": 1304,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1520,18 +1520,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 1281,
+                      "id": 1302,
                       "name": "_delegate",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1269,
+                      "referencedDeclaration": 1290,
                       "src": "2198:9:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 1284,
+                    "id": 1305,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1546,19 +1546,19 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1285,
+                  "id": 1306,
                   "nodeType": "ExpressionStatement",
                   "src": "2198:28:14"
                 }
               ]
             },
             "documentation": {
-              "id": 1275,
+              "id": 1296,
               "nodeType": "StructuredDocumentation",
               "src": "2050:88:14",
               "text": "@dev fallback implementation.\nExtracted to enable manual triggering."
             },
-            "id": 1287,
+            "id": 1308,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -1566,25 +1566,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1276,
+              "id": 1297,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "2159:2:14"
             },
             "returnParameters": {
-              "id": 1277,
+              "id": 1298,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "2171:0:14"
             },
-            "scope": 1288,
+            "scope": 1309,
             "src": "2141:90:14",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 1289,
+        "scope": 1310,
         "src": "316:1917:14"
       }
     ],
@@ -1596,7 +1596,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-05-12T13:38:00.519Z",
+  "updatedAt": "2020-05-13T21:03:30.127Z",
   "devdoc": {
     "details": "Implements delegation of calls to other contracts, with proper forwarding of return values and bubbling of failures. It defines a fallback function that delegates all calls to the address returned by the abstract _implementation() internal function.",
     "methods": {},
