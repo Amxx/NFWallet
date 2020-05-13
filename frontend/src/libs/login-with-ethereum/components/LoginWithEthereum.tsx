@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { MDBIcon, MDBInput, MDBModal, MDBModalBody } from 'mdbreact';
+import { MDBIcon, MDBInput, MDBInputGroup, MDBModal, MDBModalBody } from 'mdbreact';
 
 import { ENSLoginSDK, types } from '@enslogin/sdk';
 // import WalletConnectProvider from '@walletconnect/web3-provider';
@@ -27,6 +27,7 @@ declare global
 export interface Props
 {
 	config        : types.config;
+	networks     ?: [{ name: string, endpoint?: string }];
 	connect      ?: (provider: types.provider) => void;
 	disconnect   ?: () => void;
 	noCache      ?: boolean;
@@ -332,12 +333,29 @@ export class LoginWithEthereum extends React.Component<Props, State>
 						{
 							!this.state.loading &&
 							<form onSubmit={ this.submit }>
-								<MDBInput outline name='username' label='username' className='m-0'>
-									<MDBIcon icon='qrcode' className='input-embeded pointer-hover text-muted' onClick={ this.walletconnect }/>
-									<small className='form-text text-muted ml-1'>
-										Enter your username and press [enter].
-									</small>
-								</MDBInput>
+								<div className='d-flex'>
+									{
+										this.props.networks &&
+											<select
+												className='md-form md-outline'
+												defaultValue={ this.props.config.provider && this.props.config.provider.network || '' }
+												onChange={ (ev) => {
+													this.props.config.provider = this.props.config.provider || {};
+													this.props.config.provider.network = ev.target.value;
+												}}
+											>
+											{
+												this.props.networks.map(({name, endpoint}, i) => <option key={i} value={endpoint||name}>{name}</option>)
+											}
+											</select>
+									}
+									<MDBInput outline name='username' label='username' className='m-0'>
+										<MDBIcon icon='qrcode' className='input-embeded pointer-hover text-muted' onClick={ this.walletconnect }/>
+									</MDBInput>
+								</div>
+								<small className='form-text text-muted ml-1'>
+									Enter your username and press [enter].
+								</small>
 							</form>
 						}
 						{
