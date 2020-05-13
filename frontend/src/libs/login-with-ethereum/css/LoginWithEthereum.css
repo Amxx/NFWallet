@@ -57,6 +57,10 @@ code
 	border-radius: .25em .25em 0em 0em;
 	background-color: rgb(245, 245, 245);
 }
+#LoginWithEthereum-Modal .md-form.md-outline
+{
+	margin-bottom: 0;
+}
 #LoginWithEthereum-Modal div.md-form.md-outline
 {
 	width: 100%;
