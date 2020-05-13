@@ -17,10 +17,14 @@ const MintWallet = (props) =>
 {
 	const [ open, setOpen ] = React.useState(false);
 	const [ full, setFull ] = React.useState(!!props.advanced);
-	const [ addr, setAddr ] = React.useState(props.services.accounts[0]);
+	const [ addr, setAddr ] = React.useState(null);
 	const [ seed, setSeed ] = React.useState('');
 	const toggle     = () => setOpen(!open);
 	const toggleFull = () => setFull(!full);
+
+	React.useEffect(() => {
+		setAddr(props.services.accounts[0])
+	}, [props.services.accounts]);
 
 	const handleSubmit = (ev) =>
 	{

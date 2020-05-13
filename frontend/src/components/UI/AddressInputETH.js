@@ -46,6 +46,14 @@ class AddressInputETH extends EthereumReactComponents.AddressInput
 		this.updateIcon(this.state.addr)
 	}
 
+	componentWillReceiveProps(newprops)
+	{
+		if (newprops.value || newprops.defaultValue)
+		{
+			this.setAddr(newprops.value || newprops.defaultValue)
+		}
+	}
+
 	async updateIconENS(value)
 	{
 		try

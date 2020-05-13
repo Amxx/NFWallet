@@ -107,6 +107,7 @@ const Core = () =>
 				disconnect   = { disconnect                              }
 				startVisible = { true                                    }
 				noInjected   = { false                                   }
+				networks     = { Object.values(CONFIG.networks).map(({ name, endpoint }) => ({ name, endpoint })) }
 			/>
 			{
 				provider &&

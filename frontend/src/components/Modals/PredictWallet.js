@@ -17,10 +17,14 @@ import NFWalletFactory from '../../abi/NFWalletFactory.json';
 const PredictWallet = (props) =>
 {
 	const [ open, setOpen ] = React.useState(false);
-	const [ addr, setAddr ] = React.useState(props.services.accounts[0]);
+	const [ addr, setAddr ] = React.useState(null);
 	const [ seed, setSeed ] = React.useState('');
 	const [ pred, setPred ] = React.useState('');
 	const toggle = () => setOpen(!open);
+
+	React.useEffect(() => {
+		setAddr(props.services.accounts[0])
+	}, [props.services.accounts]);
 
 	React.useEffect(() => {
 		try
