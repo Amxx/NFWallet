@@ -33,6 +33,14 @@
 						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
 						"address":   "0xc778417E063141139Fce010982780140Aa0cD5Ab"
 					},
+					"BAT":
+					{
+						"symbol":    "BAT",
+						"name":      "Basic Attention Token",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0D8775F648430679A709E98d2b0Cb6250d2887EF/logo.png",
+						"address":   "0xDb0040451F373949A4Be60dcd7b6B8D6E42658B6"
+					},
 					"DAI-A":
 					{
 						"symbol":    "DAI-A",
@@ -61,6 +69,7 @@
 				"uniswap":
 				{
 					"ETH":   true,
+					"BAT":   true,
 					"DAI-A": true,
 					"pBTC":  true
 				},
@@ -100,6 +109,14 @@
 						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
 						"address":   "0xc778417E063141139Fce010982780140Aa0cD5Ab"
 					},
+					"BAT":
+					{
+						"symbol":    "BAT",
+						"name":      "Basic Attention Token",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0D8775F648430679A709E98d2b0Cb6250d2887EF/logo.png",
+						"address":   "0xbF7A7169562078c96f0eC1A8aFD6aE50f12e5A99"
+					},
 					"DAI":
 					{
 						"symbol":    "DAI",
@@ -136,6 +153,7 @@
 				"uniswap":
 				{
 					"ETH": true,
+					"BAT": true,
 					"DAI": true,
 					"MKR": true
 				},
@@ -186,7 +204,6 @@
 				"uniswap":
 				{
 					"ETH":  true,
-					"USDT": true,
 					"RLC":  true
 				},
 				"compound":
@@ -220,13 +237,40 @@
 						"name":      "Dai Stablecoin",
 						"decimals":  18,
 						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
-						"address":   "0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD"
+						"address":   "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa"
+					},
+					"USDC":
+					{
+						"symbol":    "USDC",
+						"name":      "USD Coin",
+						"decimals":  6,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+						"address":   "0xe22da380ee6B445bb8273C81944ADEB6E8450422"
+					},
+					"WBTC":
+					{
+						"symbol":    "WBTC",
+						"name":      "Wrapped Bitcoin",
+						"decimals":  8,
+						"img":       "https://s2.coinmarketcap.com/static/img/coins/64x64/3717.png",
+						"address":   "0x595f8DaB94b9c718cbf5c693cD539Fd00b286D3d"
+					},
+					"LINK":
+					{
+						"symbol":    "LINK",
+						"name":      "Chainlink",
+						"decimals":  18,
+						"img":       "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png",
+						"address":   "0x61eB5a373c4Ec78523602583c049d8563d2C7BCD"
 					}
 				},
 				"uniswap":
 				{
-					"ETH": true,
-					"DAI": true
+					"ETH":  true,
+					"DAI":  true,
+					"USDC": true,
+					"WBTC": true,
+					"LINK": true
 				},
 				"compound":
 				{

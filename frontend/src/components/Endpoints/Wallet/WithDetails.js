@@ -193,7 +193,7 @@ const WithDetails = (props) =>
 				})
 			).then(tokens => setTokens(
 				tokens
-					.sort((t1, t2) => !t1.isEth && (t2.isEth || t1.balance < t2.balance)) // with ether, then by balance
+					.sort((t1, t2) => !t1.isEth && (t2.isEth || t1.symbol > t2.symbol)) // with ether, then by balance
 					.reduce((acc, token) => ({ ...acc, [token.symbol]: token }), {})
 			));
 
