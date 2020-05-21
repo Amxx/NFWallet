@@ -5,22 +5,22 @@
   "bytecode": "0x60566023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212204652bc7cf0af1af2be709737fc05e81644ee2703808e446fab82d0be989a4c5f64736f6c63430006060033",
   "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212204652bc7cf0af1af2be709737fc05e81644ee2703808e446fab82d0be989a4c5f64736f6c63430006060033",
   "immutableReferences": {},
-  "sourceMap": "606:1058:17:-:0;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
-  "deployedSourceMap": "606:1058:17:-:0;;;;;;12:1:-1;9;2:12",
+  "sourceMap": "606:1058:18:-:0;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
+  "deployedSourceMap": "606:1058:18:-:0;;;;;;12:1:-1;9;2:12",
   "source": "/*\n\n  Copyright 2020 ZeroEx Intl.\n\n  Licensed under the Apache License, Version 2.0 (the \"License\");\n  you may not use this file except in compliance with the License.\n  You may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing, software\n  distributed under the License is distributed on an \"AS IS\" BASIS,\n  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n  See the License for the specific language governing permissions and\n  limitations under the License.\n\n*/\n\npragma solidity ^0.6.2;\n\n\nlibrary LibRichErrorsV06 {\n\n    // bytes4(keccak256(\"Error(string)\"))\n    bytes4 internal constant STANDARD_ERROR_SELECTOR = 0x08c379a0;\n\n    // solhint-disable func-name-mixedcase\n    /// @dev ABI encode a standard, string revert error payload.\n    ///      This is the same payload that would be included by a `revert(string)`\n    ///      solidity statement. It has the function signature `Error(string)`.\n    /// @param message The error string.\n    /// @return The ABI encoded error.\n    function StandardError(string memory message)\n        internal\n        pure\n        returns (bytes memory)\n    {\n        return abi.encodeWithSelector(\n            STANDARD_ERROR_SELECTOR,\n            bytes(message)\n        );\n    }\n    // solhint-enable func-name-mixedcase\n\n    /// @dev Reverts an encoded rich revert reason `errorData`.\n    /// @param errorData ABI encoded error data.\n    function rrevert(bytes memory errorData)\n        internal\n        pure\n    {\n        assembly {\n            revert(add(errorData, 0x20), mload(errorData))\n        }\n    }\n}\n",
   "sourcePath": "@opengsn/gsn/contracts/0x/errors/LibRichErrorsV06.sol",
   "ast": {
     "absolutePath": "@opengsn/gsn/contracts/0x/errors/LibRichErrorsV06.sol",
     "exportedSymbols": {
       "LibRichErrorsV06": [
-        1894
+        1918
       ]
     },
-    "id": 1895,
+    "id": 1919,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1864,
+        "id": 1888,
         "literals": [
           "solidity",
           "^",
@@ -28,7 +28,7 @@
           ".2"
         ],
         "nodeType": "PragmaDirective",
-        "src": "580:23:17"
+        "src": "580:23:18"
       },
       {
         "abstract": false,
@@ -37,22 +37,22 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1894,
+        "id": 1918,
         "linearizedBaseContracts": [
-          1894
+          1918
         ],
         "name": "LibRichErrorsV06",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": true,
-            "id": 1867,
+            "id": 1891,
             "mutability": "constant",
             "name": "STANDARD_ERROR_SELECTOR",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 1894,
-            "src": "680:61:17",
+            "scope": 1918,
+            "src": "680:61:18",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -60,10 +60,10 @@
               "typeString": "bytes4"
             },
             "typeName": {
-              "id": 1865,
+              "id": 1889,
               "name": "bytes4",
               "nodeType": "ElementaryTypeName",
-              "src": "680:6:17",
+              "src": "680:6:18",
               "typeDescriptions": {
                 "typeIdentifier": "t_bytes4",
                 "typeString": "bytes4"
@@ -72,14 +72,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30783038633337396130",
-              "id": 1866,
+              "id": 1890,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "731:10:17",
+              "src": "731:10:18",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_147028384_by_1",
@@ -91,9 +91,9 @@
           },
           {
             "body": {
-              "id": 1884,
+              "id": 1908,
               "nodeType": "Block",
-              "src": "1210:121:17",
+              "src": "1210:121:18",
               "statements": [
                 {
                   "expression": {
@@ -101,12 +101,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 1877,
+                        "id": 1901,
                         "name": "STANDARD_ERROR_SELECTOR",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1867,
-                        "src": "1263:23:17",
+                        "referencedDeclaration": 1891,
+                        "src": "1263:23:18",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes4",
                           "typeString": "bytes4"
@@ -117,12 +117,12 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 1880,
+                            "id": 1904,
                             "name": "message",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1870,
-                            "src": "1306:7:17",
+                            "referencedDeclaration": 1894,
+                            "src": "1306:7:18",
                             "typeDescriptions": {
                               "typeIdentifier": "t_string_memory_ptr",
                               "typeString": "string memory"
@@ -136,29 +136,29 @@
                               "typeString": "string memory"
                             }
                           ],
-                          "id": 1879,
+                          "id": 1903,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "lValueRequested": false,
                           "nodeType": "ElementaryTypeNameExpression",
-                          "src": "1300:5:17",
+                          "src": "1300:5:18",
                           "typeDescriptions": {
                             "typeIdentifier": "t_type$_t_bytes_storage_ptr_$",
                             "typeString": "type(bytes storage pointer)"
                           },
                           "typeName": {
-                            "id": 1878,
+                            "id": 1902,
                             "name": "bytes",
                             "nodeType": "ElementaryTypeName",
-                            "src": "1300:5:17",
+                            "src": "1300:5:18",
                             "typeDescriptions": {
                               "typeIdentifier": null,
                               "typeString": null
                             }
                           }
                         },
-                        "id": 1881,
+                        "id": 1905,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -166,7 +166,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1300:14:17",
+                        "src": "1300:14:18",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes_memory_ptr",
@@ -187,18 +187,18 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 1875,
+                        "id": 1899,
                         "name": "abi",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": -1,
-                        "src": "1227:3:17",
+                        "src": "1227:3:18",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_abi",
                           "typeString": "abi"
                         }
                       },
-                      "id": 1876,
+                      "id": 1900,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -206,13 +206,13 @@
                       "memberName": "encodeWithSelector",
                       "nodeType": "MemberAccess",
                       "referencedDeclaration": null,
-                      "src": "1227:22:17",
+                      "src": "1227:22:18",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_abiencodewithselector_pure$_t_bytes4_$returns$_t_bytes_memory_ptr_$",
                         "typeString": "function (bytes4) pure returns (bytes memory)"
                       }
                     },
-                    "id": 1882,
+                    "id": 1906,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -220,27 +220,27 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1227:97:17",
+                    "src": "1227:97:18",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_memory_ptr",
                       "typeString": "bytes memory"
                     }
                   },
-                  "functionReturnParameters": 1874,
-                  "id": 1883,
+                  "functionReturnParameters": 1898,
+                  "id": 1907,
                   "nodeType": "Return",
-                  "src": "1220:104:17"
+                  "src": "1220:104:18"
                 }
               ]
             },
             "documentation": {
-              "id": 1868,
+              "id": 1892,
               "nodeType": "StructuredDocumentation",
-              "src": "791:303:17",
+              "src": "791:303:18",
               "text": "@dev ABI encode a standard, string revert error payload.\n      This is the same payload that would be included by a `revert(string)`\n      solidity statement. It has the function signature `Error(string)`.\n @param message The error string.\n @return The ABI encoded error."
             },
-            "id": 1885,
+            "id": 1909,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -248,18 +248,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1871,
+              "id": 1895,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1870,
+                  "id": 1894,
                   "mutability": "mutable",
                   "name": "message",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1885,
-                  "src": "1122:21:17",
+                  "scope": 1909,
+                  "src": "1122:21:18",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -267,10 +267,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 1869,
+                    "id": 1893,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1122:6:17",
+                    "src": "1122:6:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -280,21 +280,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1121:23:17"
+              "src": "1121:23:18"
             },
             "returnParameters": {
-              "id": 1874,
+              "id": 1898,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1873,
+                  "id": 1897,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1885,
-                  "src": "1192:12:17",
+                  "scope": 1909,
+                  "src": "1192:12:18",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -302,10 +302,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 1872,
+                    "id": 1896,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1192:5:17",
+                    "src": "1192:5:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -315,24 +315,24 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1191:14:17"
+              "src": "1191:14:18"
             },
-            "scope": 1894,
-            "src": "1099:232:17",
+            "scope": 1918,
+            "src": "1099:232:18",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 1892,
+              "id": 1916,
               "nodeType": "Block",
-              "src": "1567:95:17",
+              "src": "1567:95:18",
               "statements": [
                 {
                   "AST": {
                     "nodeType": "YulBlock",
-                    "src": "1586:70:17",
+                    "src": "1586:70:18",
                     "statements": [
                       {
                         "expression": {
@@ -342,12 +342,12 @@
                                 {
                                   "name": "errorData",
                                   "nodeType": "YulIdentifier",
-                                  "src": "1611:9:17"
+                                  "src": "1611:9:18"
                                 },
                                 {
                                   "kind": "number",
                                   "nodeType": "YulLiteral",
-                                  "src": "1622:4:17",
+                                  "src": "1622:4:18",
                                   "type": "",
                                   "value": "0x20"
                                 }
@@ -355,71 +355,71 @@
                               "functionName": {
                                 "name": "add",
                                 "nodeType": "YulIdentifier",
-                                "src": "1607:3:17"
+                                "src": "1607:3:18"
                               },
                               "nodeType": "YulFunctionCall",
-                              "src": "1607:20:17"
+                              "src": "1607:20:18"
                             },
                             {
                               "arguments": [
                                 {
                                   "name": "errorData",
                                   "nodeType": "YulIdentifier",
-                                  "src": "1635:9:17"
+                                  "src": "1635:9:18"
                                 }
                               ],
                               "functionName": {
                                 "name": "mload",
                                 "nodeType": "YulIdentifier",
-                                "src": "1629:5:17"
+                                "src": "1629:5:18"
                               },
                               "nodeType": "YulFunctionCall",
-                              "src": "1629:16:17"
+                              "src": "1629:16:18"
                             }
                           ],
                           "functionName": {
                             "name": "revert",
                             "nodeType": "YulIdentifier",
-                            "src": "1600:6:17"
+                            "src": "1600:6:18"
                           },
                           "nodeType": "YulFunctionCall",
-                          "src": "1600:46:17"
+                          "src": "1600:46:18"
                         },
                         "nodeType": "YulExpressionStatement",
-                        "src": "1600:46:17"
+                        "src": "1600:46:18"
                       }
                     ]
                   },
                   "evmVersion": "istanbul",
                   "externalReferences": [
                     {
-                      "declaration": 1888,
+                      "declaration": 1912,
                       "isOffset": false,
                       "isSlot": false,
-                      "src": "1611:9:17",
+                      "src": "1611:9:18",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 1888,
+                      "declaration": 1912,
                       "isOffset": false,
                       "isSlot": false,
-                      "src": "1635:9:17",
+                      "src": "1635:9:18",
                       "valueSize": 1
                     }
                   ],
-                  "id": 1891,
+                  "id": 1915,
                   "nodeType": "InlineAssembly",
-                  "src": "1577:79:17"
+                  "src": "1577:79:18"
                 }
               ]
             },
             "documentation": {
-              "id": 1886,
+              "id": 1910,
               "nodeType": "StructuredDocumentation",
-              "src": "1379:108:17",
+              "src": "1379:108:18",
               "text": "@dev Reverts an encoded rich revert reason `errorData`.\n @param errorData ABI encoded error data."
             },
-            "id": 1893,
+            "id": 1917,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -427,18 +427,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1889,
+              "id": 1913,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1888,
+                  "id": 1912,
                   "mutability": "mutable",
                   "name": "errorData",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1893,
-                  "src": "1509:22:17",
+                  "scope": 1917,
+                  "src": "1509:22:18",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -446,10 +446,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 1887,
+                    "id": 1911,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1509:5:17",
+                    "src": "1509:5:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -459,39 +459,39 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1508:24:17"
+              "src": "1508:24:18"
             },
             "returnParameters": {
-              "id": 1890,
+              "id": 1914,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1567:0:17"
+              "src": "1567:0:18"
             },
-            "scope": 1894,
-            "src": "1492:170:17",
+            "scope": 1918,
+            "src": "1492:170:18",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 1895,
-        "src": "606:1058:17"
+        "scope": 1919,
+        "src": "606:1058:18"
       }
     ],
-    "src": "580:1085:17"
+    "src": "580:1085:18"
   },
   "legacyAST": {
     "absolutePath": "@opengsn/gsn/contracts/0x/errors/LibRichErrorsV06.sol",
     "exportedSymbols": {
       "LibRichErrorsV06": [
-        1894
+        1918
       ]
     },
-    "id": 1895,
+    "id": 1919,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1864,
+        "id": 1888,
         "literals": [
           "solidity",
           "^",
@@ -499,7 +499,7 @@
           ".2"
         ],
         "nodeType": "PragmaDirective",
-        "src": "580:23:17"
+        "src": "580:23:18"
       },
       {
         "abstract": false,
@@ -508,22 +508,22 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1894,
+        "id": 1918,
         "linearizedBaseContracts": [
-          1894
+          1918
         ],
         "name": "LibRichErrorsV06",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": true,
-            "id": 1867,
+            "id": 1891,
             "mutability": "constant",
             "name": "STANDARD_ERROR_SELECTOR",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 1894,
-            "src": "680:61:17",
+            "scope": 1918,
+            "src": "680:61:18",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -531,10 +531,10 @@
               "typeString": "bytes4"
             },
             "typeName": {
-              "id": 1865,
+              "id": 1889,
               "name": "bytes4",
               "nodeType": "ElementaryTypeName",
-              "src": "680:6:17",
+              "src": "680:6:18",
               "typeDescriptions": {
                 "typeIdentifier": "t_bytes4",
                 "typeString": "bytes4"
@@ -543,14 +543,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30783038633337396130",
-              "id": 1866,
+              "id": 1890,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "731:10:17",
+              "src": "731:10:18",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_147028384_by_1",
@@ -562,9 +562,9 @@
           },
           {
             "body": {
-              "id": 1884,
+              "id": 1908,
               "nodeType": "Block",
-              "src": "1210:121:17",
+              "src": "1210:121:18",
               "statements": [
                 {
                   "expression": {
@@ -572,12 +572,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 1877,
+                        "id": 1901,
                         "name": "STANDARD_ERROR_SELECTOR",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1867,
-                        "src": "1263:23:17",
+                        "referencedDeclaration": 1891,
+                        "src": "1263:23:18",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes4",
                           "typeString": "bytes4"
@@ -588,12 +588,12 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 1880,
+                            "id": 1904,
                             "name": "message",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1870,
-                            "src": "1306:7:17",
+                            "referencedDeclaration": 1894,
+                            "src": "1306:7:18",
                             "typeDescriptions": {
                               "typeIdentifier": "t_string_memory_ptr",
                               "typeString": "string memory"
@@ -607,29 +607,29 @@
                               "typeString": "string memory"
                             }
                           ],
-                          "id": 1879,
+                          "id": 1903,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "lValueRequested": false,
                           "nodeType": "ElementaryTypeNameExpression",
-                          "src": "1300:5:17",
+                          "src": "1300:5:18",
                           "typeDescriptions": {
                             "typeIdentifier": "t_type$_t_bytes_storage_ptr_$",
                             "typeString": "type(bytes storage pointer)"
                           },
                           "typeName": {
-                            "id": 1878,
+                            "id": 1902,
                             "name": "bytes",
                             "nodeType": "ElementaryTypeName",
-                            "src": "1300:5:17",
+                            "src": "1300:5:18",
                             "typeDescriptions": {
                               "typeIdentifier": null,
                               "typeString": null
                             }
                           }
                         },
-                        "id": 1881,
+                        "id": 1905,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -637,7 +637,7 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1300:14:17",
+                        "src": "1300:14:18",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes_memory_ptr",
@@ -658,18 +658,18 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 1875,
+                        "id": 1899,
                         "name": "abi",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": -1,
-                        "src": "1227:3:17",
+                        "src": "1227:3:18",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_abi",
                           "typeString": "abi"
                         }
                       },
-                      "id": 1876,
+                      "id": 1900,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -677,13 +677,13 @@
                       "memberName": "encodeWithSelector",
                       "nodeType": "MemberAccess",
                       "referencedDeclaration": null,
-                      "src": "1227:22:17",
+                      "src": "1227:22:18",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_abiencodewithselector_pure$_t_bytes4_$returns$_t_bytes_memory_ptr_$",
                         "typeString": "function (bytes4) pure returns (bytes memory)"
                       }
                     },
-                    "id": 1882,
+                    "id": 1906,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -691,27 +691,27 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1227:97:17",
+                    "src": "1227:97:18",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_memory_ptr",
                       "typeString": "bytes memory"
                     }
                   },
-                  "functionReturnParameters": 1874,
-                  "id": 1883,
+                  "functionReturnParameters": 1898,
+                  "id": 1907,
                   "nodeType": "Return",
-                  "src": "1220:104:17"
+                  "src": "1220:104:18"
                 }
               ]
             },
             "documentation": {
-              "id": 1868,
+              "id": 1892,
               "nodeType": "StructuredDocumentation",
-              "src": "791:303:17",
+              "src": "791:303:18",
               "text": "@dev ABI encode a standard, string revert error payload.\n      This is the same payload that would be included by a `revert(string)`\n      solidity statement. It has the function signature `Error(string)`.\n @param message The error string.\n @return The ABI encoded error."
             },
-            "id": 1885,
+            "id": 1909,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -719,18 +719,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1871,
+              "id": 1895,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1870,
+                  "id": 1894,
                   "mutability": "mutable",
                   "name": "message",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1885,
-                  "src": "1122:21:17",
+                  "scope": 1909,
+                  "src": "1122:21:18",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -738,10 +738,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 1869,
+                    "id": 1893,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1122:6:17",
+                    "src": "1122:6:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -751,21 +751,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1121:23:17"
+              "src": "1121:23:18"
             },
             "returnParameters": {
-              "id": 1874,
+              "id": 1898,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1873,
+                  "id": 1897,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1885,
-                  "src": "1192:12:17",
+                  "scope": 1909,
+                  "src": "1192:12:18",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -773,10 +773,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 1872,
+                    "id": 1896,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1192:5:17",
+                    "src": "1192:5:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -786,24 +786,24 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1191:14:17"
+              "src": "1191:14:18"
             },
-            "scope": 1894,
-            "src": "1099:232:17",
+            "scope": 1918,
+            "src": "1099:232:18",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 1892,
+              "id": 1916,
               "nodeType": "Block",
-              "src": "1567:95:17",
+              "src": "1567:95:18",
               "statements": [
                 {
                   "AST": {
                     "nodeType": "YulBlock",
-                    "src": "1586:70:17",
+                    "src": "1586:70:18",
                     "statements": [
                       {
                         "expression": {
@@ -813,12 +813,12 @@
                                 {
                                   "name": "errorData",
                                   "nodeType": "YulIdentifier",
-                                  "src": "1611:9:17"
+                                  "src": "1611:9:18"
                                 },
                                 {
                                   "kind": "number",
                                   "nodeType": "YulLiteral",
-                                  "src": "1622:4:17",
+                                  "src": "1622:4:18",
                                   "type": "",
                                   "value": "0x20"
                                 }
@@ -826,71 +826,71 @@
                               "functionName": {
                                 "name": "add",
                                 "nodeType": "YulIdentifier",
-                                "src": "1607:3:17"
+                                "src": "1607:3:18"
                               },
                               "nodeType": "YulFunctionCall",
-                              "src": "1607:20:17"
+                              "src": "1607:20:18"
                             },
                             {
                               "arguments": [
                                 {
                                   "name": "errorData",
                                   "nodeType": "YulIdentifier",
-                                  "src": "1635:9:17"
+                                  "src": "1635:9:18"
                                 }
                               ],
                               "functionName": {
                                 "name": "mload",
                                 "nodeType": "YulIdentifier",
-                                "src": "1629:5:17"
+                                "src": "1629:5:18"
                               },
                               "nodeType": "YulFunctionCall",
-                              "src": "1629:16:17"
+                              "src": "1629:16:18"
                             }
                           ],
                           "functionName": {
                             "name": "revert",
                             "nodeType": "YulIdentifier",
-                            "src": "1600:6:17"
+                            "src": "1600:6:18"
                           },
                           "nodeType": "YulFunctionCall",
-                          "src": "1600:46:17"
+                          "src": "1600:46:18"
                         },
                         "nodeType": "YulExpressionStatement",
-                        "src": "1600:46:17"
+                        "src": "1600:46:18"
                       }
                     ]
                   },
                   "evmVersion": "istanbul",
                   "externalReferences": [
                     {
-                      "declaration": 1888,
+                      "declaration": 1912,
                       "isOffset": false,
                       "isSlot": false,
-                      "src": "1611:9:17",
+                      "src": "1611:9:18",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 1888,
+                      "declaration": 1912,
                       "isOffset": false,
                       "isSlot": false,
-                      "src": "1635:9:17",
+                      "src": "1635:9:18",
                       "valueSize": 1
                     }
                   ],
-                  "id": 1891,
+                  "id": 1915,
                   "nodeType": "InlineAssembly",
-                  "src": "1577:79:17"
+                  "src": "1577:79:18"
                 }
               ]
             },
             "documentation": {
-              "id": 1886,
+              "id": 1910,
               "nodeType": "StructuredDocumentation",
-              "src": "1379:108:17",
+              "src": "1379:108:18",
               "text": "@dev Reverts an encoded rich revert reason `errorData`.\n @param errorData ABI encoded error data."
             },
-            "id": 1893,
+            "id": 1917,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -898,18 +898,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1889,
+              "id": 1913,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1888,
+                  "id": 1912,
                   "mutability": "mutable",
                   "name": "errorData",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1893,
-                  "src": "1509:22:17",
+                  "scope": 1917,
+                  "src": "1509:22:18",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -917,10 +917,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 1887,
+                    "id": 1911,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1509:5:17",
+                    "src": "1509:5:18",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -930,26 +930,26 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1508:24:17"
+              "src": "1508:24:18"
             },
             "returnParameters": {
-              "id": 1890,
+              "id": 1914,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1567:0:17"
+              "src": "1567:0:18"
             },
-            "scope": 1894,
-            "src": "1492:170:17",
+            "scope": 1918,
+            "src": "1492:170:18",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 1895,
-        "src": "606:1058:17"
+        "scope": 1919,
+        "src": "606:1058:18"
       }
     ],
-    "src": "580:1085:17"
+    "src": "580:1085:18"
   },
   "compiler": {
     "name": "solc",
@@ -957,7 +957,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-05-13T21:03:30.131Z",
+  "updatedAt": "2020-05-21T14:56:18.029Z",
   "devdoc": {
     "methods": {}
   },

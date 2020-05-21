@@ -1,12 +1,10 @@
 pragma solidity ^0.6.0;
 
 import "@iexec/solidity/contracts/Upgradeability/InitializableUpgradeabilityProxy.sol";
+import "./IReceiver.sol";
 
-
-contract CounterfactualTokenProxy is InitializableUpgradeabilityProxy
+contract CounterfactualTokenProxy is InitializableUpgradeabilityProxy, IReceiver
 {
-	event Received(address indexed from, uint256 value);
-
 	receive()
 	external payable override
 	{

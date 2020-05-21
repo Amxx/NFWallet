@@ -27,9 +27,8 @@ contract NFWallet is
 	IERC1654
 {
 	using Address for address;
-
-	event Received(address indexed from, uint256 value);
-	event Executed(address indexed to,   uint256 value, bytes data);
+	
+	event Executed(address indexed to, uint256 value, bytes data);
 
 	function _msgSender()
 	internal view override(Context, BaseRelayRecipient) returns (address payable sender)

@@ -2,9 +2,10 @@ pragma solidity ^0.6.0;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/GSN/Context.sol";
+import "./IReceiver.sol";
 
 
-abstract contract CounterfactualTokenEntity is Context
+abstract contract CounterfactualTokenEntity is Context, IReceiver
 {
 	IERC721 public registry;
 
@@ -13,6 +14,11 @@ abstract contract CounterfactualTokenEntity is Context
 	{
 		require(address(registry) == address(0), 'already initialized');
 		registry = IERC721(_registry);
+
+		if (address(this).balance > 0)
+		{
+			emit Received(address(0), address(this).balance);
+		}
 	}
 
 	function owner()
