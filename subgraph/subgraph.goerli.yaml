@@ -73,6 +73,52 @@ dataSources:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/NFWalletFactory.ts
+  - kind: ethereum/contract
+    name: NFWalletFactory5
+    network: goerli
+    source:
+      address: '0x79602C8958EC2637b92E41BeDb64Cc03FD3f5864'
+      abi: NFWalletFactory
+      startBlock: 2723976
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Transaction
+        - Account
+        - Wallet
+        - Transfer
+      abis:
+        - name: NFWalletFactory
+          file: ./abi/NFWalletFactory.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/NFWalletFactory.ts
+  - kind: ethereum/contract
+    name: NFWalletFactory6
+    network: goerli
+    source:
+      address: '0x86796296c790549787a76a8C15B40B2600Ca1C24'
+      abi: NFWalletFactory
+      startBlock: 2736075
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Transaction
+        - Account
+        - Wallet
+        - Transfer
+      abis:
+        - name: NFWalletFactory
+          file: ./abi/NFWalletFactory.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/NFWalletFactory.ts
 templates:
   - name: NFWallet
     kind: ethereum/contract
