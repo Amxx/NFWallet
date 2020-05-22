@@ -58,11 +58,14 @@ class AddressInputETH extends EthereumReactComponents.AddressInput
 	{
 		try
 		{
-			this.setState({ icon: addressToIcon(await this.props.provider.resolveName(value) || value) });
+			const resolved = await this.props.provider.resolveName(value) || value;
+			this.setState({ icon: addressToIcon(resolved) });
+			this.props.onChange && this.props.onChange(resolved);
 		}
 		catch
 		{
 			this.setState({ icon: addressToIcon(value) });
+			this.props.onChange && this.props.onChange(value);
 		}
 	}
 
@@ -70,7 +73,6 @@ class AddressInputETH extends EthereumReactComponents.AddressInput
 	{
 		this.setState({ addr });
 		this.updateIconENS(addr);
-		this.props.onChange && this.props.onChange(addr);
 	}
 
 	callback(value)

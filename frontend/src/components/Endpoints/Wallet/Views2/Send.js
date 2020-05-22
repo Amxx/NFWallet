@@ -35,7 +35,6 @@ const Send = (props) =>
 
 	return (
 		<Grid container direction='row' justify='center' alignItems='stretch' className='h-100 p-2'>
-
 			<Grid item xs={12} sm={10} md={8} lg={6} container direction='column' justify='center' alignItems='center'>
 				<Grid item style={{width: '100%'}}>
 					<SwapToken
@@ -53,7 +52,6 @@ const Send = (props) =>
 					Send
 				</MDBBtn>
 			</Grid>
-
 		</Grid>
 	);
 }
