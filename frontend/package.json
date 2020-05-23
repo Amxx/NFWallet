@@ -3,6 +3,7 @@
   "author": "Hadrien Croubois <hadrien.croubois@gmail.com>",
   "version": "0.0.1",
   "licence": "MIT",
+  "homepage": ".",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Amxx/NFWallet.git"
