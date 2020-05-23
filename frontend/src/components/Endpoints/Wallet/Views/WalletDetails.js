@@ -1,11 +1,8 @@
 import * as React from 'react';
-import {
-	MDBTable,
-	MDBTableBody,
-} from 'mdbreact';
+import { MDBTable, MDBTableBody } from 'mdbreact';
 import { ethers } from 'ethers';
 
-import AddressETH from '../../../UI/AddressETH';
+import ETHAddress from '../../../UI/ETHAddress';
 
 const WalletDetails = (props) =>
 	<MDBTable responsive borderless small className={props.className}>
@@ -15,7 +12,9 @@ const WalletDetails = (props) =>
 					Address:
 				</td>
 				<td className='p-1 text-monospace'>
-					<AddressETH className='blue-text' addr={props.details.account.address} services={props.services}/>
+					<a className='blue-text' href={`${props.services.config.etherscan}/address/${props.details.account.address}`} target='_blank' rel='nofollow noopener noreferrer'>
+						<ETHAddress address={props.details.account.address} provider={props.services.provider}/>
+					</a>
 				</td>
 			</tr>
 			<tr>
@@ -23,7 +22,9 @@ const WalletDetails = (props) =>
 					Owner:
 				</td>
 				<td className='p-1 text-monospace'>
-					<AddressETH className='blue-text' addr={props.data.wallet.owner.id} services={props.services}/>
+					<a className='blue-text' href={`${props.services.config.etherscan}/address/${props.data.wallet.owner.id}`} target='_blank' rel='nofollow noopener noreferrer'>
+						<ETHAddress address={props.data.wallet.owner.id} provider={props.services.provider}/>
+					</a>
 				</td>
 			</tr>
 			<tr>
