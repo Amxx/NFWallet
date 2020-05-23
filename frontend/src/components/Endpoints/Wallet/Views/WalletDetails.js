@@ -5,6 +5,7 @@ import {
 } from 'mdbreact';
 import { ethers } from 'ethers';
 
+import AddressETH from '../../../UI/AddressETH';
 
 const WalletDetails = (props) =>
 	<MDBTable responsive borderless small className={props.className}>
@@ -14,9 +15,7 @@ const WalletDetails = (props) =>
 					Address:
 				</td>
 				<td className='p-1 text-monospace'>
-					<a className='blue-text' href={`${props.services.config.etherscan}/address/${props.details.account.address}`} target='_blank' rel='nofollow noopener noreferrer'>
-						{ ethers.utils.getAddress(props.details.account.address) }
-					</a>
+					<AddressETH className='blue-text' addr={props.details.account.address} services={props.services}/>
 				</td>
 			</tr>
 			<tr>
@@ -24,9 +23,7 @@ const WalletDetails = (props) =>
 					Owner:
 				</td>
 				<td className='p-1 text-monospace'>
-					<a className='blue-text' href={`${props.services.config.etherscan}/address/${props.data.wallet.owner.id}`} target='_blank' rel='nofollow noopener noreferrer'>
-						{ ethers.utils.getAddress(props.data.wallet.owner.id) }
-					</a>
+					<AddressETH className='blue-text' addr={props.data.wallet.owner.id} services={props.services}/>
 				</td>
 			</tr>
 			<tr>

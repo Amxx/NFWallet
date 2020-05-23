@@ -17,10 +17,39 @@ class AddressInputBTC extends EthereumReactComponents.AddressInput
 		}
 	}
 
+	componentDidMount()
+	{
+		this.updateIconENS(this.state.addr)
+	}
+
+	componentWillReceiveProps(newprops)
+	{
+		if (newprops.value || newprops.defaultValue)
+		{
+			this.setAddr(newprops.value || newprops.defaultValue)
+		}
+	}
+
+	async updateIconENS(value)
+	{
+		// Lookup disabled fot now
+		// try
+		// {
+		// 	const resolved = await this.props.provider.resolveName(value) || value;
+		// 	this.setState({ icon: addressToIcon(resolved) });
+		// 	this.props.onChange && this.props.onChange(resolved);
+		// }
+		// catch
+		// {
+		// 	this.setState({ icon: addressToIcon(value) });
+			this.props.onChange && this.props.onChange(value);
+		// }
+	}
+
 	setAddr(addr)
 	{
 		this.setState({ addr });
-		this.props.onChange && this.props.onChange(addr);
+		this.updateIconENS(addr);
 	}
 
 	callback(value)

@@ -19,7 +19,7 @@ import { ethers } from 'ethers';
 // }
 const BalanceInput = (props) =>
 {
-	const [ token,   setToken   ] = React.useState(props.tokenSymbol);
+	const [ token,   setToken   ] = React.useState(null);
 	const [ value,   setValue   ] = React.useState(ethers.constants.Zero);
 	const [ view,    setView    ] = React.useState('');
 	const [ max,     setMax     ] = React.useState(false);
@@ -61,10 +61,6 @@ const BalanceInput = (props) =>
 	React.useEffect(() => {
 		props.tokenSymbol && setToken(props.tokenSymbol)
 	}, [props.tokenSymbol]);
-
-	React.useEffect(() => {
-		props.value && updateValue(props.value)
-	}, [props.value]);
 
 	React.useEffect(() => {
 		props.value && updateValue(props.value)
