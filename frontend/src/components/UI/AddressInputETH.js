@@ -48,9 +48,13 @@ class AddressInputETH extends EthereumReactComponents.AddressInput
 
 	componentWillReceiveProps(newprops)
 	{
-		if (newprops.value || newprops.defaultValue)
+		if (newprops.value)
 		{
-			this.setAddr(newprops.value || newprops.defaultValue)
+			this.setAddr(newprops.value)
+		}
+		else if (newprops.defaultValue && newprops.defaultValue !== this.props.defaultValue)
+		{
+			this.setAddr(newprops.defaultValue)
 		}
 	}
 

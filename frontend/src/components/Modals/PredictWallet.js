@@ -18,13 +18,16 @@ const PredictWallet = (props) =>
 {
 	const [ open, setOpen ] = React.useState(false);
 	const [ addr, setAddr ] = React.useState(null);
+	const [ user, setUser ] = React.useState(null);
 	const [ seed, setSeed ] = React.useState('');
 	const [ pred, setPred ] = React.useState('');
 	const toggle = () => setOpen(!open);
 
 	React.useEffect(() => {
-		setAddr(props.services.accounts[0])
-	}, [props.services.accounts]);
+		props.services.provider.lookupAddress(props.services.accounts[0])
+		.then(setUser)
+		.catch(() => setUser(props.services.accounts[0]))
+	}, [props.services]);
 
 	React.useEffect(() => {
 		try
@@ -49,7 +52,7 @@ const PredictWallet = (props) =>
 				<MDBModalHeader toggle={toggle}>Predict hidden wallet</MDBModalHeader>
 				<MDBModalBody>
 					<div className='d-flex flex-column justify-content-center'>
-						<AddressInputETH className='my-1' label='initial owner' defaultValue={addr} onChange={setAddr} provider={props.services.provider}/>
+						<AddressInputETH className='my-1' label='initial owner' defaultValue={user} onChange={setAddr} provider={props.services.provider}/>
 						<TextField       className='my-1' label='seed'          defaultValue={seed} onChange={e => setSeed(e.target.value)} variant='outlined'/>
 						<MDBIcon         className='my-3 text-center' icon='arrow-down'/>
 						<AccountItem     className='my-1' name='hidden wallet address' address={pred}/>

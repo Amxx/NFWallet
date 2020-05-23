@@ -18,13 +18,16 @@ const MintWallet = (props) =>
 	const [ open, setOpen ] = React.useState(false);
 	const [ full, setFull ] = React.useState(!!props.advanced);
 	const [ addr, setAddr ] = React.useState(null);
+	const [ user, setUser ] = React.useState(null);
 	const [ seed, setSeed ] = React.useState('');
 	const toggle     = () => setOpen(!open);
 	const toggleFull = () => setFull(!full);
 
 	React.useEffect(() => {
-		setAddr(props.services.accounts[0])
-	}, [props.services.accounts]);
+		props.services.provider.lookupAddress(props.services.accounts[0])
+		.then(setUser)
+		.catch(() => setUser(props.services.accounts[0]))
+	}, [props.services]);
 
 	const handleSubmit = (ev) =>
 	{
@@ -50,7 +53,14 @@ const MintWallet = (props) =>
 				<MDBModalHeader toggle={toggle}>New wallet</MDBModalHeader>
 				<MDBModalBody>
 					<form onSubmit={handleSubmit} className='d-flex flex-column'>
-						<AddressInputETH className='my-1' label='initial owner' defaultValue={addr} onChange={setAddr} services={props.services}/>
+						<AddressInputETH
+							className='my-1'
+							label='initial owner'
+							defaultValue={user}
+							onChange={setAddr}
+							provider={props.services.provider}
+						/>
+
 						{ full && <TextField className='my-1' label='seed' defaultValue={seed} onChange={e => setSeed(e.target.value)} variant='outlined'/> }
 
 						<div className='d-flex justify-content-center align-items-center'>
