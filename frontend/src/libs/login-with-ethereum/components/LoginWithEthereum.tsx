@@ -3,9 +3,6 @@ import { MDBIcon, MDBInput, MDBModal, MDBModalBody } from 'mdbreact';
 
 import { ENSLoginSDK, types } from '@enslogin/sdk';
 
-// @ts-ignore
-import WalletConnectProvider from '@walletconnect/web3-provider';
-
 import CircleLoader from 'react-spinners/CircleLoader';
 import LocalForage  from 'localforage';
 
@@ -44,12 +41,6 @@ export interface State
 	modal    ?: boolean;
 	loading  ?: boolean;
 	details  ?: string;
-}
-
-export interface Cache
-{
-	module   : string;
-	details ?: any;
 }
 
 /*****************************************************************************
@@ -126,7 +117,7 @@ export class LoginWithEthereum extends React.Component<Props, State>
 	 * Connect / Disconnect endpoints
 	 */
 	connect = async () : Promise<void> => {
-		let cache:    Cache          | undefined = !this.props.noCache    ? await this.getCache() : undefined
+		let cache:    string         | undefined = !this.props.noCache    ? await this.getCache() : undefined
 		let injected: types.provider | undefined = !this.props.noInjected ? window.ethereum       : undefined
 
 		// Try connecting to a cached provider
@@ -134,24 +125,8 @@ export class LoginWithEthereum extends React.Component<Props, State>
 		{
 			try
 			{
-				switch (cache.module)
-				{
-					case 'enslogin':
-					{
-						await this.enslogin(cache.details as string)
-						return // connection established → return
-					}
-
-					case 'walletconnect':
-					{
-						await this.walletconnect()
-						return // connection established → return
-					}
-
-					default:
-						console.error(`Unsuported module ${cache.module}`)
-						break // no connection → skip
-				}
+				await this.enslogin(cache as string)
+				return // connection established → return
 			}
 			catch
 			{
@@ -188,52 +163,6 @@ export class LoginWithEthereum extends React.Component<Props, State>
 	}
 
 	/**
-	 * Provider instanciation mechanism - WalletConnect
-	 */
-	walletconnect = () : Promise<void> => {
-		return new Promise(async (resolve, reject) => {
-			try
-			{
-				this.setState({ loading: true, details: undefined })
-
-				// connect using walletconnect
-				// @ts-ignore
-				let provider: types.provider = new WalletConnectProvider({ infuraId: this.state.config?._infura?.key || '27e484dcd9e3efcfd25a83a78777cdf1' }) // TODO infura
-				// @ts-ignore
-				provider.disable = provider.close // to make it compatible with the disconnect function
-
-				// enable provider
-				// @ts-ignore
-				await provider.enable()
-
-				console.log(provider)
-
-				// set provider
-				await this.setProvider(provider)
-
-				// set cache
-				if (!this.props.noCache)
-				{
-					this.setCache({ module: 'walletconnect' })
-				}
-
-				// done
-				resolve()
-			}
-			catch (error)
-			{
-				await this.clearCache()
-				reject(error)
-			}
-			finally
-			{
-				// clears loading
-				this.setState({ loading: false, details: undefined })
-			}
-		})
-	}
-
-	/**
 	 * Provider instanciation mechanism - EnsLogin
 	 */
 	enslogin = (username: string) : Promise<void> => {
@@ -258,7 +187,7 @@ export class LoginWithEthereum extends React.Component<Props, State>
 				// set cache
 				if (!this.props.noCache)
 				{
-					this.setCache({ module: 'enslogin', details: username })
+					this.setCache(username)
 				}
 
 				// done
@@ -280,11 +209,11 @@ export class LoginWithEthereum extends React.Component<Props, State>
 	/**
 	 * Cache tooling
 	 */
-	setCache = (value: Cache): Promise<Cache> => {
+	setCache = (value: string): Promise<string> => {
 		return LocalForage.setItem(STORE, value, (err) => !!err)
 	}
 
-	getCache = (): Promise<Cache> => {
+	getCache = (): Promise<string> => {
 		return LocalForage.getItem(STORE, (value, err) => (err ? null : value))
 	}
 
@@ -362,7 +291,7 @@ export class LoginWithEthereum extends React.Component<Props, State>
 											</select>
 									}
 									<MDBInput outline name='username' label='username' className='m-0'>
-										<MDBIcon icon='qrcode' className='input-embeded pointer-hover text-muted' onClick={ this.walletconnect }/>
+										<MDBIcon icon='qrcode' className='input-embeded pointer-hover text-muted' onClick={ () => this.enslogin('walletconnect.enslogin.eth') }/>
 									</MDBInput>
 								</div>
 								<small className='form-text text-muted ml-1'>
