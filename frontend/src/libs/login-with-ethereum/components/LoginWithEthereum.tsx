@@ -2,7 +2,9 @@ import * as React from 'react'
 import { MDBIcon, MDBInput, MDBModal, MDBModalBody } from 'mdbreact';
 
 import { ENSLoginSDK, types } from '@enslogin/sdk';
-// import WalletConnectProvider from '@walletconnect/web3-provider';
+
+// @ts-ignore
+import WalletConnectProvider from '@walletconnect/web3-provider';
 
 import CircleLoader from 'react-spinners/CircleLoader';
 import LocalForage  from 'localforage';
@@ -194,27 +196,29 @@ export class LoginWithEthereum extends React.Component<Props, State>
 			{
 				this.setState({ loading: true, details: undefined })
 
-				// TODO WalletConnect
-				// // connect using walletconnect
-				// let provider: types.provider = new WalletConnectProvider({ infuraId: this.state.config._infura?.key || '27e484dcd9e3efcfd25a83a78777cdf1' }) // TODO infura
-				// provider.disable = provider.close // to make it compatible with the disconnect function
-				//
-				// // enable provider
-				// await provider.enable()
-				//
-				// // set provider
-				// await this.setProvider(provider)
-				//
-				// // set cache
-				// if (!this.props.noCache)
-				// {
-				// 	this.setCache({ module: 'walletconnect' })
-				// }
-				//
-				// // done
-				// resolve()
+				// connect using walletconnect
+				// @ts-ignore
+				let provider: types.provider = new WalletConnectProvider({ infuraId: this.state.config?._infura?.key || '27e484dcd9e3efcfd25a83a78777cdf1' }) // TODO infura
+				// @ts-ignore
+				provider.disable = provider.close // to make it compatible with the disconnect function
 
-				reject('walletconnect no supported yet')
+				// enable provider
+				// @ts-ignore
+				await provider.enable()
+
+				console.log(provider)
+
+				// set provider
+				await this.setProvider(provider)
+
+				// set cache
+				if (!this.props.noCache)
+				{
+					this.setCache({ module: 'walletconnect' })
+				}
+
+				// done
+				resolve()
 			}
 			catch (error)
 			{
@@ -314,7 +318,15 @@ export class LoginWithEthereum extends React.Component<Props, State>
 					}
 				</div>
 
-				<MDBModal id='LoginWithEthereum-Modal' isOpen={ this.state.modal || this.state.loading } toggle={ this.toggle } centered>
+				<MDBModal
+					id='LoginWithEthereum-Modal'
+					isOpen={ this.state.modal || this.state.loading }
+					toggle={ this.toggle }
+					centered
+					inline={false}
+					noClickableBodyWithoutBackdrop={false}
+					overflowScroll={false}
+				>
 
 					<ul className='nav nav-tabs d-flex'>
 						<li className='nav-item flex-auto text-center'>
