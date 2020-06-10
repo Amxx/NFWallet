@@ -7,7 +7,7 @@ import { InMemoryCache  } from 'apollo-cache-inmemory';
 import { HttpLink       } from 'apollo-link-http';
 import { EventEmitter   } from 'fbemitter';
 import { ethers         } from 'ethers';
-import LoginWithEthereum  from '../libs/login-with-ethereum';
+import LoginWithEthereum  from '@enslogin/login-with-ethereum';
 
 import Main          from './Main';
 import Error         from './UI/Error';
